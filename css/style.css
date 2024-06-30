@@ -15,13 +15,13 @@ ul > li > a:hover {
 }
 .numoforderCat {
   position: absolute;
-  top:-10px;
+  top: -10px;
   left: 50px !important;
 }
 .divofCart {
   border: #eee 2px solid !important;
 }
-.ulsecond>ul > li > a {
+.ulsecond > ul > li > a {
   text-decoration: none;
   color: #000;
   font-weight: bold;
@@ -29,17 +29,16 @@ ul > li > a:hover {
   font-family: sans-serif;
   text-transform: uppercase;
 }
-.divofCart{
-    width: 25%;
-    height: 25%;
+.divofCart {
+  width: 25%;
+  height: 25%;
 }
-.divofCart i{
-    font-size: 1.5rem;
+.divofCart i {
+  font-size: 1.5rem;
 }
-.divofCart:hover{
-    background-color:var(--textandhovercolor);
+.divofCart:hover {
+  background-color: var(--textandhovercolor);
 }
-.divofCart:hover
-i{
-    color:#fff !important;
+.divofCart:hover i {
+  color: #fff !important;
 }
