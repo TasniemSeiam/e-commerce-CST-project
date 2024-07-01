@@ -1,69 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link href="css/bootstrap.css" rel="stylesheet" />
-    <link href="css/font-awesome.css" rel="stylesheet" />
-    <link href="css/all.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
 
-  <body>
-    <div class="container-fluid">
-      <nav class="navbar navbar-expand-sm navbar-light border-bottom">
-        <div class="container-fluid">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarText"
-            aria-controls="navbarText"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <span class="navbar-text d-none d-md-block"> Welcome Here </span>
-          <div
-            class="collapse navbar-collapse justify-content-around justify-content-md-end"
-            id="navbarText"
-          >
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="myAccount.html"
-                  >My Account
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href=" myWishlist.html">My Wishlist</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="SignIn.html">Sign In</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="myOrders.html">My orders</a>
-              </li>
-            </ul>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/font-awesome.css" rel="stylesheet" />
+  <link href="css/all.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="./css/home.css">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-sm navbar-light border-bottom ">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <span class="navbar-text d-none d-md-block"> Welcome Here </span>
+        <div class="collapse navbar-collapse justify-content-around justify-content-md-end" id="navbarText">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="myAccount.html">My Account
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href=" myWishlist.html">My Wishlist</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="SignIn.html">Sign In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="myOrders.html">My orders</a>
+            </li>
+          </ul>
         </div>
-        <!-- end container fluid -->
-      </nav>
-      <!-- end navbar -->
-      <header
-        class="border-bottom py-4 row justify-content-between align-items-center"
-      >
-        <a href="index.html" class="col-12 col-md-2">
-          <img src="./images/logo-black.png" alt="" />
-        </a>
-        <div class="col-12 col-md-7 col-xl-5 my-3 my-md-2 my-lg-0">
-          <form class="d-flex">
-            <div class="btn-group input-group">
-              <div class="w-100">
-                <div class="input-group">
-                  <button
-                    class="btn border-2 border-end-0 dropdown-toggle border-warning rounded-end rounded-pill btnDropDown"
+      </div>
+      <!-- end container fluid -->
+    </nav>
+    <!-- end navbar -->
+    <header class="border-bottom py-4 bg-white row justify-content-between align-items-center">
+      <a href="index.html" class="col-12 col-md-2">
+        <img src="./images/logo-black.png" alt="" />
+      </a>
+      <div class="col-12 col-md-6 col-xl-5 my-3 my-md-2 my-lg-0">
+        <form class="d-flex">
+          <div class="btn-group  input-group">
+            <div class="w-100 ">
+              <div class="input-group rounded-pill">
+                <!-- <button
+                    class="btn dropdown-toggle border-2 border-end-0 rounded-end rounded-pill  border-warning  btnDropDown"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -74,68 +63,1238 @@
                     <li><a class="dropdown-item" href="#">clothes</a></li>
                     <li><a class="dropdown-item" href="#">phons</a></li>
                     <li><a class="dropdown-item" href="#">TVS</a></li>
-                  </ul>
-                  <input
-                    type="search"
-                    class="form-control border-2 border-start-1 border-warning p-2"
-                    placeholder="search for products..."
-                    aria-label="Search"
-                    aria-label="Text input with dropdown button"
-                  />
-                  <button
-                    class="btn btn-warning rounded-start rounded-pill w-25 p-2"
-                    type="submit"
-                  >
-                    Search
-                  </button>
+                  </ul> -->
+                <select
+                  class="form-select text-center border-2 border-end-0 rounded-end rounded-pill  border-warning selsectSearch"
+                  aria-label="Default select example">
+                  <option selected>All Categories</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+
+                <input type="search"
+                  class="form-control w-25 border-2 border-end-0 border-start-0 border-warning    p-2"
+                  placeholder="search for products..." aria-label="Search"
+                  aria-label="Text input with dropdown button" />
+
+                <button class="btn btn-warning  rounded-start border-2 border-warning rounded-pill w-25 p-2"
+                  type="submit">
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- 1 -->
+      <div class="col-10 col-md-3 col-xl-2 position-relative my-3 my-md-2 my-lg-0 d-flex">
+        <div class="text-center border-secondary">
+          <a href="cart.html" class="rounded-circle divofCart px-3 py-3"><i
+              class="fas fa-shopping-bag text-black"></i></a>
+          <div class="rounded-circle numoforderCat bg-warning px-2 text-center">
+            0
+          </div>
+        </div>
+        <p class="ms-3">My carts: 0</p>
+      </div>
+      <!-- 2 -->
+    </header>
+    <section>
+      <div class="pt-2 border-bottom ps-1 ulsecond">
+        <ul class="list-inline col-12 col-sm-5 col-lg-4 d-flex justify-content-between pt-2">
+          <li class="list-inline-item">
+            <a class="" href="index.html">Home </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="" href=" products.html">Products</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="" href="About Us.html">About Us</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="" href="Contact.html">Contacts</a>
+          </li>
+        </ul>
+      </div>
+    </section> <!-- section1  -->
+
+    <section class=" px-3" id="hero">
+      <div class="row pt-4 px-lg-3 justify-content-between">
+        <div class=" col-xl-2 d-none d-xl-block px-1 ">
+
+          <div class="list-group ">
+            <div class=" rounded-top ">
+              <button class="btn w-100 list-group-item list-group-item-action py-3 pb-4" type="button"
+                data-bs-toggle="collapse" data-bs-target="#list-example">
+                <span class="fa-solid fa-bars me-2"></span>
+                Show By Department
+              </button>
+            </div>
+            <div id="list-example" class=" collapse show rounded-bottom">
+              <a href="#" class="list-group-item list-group-item-action py-3 ">Item 1</a>
+              <a href="#" class="list-group-item list-group-item-action py-3 ">Item 1</a>
+              <a href="#" class="list-group-item list-group-item-action py-3 ">Item 1</a>
+              <a href="#" class="list-group-item list-group-item-action py-3 ">Item 1</a>
+              <a href="#" class="list-group-item list-group-item-action py-3 ">Item 1</a>
+              <a href="#" class="list-group-item list-group-item-action py-3 ">Item 1</a>
+              <a href="#" class="list-group-item list-group-item-action py-3 ">Item 1</a>
+              <a href="#" class="list-group-item list-group-item-action py-3 ">Item 1</a>
+            </div>
+
+          </div>
+        </div> <!-- left filtered categories -->
+
+        <div class=" col-11 col-xl-8 mx-auto">
+          <div id="carouselExampleIndicators" class="carousel slide rounded-3 overflow-hidden  " style="height: 55%;"
+            data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                class="active bg-warning" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" class=" bg-warning" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+              <button type="button" class=" bg-warning" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner h-100">
+              <div class="carousel-item active col-11">
+                <img src="./images/product/product-1.jpg" class="d-block w-100" alt="...">
+                <div class="upperHero">
+                  <h3 class="text-warning">Product 1</h3>
+                  <p class="text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  <a href="product_details.html" class=" mt-5 btn btn-warning py-2 rounded-pill w-50">Discover Now</a>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="./images/product/product-2.jpg" class="d-block w-100" alt="...">
+                <div class="upperHero">
+                  <h3 class="text-warning">Product 1</h3>
+                  <p class="text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  <a href="product_details.html" class=" mt-5 btn btn-warning py-2 rounded-pill w-50">Discover Now</a>
+                </div>
+              </div>
+              <div class="carousel-item coll-11">
+                <img src="./images/product/product-3.jpg" class="d-block w-100" alt="...">
+                <div class="upperHero">
+                  <h3 class="text-warning">Product 1</h3>
+                  <p class="text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  <a href="product_details.html" class=" mt-5 btn btn-warning py-2 rounded-pill w-50">Discover Now</a>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
+        </div> <!-- end carsoul -->
+
+        <div class="col-2 d-flex d-none d-xl-block flex-column align-items-center overflow-hidden  h-100 ">
+          <div class="bg-light col-6 mb-1 w-100 rounded-3 overflow-hidden">
+            <img src="./images/banner/banner-sm-1.jpg" class="w-100 h-100" alt="">
+          </div>
+          <div class="bg-light col-6 w-100  rounded-3 overflow-hidden">
+            <img src="./images/banner/banner-sm-1.jpg" class="w-100 h-100" alt="">
+          </div>
         </div>
-        <!-- 1 -->
-        <div
-          class="col-10 col-md-3 col-xl-2 position-relative my-3 my-md-2 my-lg-0 d-flex"
-        >
-          <div class="text-center border-secondary">
-            <a href="cart.html" class="rounded-circle divofCart px-3 py-3"
-              ><i class="fas fa-shopping-bag text-black"></i
-            ></a>
-            <div
-              class="rounded-circle numoforderCat bg-warning px-2 text-center"
-            >
-              0
+
+      </div>
+    </section> <!-- hero -->
+    <section>
+      <div class="py-4 ">
+        <div class="bg-white p-3 row w-100 mx-auto">
+          <div class="border-end border-2 border-light col d-flex features">
+            <img src="./images/features1.png" alt="">
+            <div class="mt-1">
+              <h6>Free shipping</h6>
+              <p class="text-muted">Free Shipping On All Order</p>
             </div>
           </div>
-          <p class="ms-3">My carts: 0</p>
+          <div class="border-end border-2 border-light col d-flex features">
+            <img src="./images/features2.png" alt="">
+            <div class="mt-1">
+              <h6>Money Guarantee</h6>
+              <p class="text-muted">30 Day Money Back Guarantee</p>
+            </div>
+          </div>
+          <div class="border-end border-2 border-light col d-flex features">
+            <img src="./images/features3.png" alt="">
+            <div class="mt-1">
+              <h6>Online Support 24/7</h6>
+              <p class="text-muted">Technical Support Stand By</p>
+            </div>
+          </div>
+          <div class="border-end border-2 border-light col d-flex features">
+            <img src="./images/features4.png" alt="">
+            <div class="mt-1">
+              <h6>Secure Payment</h6>
+              <p class="text-muted">All Payment Method are accepted</p>
+            </div>
+          </div>
+          <div class=" col d-flex features">
+            <img src="./images/features5.png" alt="">
+            <div class="mt-1">
+              <h6>Member Discount</h6>
+              <p class="text-muted">Upto 40% Discount All Products</p>
+            </div>
+          </div>
         </div>
-        <!-- 2 -->
-      </header>
-      <section>
-        <div class="py-3 border-bottom ps-1 ulsecond">
-          <ul
-            class="list-inline col-12 col-sm-5 col-lg-4 d-flex justify-content-between pt-2"
-          >
-            <li class="list-inline-item">
-              <a class="" href="index.html">Home </a>
-            </li>
-            <li class="list-inline-item">
-              <a class="" href=" products.html">Products</a>
-            </li>
-            <li class="list-inline-item">
-              <a class="" href="About Us.html">About Us</a>
-            </li>
-            <li class="list-inline-item">
-              <a class="" href="Contact.html">Contacts</a>
-            </li>
-          </ul>
-        </div>
-      </section>
-    </div>
-    <!-- end container fluid all page -->
+      </div>
+    </section> <!-- 3 -->
 
-    <script src="js/JQuery-3.3.1.js"></script>
-    <!-- <script src="js/popper.js"></script> -->
-    <script src="js/bootstrap.bundle.js"></script>
-  </body>
+    <section class="">
+      <div class="">
+        <div class="row  justify-content-between  ">
+          <div
+            class="col-12 col-md-6 col-lg-4 discounts position-relative h-100 overflow-hidden rounded rounded-3 mb-2">
+
+            <img src="./images/banner/banner-5.jpg" alt="">
+
+            <!-- <div class="upperProductDis px-4 py-2">
+              <h3 class="">Big Sales</h3>
+              <h5 class="">Product Name</h5>
+              <p class="">price:200$</p>
+              <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>
+
+            </div> -->
+
+            <div class="forntDiv"></div>
+            <div class="fornthDiv"></div>
+          </div><!-- 1 -->
+          <div
+            class="col-12 col-md-6 col-lg-4 discounts position-relative h-100 overflow-hidden rounded rounded-3 mb-2">
+
+            <img src="./images/banner/banner-2.jpg" alt="">
+
+            <!-- <div class="upperProductDis px-4 py-2">
+              <h3 class="">Big Sales</h3>
+              <h5 class="">Product Name</h5>
+              <p class="">price:200$</p>
+              <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>
+
+            </div> -->
+
+            <div class="forntDiv"></div>
+            <div class="fornthDiv"></div>
+          </div><!-- 1 -->
+          <div
+            class="col-12 col-md-6 col-lg-4 discounts position-relative h-100 overflow-hidden rounded rounded-3 mb-2">
+
+            <img src="./images/banner/banner-7.jpg" alt="">
+
+            <!-- <div class="upperProductDis px-4 py-2">
+              <h3 class="">Big Sales</h3>
+              <h5 class="">Product Name</h5>
+              <p class="">price:200$</p>
+              <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>
+
+            </div> -->
+            <div class="forntDiv"></div>
+            <div class="fornthDiv"></div>
+          </div><!-- 1 -->
+        </div><!-- row -->
+      </div>
+    </section><!-- 4 -->
+
+    <section>
+      <div>
+        <div class="row">
+          <div class="pt-3 d-flex align-items-center justify-content-between bestSellingSec border-bottom mb-4">
+            <div class="col-6 ">
+              <h3 class="">Best Selling <span class="fw-normal">Products</span></h3>
+              <div class="bg-warning flex-column" style="height: 
+              3px; width: 50px;"></div>
+
+            </div>
+            <ul class="nav justify-content-end  col-6  nav-pills mb-3" id="pills-tab" role="tablist">
+              <li class="nav-item me-3 " role="presentation">
+                <button class="border-0 " id="pills-product-tab" data-bs-toggle="pill" data-bs-target="#pills-product"
+                  type="button" role="tab" aria-controls="pills-product">Products</button>
+              </li>
+              <li class="nav-item me-3" role="presentation">
+                <button class="border-0" id="pills-HotSale-tab" data-bs-toggle="pill" data-bs-target="#pills-HotSale"
+                  type="button" role="tab" aria-controls="pills-HotSale">Hot Sale</button>
+              </li>
+              <li class="nav-item me-3" role="presentation">
+                <button class="border-0" id="pills-random-tab" data-bs-toggle="pill" data-bs-target="#pills-random"
+                  type="button" role="tab" aria-controls="pills-random">Random</button>
+              </li>
+              <li class="nav-item " role="presentation"> <button class="" type="button"
+                  data-bs-target="#divOFbestselleng" data-bs-slide="prev">
+                  <span class=" " aria-hidden="true">&lt;</span>
+                </button></li>
+
+              <li class="nav-item" role="presentation"><button class="" type="button" data-bs-target="#divOFbestselleng"
+                  data-bs-slide="next">
+                  <span class="" aria-hidden="true">&gt;</span>
+                </button>
+              </li>
+
+            </ul>
+          </div> <!-- row -->
+
+
+
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-product" role="tabpanel"
+              aria-labelledby="pills-product-tab">
+              <div id="divOFbestselleng" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="row">
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+
+                    </div><!-- row -->
+                  </div>
+                  <div class="carousel-item">
+                    <div class="row">
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div>
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div>
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div>
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div>
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div>
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+
+                    </div><!-- row -->
+                  </div>
+
+                </div>
+              </div>
+            </div> <!-- outer caursol -->
+            <div class="tab-pane fade" id="pills-HotSale" role="tabpanel" aria-labelledby="pills-HotSale-tab">
+              <div class="row">
+                <div class=" col-6 col-lg px-2 mb-2">
+                  <div class="card text-center cardProducts">
+                    <div class="position-relative divheart">
+                      <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top" alt="...">
+                      <button title="add to wishlist"
+                        class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Product Name</h5>
+                      <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                      <h6 class="fw-bold">price: $400 </h6>
+                      <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                        Cart</button>
+                    </div>
+                  </div>
+                </div><!--  -->
+                <div class=" col-6 col-lg px-2 mb-2">
+                  <div class="card text-center cardProducts">
+                    <div class="position-relative divheart">
+                      <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top" alt="...">
+                      <button title="add to wishlist"
+                        class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Product Name</h5>
+                      <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                      <h6 class="fw-bold">price: $400 </h6>
+                      <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                        Cart</button>
+                    </div>
+                  </div>
+                </div><!--  -->
+                <div class=" col-6 col-lg px-2 mb-2">
+                  <div class="card text-center cardProducts">
+                    <div class="position-relative divheart">
+                      <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top" alt="...">
+                      <button title="add to wishlist"
+                        class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Product Name</h5>
+                      <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                      <h6 class="fw-bold">price: $400 </h6>
+                      <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                        Cart</button>
+                    </div>
+                  </div>
+                </div><!--  -->
+                <div class=" col-6 col-lg px-2 mb-2">
+                  <div class="card text-center cardProducts">
+                    <div class="position-relative divheart">
+                      <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top" alt="...">
+                      <button title="add to wishlist"
+                        class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Product Name</h5>
+                      <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                      <h6 class="fw-bold">price: $400 </h6>
+                      <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                        Cart</button>
+                    </div>
+                  </div>
+                </div><!--  -->
+                <div class=" col-6 col-lg px-2 mb-2">
+                  <div class="card text-center cardProducts">
+                    <div class="position-relative divheart">
+                      <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top" alt="...">
+                      <button title="add to wishlist"
+                        class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Product Name</h5>
+                      <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                      <h6 class="fw-bold">price: $400 </h6>
+                      <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                        Cart</button>
+                    </div>
+                  </div>
+                </div><!--  -->
+
+              </div><!-- row -->
+            </div>
+            <div class="tab-pane fade" id="pills-random" role="tabpanel" aria-labelledby="pills-random-tab">
+              <div class="row">
+                <div class=" col-6 col-lg px-2 mb-2">
+                  <div class="card text-center cardProducts">
+                    <div class="position-relative divheart">
+                      <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top" alt="...">
+                      <button title="add to wishlist"
+                        class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Product Name</h5>
+                      <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                      <h6 class="fw-bold">price: $400 </h6>
+                      <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                        Cart</button>
+                    </div>
+                  </div>
+                </div><!--  -->
+                <div class=" col-6 col-lg px-2 mb-2">
+                  <div class="card text-center cardProducts">
+                    <div class="position-relative divheart">
+                      <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top" alt="...">
+                      <button title="add to wishlist"
+                        class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Product Name</h5>
+                      <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                      <h6 class="fw-bold">price: $400 </h6>
+                      <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                        Cart</button>
+                    </div>
+                  </div>
+                </div><!--  -->
+                <div class=" col-6 col-lg px-2 mb-2">
+                  <div class="card text-center cardProducts">
+                    <div class="position-relative divheart">
+                      <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top" alt="...">
+                      <button title="add to wishlist"
+                        class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Product Name</h5>
+                      <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                      <h6 class="fw-bold">price: $400 </h6>
+                      <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                        Cart</button>
+                    </div>
+                  </div>
+                </div><!--  -->
+                <div class=" col-6 col-lg px-2 mb-2">
+                  <div class="card text-center cardProducts">
+                    <div class="position-relative divheart">
+                      <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top" alt="...">
+                      <button title="add to wishlist"
+                        class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Product Name</h5>
+                      <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                      <h6 class="fw-bold">price: $400 </h6>
+                      <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                        Cart</button>
+                    </div>
+                  </div>
+                </div><!--  -->
+                <div class=" col-6 col-lg px-2 mb-2">
+                  <div class="card text-center cardProducts">
+                    <div class="position-relative divheart">
+                      <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top" alt="...">
+                      <button title="add to wishlist"
+                        class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Product Name</h5>
+                      <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                      <h6 class="fw-bold">price: $400 </h6>
+                      <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                        Cart</button>
+                    </div>
+                  </div>
+                </div><!--  -->
+
+              </div><!-- row -->
+            </div>
+          </div><!-- tab content -->
+    </section> <!-- 5 -->
+
+    <section>
+      <div class="my-4">
+        <div class="row  justify-content-between  ">
+          <div class="col-12 col-md-6 discounts position-relative h-100 overflow-hidden rounded rounded-3 mb-2">
+
+            <img src="./images/banner/banner-4.jpg" class="w-100" alt="">
+
+            <!-- <div class="upperProductDis px-4 py-2">
+              <h3 class="">Big Sales</h3>
+              <h5 class="">Product Name</h5>
+              <p class="">price:200$</p>
+              <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>
+
+            </div> -->
+
+            <div class="forntDiv"></div>
+            <div class="fornthDiv"></div>
+          </div><!-- 1 -->
+          <div class="col-12 col-md-6  discounts position-relative h-100 overflow-hidden rounded rounded-3 mb-2">
+
+            <img src="./images/banner/banner-5.jpg" class="w-100" alt="">
+
+            <!-- <div class="upperProductDis px-4 py-2">
+              <h3 class="">Big Sales</h3>
+              <h5 class="">Product Name</h5>
+              <p class="">price:200$</p>
+              <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>
+
+            </div> -->
+
+            <div class="forntDiv"></div>
+            <div class="fornthDiv"></div>
+          </div><!-- 1 -->
+        </div><!-- row -->
+      </div>
+
+    </section> <!-- 6 -->
+
+    <section>
+      <div>
+        <div class="row">
+          <div class="pt-3 d-flex align-items-center justify-content-between bestSellingSec border-bottom mb-4">
+            <div class="col-6 ">
+              <h3 class="">Best Selling <span class="fw-normal">Products</span></h3>
+              <div class="bg-warning flex-column" style="height: 
+              3px; width: 50px;"></div>
+
+            </div>
+            <ul class="nav justify-content-end  col-6  nav-pills mb-3" id="pills-tab" role="tablist">
+              <li class="nav-item me-3 " role="presentation">
+                <button class="border-0 " id="pills-product-tab" data-bs-toggle="pill" data-bs-target="#pills-product"
+                  type="button" role="tab" aria-controls="pills-product">clothing</button>
+              </li>
+              <li class="nav-item me-3" role="presentation">
+                <button class="border-0" id="pills-HotSale-tab" data-bs-toggle="pill" data-bs-target="#pills-HotSale"
+                  type="button" role="tab" aria-controls="pills-HotSale">phons</button>
+              </li>
+              <li class="nav-item me-3" role="presentation">
+                <button class="border-0" id="pills-random-tab" data-bs-toggle="pill" data-bs-target="#pills-random"
+                  type="button" role="tab" aria-controls="pills-random">computers</button>
+              </li>
+              <li class="nav-item " role="presentation"> <button class="" type="button"
+                  data-bs-target="#divOFFishselleng" data-bs-slide="prev">
+                  <span class=" " aria-hidden="true">&lt;</span>
+                </button></li>
+
+              <li class="nav-item" role="presentation"><button class="" type="button" data-bs-target="#divOFFishselleng"
+                  data-bs-slide="next">
+                  <span class="" aria-hidden="true">&gt;</span>
+                </button>
+              </li>
+
+            </ul>
+          </div> <!-- row -->
+
+
+
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-product" role="tabpanel"
+              aria-labelledby="pills-product-tab">
+              <div id="divOFFishselleng" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="row">
+                      <div class="col-12 col-lg-4">
+                        <div class="row">
+                          <div class=" col-6 px-2 mb-2">
+                            <div class="card text-center cardProducts">
+                              <div class="position-relative divheart">
+                                <img src="./images/product/product-1.jpg" class="img1 h-100 w-100  mx-auto card-img-top"
+                                  alt="...">
+                                <img src="./images/product/product-2.jpg"
+                                  class=" img2 d-none h-100 w-100  mx-auto card-img-top" alt="...">
+                                <button title="add to wishlist"
+                                  class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title text-primary">Product Name</h5>
+                                <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                                <h6 class="fw-bold">price: $400 </h6>
+                                <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                                  Cart</button>
+                              </div>
+                            </div>
+                          </div><!--  -->
+                          <div class="  col-6 px-2 mb-2">
+                            <div class="card text-center cardProducts">
+                              <div class="position-relative divheart">
+                                <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                                  alt="...">
+                                <button title="add to wishlist"
+                                  class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                                <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                                <h6 class="fw-bold">price: $400 </h6>
+                                <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                                  Cart</button>
+                              </div>
+                            </div>
+                          </div><!--  -->
+
+                          <div class="  col-6 px-2 mb-2">
+                            <div class="card text-center cardProducts">
+                              <div class="position-relative divheart">
+                                <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                                  alt="...">
+                                <button title="add to wishlist"
+                                  class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                                <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                                <h6 class="fw-bold">price: $400 </h6>
+                                <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                                  Cart</button>
+                              </div>
+                            </div>
+                          </div><!--  -->
+
+                          <div class="  col-6 px-2 mb-2">
+                            <div class="card text-center cardProducts">
+                              <div class="position-relative divheart">
+                                <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                                  alt="...">
+                                <button title="add to wishlist"
+                                  class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                                <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                                <h6 class="fw-bold">price: $400 </h6>
+                                <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                                  Cart</button>
+                              </div>
+                            </div>
+                          </div><!--  -->
+
+                        </div>
+                      </div><!-- col 2 in row -->
+
+                      <div class="col-12 col-lg-4">
+
+                        <div class="card text-center cardProducts BigProductCard">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class="img1 h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <img src="./images/product/product-2.jpg"
+                              class=" img2 d-none h-100 w-100  mx-auto card-img-top" alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 <span class=" ms-2 text-muted text-decoration-line-through">
+                                $2000</span></h6>
+
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis,
+                              atque?</p>
+                            <button class="btn text-center btn-warning addToCartbig   rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+
+
+                      <div class="col-12 col-lg-4">
+                        <div class="row">
+                          <div class=" col-6 px-2 mb-2">
+                            <div class="card text-center cardProducts">
+                              <div class="position-relative divheart">
+                                <img src="./images/product/product-1.jpg" class="img1 h-100 w-100  mx-auto card-img-top"
+                                  alt="...">
+                                <img src="./images/product/product-2.jpg"
+                                  class=" img2 d-none h-100 w-100  mx-auto card-img-top" alt="...">
+                                <button title="add to wishlist"
+                                  class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title text-primary">Product Name</h5>
+                                <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                                <h6 class="fw-bold">price: $400 </h6>
+                                <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                                  Cart</button>
+                              </div>
+                            </div>
+                          </div><!--  -->
+                          <div class="  col-6 px-2 mb-2">
+                            <div class="card text-center cardProducts">
+                              <div class="position-relative divheart">
+                                <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                                  alt="...">
+                                <button title="add to wishlist"
+                                  class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                                <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                                <h6 class="fw-bold">price: $400 </h6>
+                                <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                                  Cart</button>
+                              </div>
+                            </div>
+                          </div><!--  -->
+
+                          <div class="  col-6 px-2 mb-2">
+                            <div class="card text-center cardProducts">
+                              <div class="position-relative divheart">
+                                <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                                  alt="...">
+                                <button title="add to wishlist"
+                                  class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                                <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                                <h6 class="fw-bold">price: $400 </h6>
+                                <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                                  Cart</button>
+                              </div>
+                            </div>
+                          </div><!--  -->
+
+                          <div class="  col-6 px-2 mb-2">
+                            <div class="card text-center cardProducts">
+                              <div class="position-relative divheart">
+                                <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                                  alt="...">
+                                <button title="add to wishlist"
+                                  class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                                <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                                <h6 class="fw-bold">price: $400 </h6>
+                                <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                                  Cart</button>
+                              </div>
+                            </div>
+                          </div><!--  -->
+
+                        </div>
+                      </div><!-- col 2 in row -->
+
+
+                    </div><!-- row -->
+                  </div>
+                  <div class="carousel-item">
+                    <div class="row">
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Product Name</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+                      <div class=" col-6 col-lg px-2 mb-2">
+                        <div class="card text-center cardProducts">
+                          <div class="position-relative divheart">
+                            <img src="./images/product/product-1.jpg" class=" h-100 w-100  mx-auto card-img-top"
+                              alt="...">
+                            <button title="add to wishlist"
+                              class="btn d-none wishlistHeart btn-white  rounded-circle">&#9825;</button>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                            <div class="starsHome text-warning">&#9734;&#9734;&#9734;&#9734;</div>
+                            <h6 class="fw-bold">price: $400 </h6>
+                            <button class="btn text-center btn-warning addToCart d-none rounded-pill ">Add To
+                              Cart</button>
+                          </div>
+                        </div>
+                      </div><!--  -->
+
+                    </div><!-- row -->
+                  </div>
+
+                </div>
+              </div>
+            </div> <!-- outer caursol -->
+            <div class="tab-pane fade" id="pills-HotSale" role="tabpanel" aria-labelledby="pills-HotSale-tab">
+
+            </div>
+            <div class="tab-pane fade" id="pills-random" role="tabpanel" aria-labelledby="pills-random-tab">
+
+            </div>
+          </div><!-- tab content -->
+    </section> <!--7-->
+
+
+    <section class="">
+      <div class="">
+        <div class="row  justify-content-between  ">
+          <div
+            class="col-12 col-md-6 col-lg-4 discounts position-relative h-100 overflow-hidden rounded rounded-3 mb-2">
+
+            <img src="./images/banner/banner-5.jpg" alt="">
+
+            <!-- <div class="upperProductDis px-4 py-2">
+              <h3 class="">Big Sales</h3>
+              <h5 class="">Product Name</h5>
+              <p class="">price:200$</p>
+              <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>
+
+            </div> -->
+
+            <div class="forntDiv"></div>
+            <div class="fornthDiv"></div>
+          </div><!-- 1 -->
+          <div
+            class="col-12 col-md-6 col-lg-4 discounts position-relative h-100 overflow-hidden rounded rounded-3 mb-2">
+
+            <img src="./images/banner/banner-2.jpg" alt="">
+
+            <!-- <div class="upperProductDis px-4 py-2">
+              <h3 class="">Big Sales</h3>
+              <h5 class="">Product Name</h5>
+              <p class="">price:200$</p>
+              <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>
+
+            </div> -->
+
+            <div class="forntDiv"></div>
+            <div class="fornthDiv"></div>
+          </div><!-- 1 -->
+          <div
+            class="col-12 col-md-6 col-lg-4 discounts position-relative h-100 overflow-hidden rounded rounded-3 mb-2">
+
+            <img src="./images/banner/banner-7.jpg" alt="">
+
+            <!-- <div class="upperProductDis px-4 py-2">
+              <h3 class="">Big Sales</h3>
+              <h5 class="">Product Name</h5>
+              <p class="">price:200$</p>
+              <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>
+
+            </div> -->
+            <div class="forntDiv"></div>
+            <div class="fornthDiv"></div>
+          </div><!-- 1 -->
+        </div><!-- row -->
+      </div>
+    </section><!-- 8 -->
+
+    <section>
+      <div>
+        <div class="pt-3  bestSellingSec border-bottom mb-4">
+          <div class=" ">
+            <h3 class="">On Sale <span class="fw-normal">Products</span></h3>
+            <div class="bg-warning flex-column" style="height: 
+            3px; width: 50px;"></div>
+
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-6 col-lg-4 cardOnsale">
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="./images/product/product-1.jpg" class="img1 h-100 w-100  mx-auto card-img-top" alt="...">
+                  <img src="./images/product/product-2.jpg" class=" img2 d-none h-100 w-100  mx-auto card-img-top"
+                    alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
+                    <div class="text-warning" style="font-size:1.35em;">&#9734;&#9734;&#9734;&#9734;</div>
+                    <h6 class="fw-bold">price: $400 <span
+                        class="text-muted text-decoration-line-through ms-4">$1000</span></h6>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end card -->
+          </div><!--  -->
+          <div class="col-6 col-lg-4 cardOnsale">
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="./images/product/product-1.jpg" class="img1 h-100 w-100  mx-auto card-img-top" alt="...">
+                  <img src="./images/product/product-2.jpg" class=" img2 d-none h-100 w-100  mx-auto card-img-top"
+                    alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
+                    <div class="text-warning" style="font-size:1.35em;">&#9734;&#9734;&#9734;&#9734;</div>
+                    <h6 class="fw-bold">price: $400 <span
+                        class="text-muted text-decoration-line-through ms-4">$1000</span></h6>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end card -->
+          </div><!--  -->
+          <div class="col-6 col-lg-4 cardOnsale">
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="./images/product/product-1.jpg" class="img1 h-100 w-100  mx-auto card-img-top" alt="...">
+                  <img src="./images/product/product-2.jpg" class=" img2 d-none h-100 w-100  mx-auto card-img-top"
+                    alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
+                    <div class="text-warning" style="font-size:1.35em;">&#9734;&#9734;&#9734;&#9734;</div>
+                    <h6 class="fw-bold">price: $400 <span
+                        class="text-muted text-decoration-line-through ms-4">$1000</span></h6>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end card -->
+          </div><!--  -->
+          <div class="col-6 col-lg-4 cardOnsale">
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="./images/product/product-1.jpg" class="img1 h-100 w-100  mx-auto card-img-top" alt="...">
+                  <img src="./images/product/product-2.jpg" class=" img2 d-none h-100 w-100  mx-auto card-img-top"
+                    alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
+                    <div class="text-warning" style="font-size:1.35em;">&#9734;&#9734;&#9734;&#9734;</div>
+                    <h6 class="fw-bold">price: $400 <span
+                        class="text-muted text-decoration-line-through ms-4">$1000</span></h6>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end card -->
+          </div><!--  -->
+          <div class="col-6 col-lg-4 cardOnsale">
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="./images/product/product-1.jpg" class="img1 h-100 w-100  mx-auto card-img-top" alt="...">
+                  <img src="./images/product/product-2.jpg" class=" img2 d-none h-100 w-100  mx-auto card-img-top"
+                    alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title text-primary">Lorem ipsum dolor sit amet.</h5>
+                    <div class="text-warning" style="font-size:1.35em;">&#9734;&#9734;&#9734;&#9734;</div>
+                    <h6 class="fw-bold">price: $400 <span
+                        class="text-muted text-decoration-line-through ms-4">$1000</span></h6>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end card -->
+          </div><!--  -->
+          <div class="col-6 col-lg-4 cardOnsale">
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="./images/product/product-1.jpg" class="img1 h-100 w-100  mx-auto card-img-top" alt="...">
+                  <img src="./images/product/product-2.jpg" class=" img2 d-none h-100 w-100  mx-auto card-img-top"
+                    alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
+                    <div class="text-warning" style="font-size:1.35em;">&#9734;&#9734;&#9734;&#9734;</div>
+                    <h6 class="fw-bold">price: $400 <span
+                        class="text-muted text-decoration-line-through ms-4">$1000</span></h6>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end card -->
+          </div><!--  -->
+        </div><!-- row -->
+      </div>
+    </section><!-- 9 -->
+
+    <footer class="container-fluid ">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <a href="index.html" class="col-12 col-md-2">
+              <img src="./images/logo-white.png" alt="" />
+            </a>
+            <div class="my-3">
+              <p>Add: Walls Street 68, Mahattan, New York, USA</p>
+              <p>Email: info@thebuesky.com</p>
+              <p>phone: (+100) 123 456 7890 </p>
+            </div>
+          </div>
+          <div class=" offset-1 col-4">
+            <ul class="">
+              <li class="pb-1">
+                <a class="text-decoration-none text-light" href="myAccount.html">My Account
+                </a>
+              </li>
+              <li class="pb-1">
+                <a class="text-decoration-none text-light" href=" myWishlist.html">My Wishlist</a>
+              </li>
+              <li class="pb-1">
+                <a class="text-decoration-none text-light" href="myOrders.html">My orders</a>
+              </li>
+              <li class="pb-1">
+                <a class="text-decoration-none text-light" href="sigin.html">Sign In</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </footer>
+
+
+  </div>
+  <!-- end container fluid all page -->
+
+  </div>
+  </div>
+  <script src="js/JQuery-3.3.1.js"></script>
+  <!-- <script src="js/popper.js"></script> -->
+  <script src="js/bootstrap.bundle.js"></script>
+  <script src="js/home.js"></script>
+</body>
+
 </html>

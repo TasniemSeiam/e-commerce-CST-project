@@ -2,17 +2,19 @@
   --textandhovercolor: #fab700;
   --footerBGcolor: #394150;
 }
-.nav-link:after {
+.navbar .nav-link:after {
   content: " |";
   height: 12px;
   color: #ccc;
   margin-left: 1rem;
 }
 .nav-link:hover,
-ul > li > a:hover {
+.ulsecond>ul > li > a:hover,
+footer ul > li > a:hover {
   color: var(--textandhovercolor) !important;
   transition: all 0.5s;
 }
+
 .numoforderCat {
   position: absolute;
   top: -10px;
@@ -21,14 +23,7 @@ ul > li > a:hover {
 .divofCart {
   border: #eee 2px solid !important;
 }
-.ulsecond > ul > li > a {
-  text-decoration: none;
-  color: #000;
-  font-weight: bold;
-  font-size: 1.01rem;
-  font-family: sans-serif;
-  text-transform: uppercase;
-}
+
 .divofCart {
   width: 25%;
   height: 25%;
@@ -41,4 +36,12 @@ ul > li > a:hover {
 }
 .divofCart:hover i {
   color: #fff !important;
+}
+footer {
+  background-color: var(--footerBGcolor);
+  padding: 50px 0;
+  color: #eee;
+}
+footer ul>li{
+  list-style: none !important;
 }
