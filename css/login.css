@@ -1,0 +1,95 @@
+:root {
+  --main-color: #fcb700;
+  --main-color-dark: #d69d00;
+  --dark-color: #222222;
+  --parg-color: #666666;
+  --dark-red: #d01418;
+  --border-color: #6666662a;
+  --name-item: #0066c0;
+}
+
+body {
+  font-size: 1rem; /* Using Bootstrap's base font size */
+}
+
+.form__title {
+  color: var(--dark-color);
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4rem;
+}
+
+.page__link .page__link--label:hover {
+  color: var(--dark-color);
+}
+
+.sign__up--label {
+  font-size: 1rem;
+  color: var(--parg-color);
+}
+
+.sign__up--label .sign-up__link {
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.sign__up--label .sign-up__link:hover {
+  color: var(--main-color);
+}
+
+.form__btn {
+  background-color: var(--main-color);
+  color: #fff;
+  transition: all 0.2s;
+  box-shadow: 0 0.3rem 0.3rem rgba(0, 0, 0, 0.2);
+}
+
+.form__btn:hover {
+  background-color: var(--main-color-dark);
+}
+
+.form__btn:active {
+  box-shadow: none;
+}
+
+.form-control:focus {
+  outline: var(--main-color) !important;
+}
+
+.login-with-google-btn {
+  transition: background-color 0.3s, box-shadow 0.3s;
+  color: #757575;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.login-with-google-btn:hover {
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-with-google-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px #c8dafc;
+}
+
+@media (max-width: 500px) {
+  .form__container {
+    width: 90%;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  .form__title {
+    font-size: 1.5rem;
+  }
+
+  .input-container i {
+    left: 0.5rem;
+  }
+
+  .form input {
+    padding-left: 2.5rem;
+  }
+}

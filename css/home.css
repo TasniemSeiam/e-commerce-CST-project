@@ -1,0 +1,235 @@
+@import "../css/style.css";
+body {
+  background-color: #eee;
+}
+.ulsecond > ul > li > a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  font-size: 1.01rem;
+  font-family: sans-serif;
+  text-transform: uppercase;
+}
+#hero {
+  background: url(../images/slider-bg-1.jpg) no-repeat center;
+  background-size: cover;
+  height: 85vh;
+  position: relative;
+}
+.upperHero {
+  z-index: 10;
+  position: absolute;
+  top: 7rem;
+  left: 1rem;
+}
+.upperProductDis {
+  z-index: 10;
+  position: absolute;
+  top: 6%;
+  left: 3%;
+  font-weight: bold;
+  color: #fff;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+}
+.forntDiv,
+.fornthDiv {
+  z-index: 20;
+  background-color: #eeeeee2e;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.7s;
+  opacity: 0;
+  cursor: pointer;
+}
+@keyframes scaleHover {
+  from {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(0);
+  }
+}
+@keyframes scaleHHover {
+  from {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  to {
+    transform: scaleY(0);
+  }
+}
+.discounts:hover .forntDiv {
+  animation: scaleHover 1s;
+}
+
+.discounts:hover .fornthDiv {
+  animation: scaleHHover 1s;
+}
+.upperHero p {
+  font-size: 1.2em;
+  font-weight: 600;
+  width: 80%;
+  color: #ccc;
+}
+.features img {
+  width: 40px;
+  height: 50px;
+  margin: 0 1rem;
+}
+.features p {
+  font-size: 13px;
+}
+.features h6 {
+  font-weight: bold;
+}
+@media all and (max-width: 900px) {
+  .upperHero {
+    width: 100%;
+  }
+  .upperHero p {
+    font-size: 0.8em;
+  }
+  .upperHero a {
+    font-size: 0.5em;
+    width: 13% !important;
+    margin-top: 0 !important;
+  }
+  .upperHero h3 {
+    font-size: 1.1em;
+  }
+}
+.bestSellingSec ul li button {
+  transition: all 0.6s;
+  font-size: 1.2rem !important;
+  border: none !important;
+}
+
+.bestSellingSec ul li button:hover {
+  color: var(--textandhovercolor);
+}
+.starsHome {
+  font-size: 1.37rem;
+  line-height: 0.3rem;
+}
+.cardProducts .card-body .card-title {
+  font-size: 1.1rem;
+  font-family: serif;
+}
+.cardProducts .card-body h6{
+    font-size:1rem; 
+    line-height:2.8rem;
+}
+.cardProducts {
+  height: 100%;
+  padding: 10px 0;
+  /* position: relative; */
+  border: 1px solid #eee;
+}
+@keyframes btnsProduct {
+  from {
+    position: absolute;
+    bottom: 0;
+    left: 27%;
+
+  }
+  to {
+    position: absolute;
+    bottom: 10%;
+    left: 27%;
+  }
+}
+@keyframes whishlistbtn {
+  from {
+    position: absolute;
+    left: 45%;
+  /* bottom: 25%; */
+  bottom: -4%;
+
+  }
+  to {
+    position: absolute;
+    /* left: 45%;
+  bottom: 30%; */
+  left: 45%;
+  bottom:3%;
+  }
+}
+/* .wishlistHeart {
+  font-size: 1.2rem;
+  position: absolute;
+  left: 45%;
+  bottom: 30%;
+  border: 1px solid #ccc;
+} */
+.addToCart ,.addToCartbig{
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.7rem 1.1rem;
+  position: absolute;
+  left: 27%;
+  bottom:10%;
+  /* animation:reverse; */
+  transition: all 1s;
+}
+
+.cardProducts:hover
+.addToCart{
+    display: block !important;
+    animation: btnsProduct 0.7s;
+}
+.cardProducts:hover
+.wishlistHeart{
+    display: block !important;
+    animation: whishlistbtn 0.7s;
+}
+.cardProducts:hover
+.img1,.cardOnsale:hover
+.img1{
+    display: none !important;
+}
+.cardProducts:hover
+.img2,
+.cardOnsale:hover
+.img2{
+    display: block !important;
+    transform: scale(1);
+}
+.BigProductCard{
+    height: 98%;
+    padding: 10px 0;
+    position: relative;
+    border: 1px solid #eee;
+    margin-bottom: 2px;
+}
+.divheart .wishlistHeart{
+    position: absolute;
+    left: 45%;
+    bottom:3%;
+    border: 1px solid #ccc;
+}
+.wishlistHeart:hover{
+    background-color: var(--textandhovercolor);
+    color: #fff !important;
+}
+.BigProductCard .addToCartbig{
+    
+    width: 50%;
+    position: absolute;
+    left: 30%;
+    bottom:7%;
+    /* transition: all 1s; */
+}
+.BigProductCard .addToCartbig:hover{
+    animation:none;
+    border: 1px solid var(--textandhovercolor);
+    background-color: #fff !important;
+    /* color: var(--textandhovercolor) !important; */
+}

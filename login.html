@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/login.css" />
+    <title>Login</title>
+  </head>
+  <body
+    class="d-flex justify-content-center align-items-center vh-100 bg-light"
+  >
+    <section class="section__form">
+      <div
+        class="form__container container-fluid p-4 shadow-sm bg-white rounded text-center"
+      >
+        <h2 class="form__title mb-4">Welcome Back</h2>
+        <form action="" class="form needs-validation" novalidate>
+          <div class="input-container form-group position-relative mb-4">
+            <i
+              class="fas fa-envelope position-absolute text-muted"
+              style="left: 1rem; top: 50%; transform: translateY(-50%)"
+            ></i>
+            <input
+              type="email"
+              class="form-control pl-5"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div class="input-container form-group position-relative mb-4">
+            <i
+              class="fas fa-lock position-absolute text-muted"
+              style="left: 1rem; top: 50%; transform: translateY(-50%)"
+            ></i>
+            <input
+              type="password"
+              class="form-control pl-5"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <p class="page__link text-right mb-3">
+            <a href="#" class="page__link--label text-muted"
+              >Forget Password?</a
+            >
+          </p>
+          <button class="form__btn btn btn-block">Login</button>
+        </form>
+        <p class="sign__up--label mt-3">
+          Don't have an account?
+          <a href="signup.html" class="sign-up__link text-primary">Sign up</a>
+        </p>
+
+        <!-- TOAST -->
+        <div
+          id="toast"
+          class="fade d-none toast text-start text-bg-primary border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-body"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="login.js"></script>
+  </body>
+</html>
