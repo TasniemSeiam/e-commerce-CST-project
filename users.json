@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "email": "Admin@iti.com",
+      "username": "Admin",
+      "password": "123",
+      "role": "admin"
+    },
+    {
+      "email": "jane.smith@example.com",
+      "username": "jane_smith",
+      "password": "securepassword",
+      "role": "user"
+    },
+    {
+      "email": "mike.brown@example.com",
+      "username": "mike_brown",
+      "password": "password456",
+      "role": "seller"
+    },
+    {
+      "email": "susan.jones@example.com",
+      "username": "susan_jones",
+      "password": "mypassword",
+      "role": "user"
+    }
+  ]
+}
