@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
           } else if (user.role === "admin") {
             window.location.href = "admin.html";
           } else {
-            window.location.href = "home.html";
+            window.location.href = "index.html";
           }
         } else {
           showToast("Invalid email or password. Please try again.", false);

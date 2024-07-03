@@ -21,6 +21,10 @@ body {
   text-transform: uppercase;
 }
 
+.form__container {
+  margin: 5rem 0;
+}
+
 .form__title strong {
   color: var(--main-color);
 }
