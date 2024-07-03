@@ -1,0 +1,143 @@
+:root {
+  --main-color: #fcb700;
+  --main-color-dark: #d69d00;
+  --dark-color: #222222;
+  --parg-color: #666666;
+  --dark-red: #d01418;
+  --border-color: #6666662a;
+  --name-item: #0066c0;
+  --success-message: #5cb85c;
+}
+
+body {
+  font-size: 1rem; /* Using Bootstrap's base font size */
+}
+
+.form__title {
+  color: var(--dark-color);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.4rem;
+  text-transform: uppercase;
+}
+
+.form__container {
+  margin: 5rem 0;
+}
+
+.form__title strong {
+  color: var(--main-color);
+}
+
+.error {
+  border-color: var(--dark-red);
+}
+
+.success {
+  border-color: var(--success-message);
+}
+
+.validate {
+  display: none;
+  font-size: 0.775rem;
+  color: red;
+  margin-top: 0.25rem; /* Reduce the margin-top */
+  position: absolute;
+  bottom: -1.19rem; /* Adjust this value as needed */
+}
+
+.validate__email--error {
+  color: #d01418;
+  display: none;
+}
+
+.validate__email--success {
+  color: var(--success-message);
+  display: none;
+}
+
+.validate__userName--error {
+  color: #d01418;
+  display: none;
+}
+
+.validate__userName--success {
+  color: var(--success-message);
+  display: none;
+}
+
+.validate__password--error {
+  color: #d01418;
+  display: none;
+}
+
+.validate__password--success {
+  color: var(--success-message);
+  display: none;
+}
+
+.input-container:last-of-type {
+  margin-bottom: 3rem;
+}
+
+.sign__up--label {
+  font-size: 1rem;
+  color: var(--parg-color);
+}
+
+.sign__up--label .sign-up__link {
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.sign__up--label .sign-up__link:hover {
+  color: var(--main-color);
+}
+
+.form__btn {
+  background-color: var(--main-color);
+  color: #fff;
+  transition: all 0.2s;
+  box-shadow: 0 0.3rem 0.3rem rgba(0, 0, 0, 0.2);
+}
+
+.form__btn:hover {
+  background-color: var(--main-color-dark);
+}
+
+.form__btn:active {
+  box-shadow: none;
+}
+
+@media (max-width: 500px) {
+  .form__container {
+    width: 90%;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  .form__title {
+    font-size: 1.4rem;
+  }
+
+  .input-container i {
+    left: 0.5rem;
+  }
+
+  .form input {
+    padding-left: 2.5rem;
+  }
+
+  .sign__up--label {
+    font-size: 0.8rem;
+  }
+
+  .sign__up--label .sign-up__link {
+    font-size: 0.9rem;
+  }
+}
+
+.btn__primary--modal {
+  background-color: var(--main-color-dark);
+  color: #fff;
+}
