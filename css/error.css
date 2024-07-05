@@ -1,0 +1,48 @@
+.error__number h1 {
+  font-size: 300px;
+  color: #e5e5e5;
+  line-height: 1;
+}
+
+.error__content > span {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #7b7b7b;
+  font-weight: 500;
+}
+
+.error__content h2 {
+  font-size: 50px;
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+
+.error__content p {
+  margin-bottom: 70px;
+}
+
+.error__search input {
+  width: 100%;
+  height: 50px;
+  padding: 0 15px;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid #ebebeb;
+  margin-bottom: 50px;
+  outline: none;
+}
+
+.t-y-btn-grey {
+  background: #f6f6f6;
+  border-color: #e6e6e6;
+  color: #222;
+  border-width: 1px;
+  line-height: 43px;
+}
+
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled),
+button:not(:disabled) {
+  cursor: pointer;
+}

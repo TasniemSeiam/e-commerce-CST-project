@@ -20,6 +20,10 @@ body {
   letter-spacing: 0.4rem;
 }
 
+.form__container {
+  margin: 5rem 0;
+}
+
 .page__link .page__link--label:hover {
   color: var(--dark-color);
 }
