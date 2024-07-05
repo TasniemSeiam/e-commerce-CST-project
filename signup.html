@@ -80,6 +80,23 @@
             </select>
             <div class="validate validate__selection"></div>
           </div>
+          <div
+            class="input-container container-hidden container-tax form-group position-relative mb-4"
+          >
+            <i
+              class="fa-regular fa-building position-absolute text-muted"
+              style="left: 1rem; top: 50%; transform: translateY(-50%)"
+            ></i>
+            <input
+              type="text"
+              class="tax__input form-control pl-5"
+              placeholder="Tax No."
+              required
+            />
+
+            <div class="validate validate__tax--error"></div>
+            <div class="validate validate__tax--success"></div>
+          </div>
           <button class="form__btn btn btn-block">Sign Up</button>
         </form>
         <p class="sign__up--label mt-3">

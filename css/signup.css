@@ -105,6 +105,10 @@ body {
   box-shadow: none;
 }
 
+.container-hidden {
+  display: none;
+}
+
 @media (max-width: 500px) {
   .form__container {
     width: 90%;
