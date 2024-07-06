@@ -1,5 +1,5 @@
 :root {
-  --textandhovercolor: #fab700;
+  --textandhovercolor: #FCB700;
   --footerBGcolor: #394150;
 }
 .navbar .nav-link:after {
@@ -13,6 +13,11 @@
 footer ul > li > a:hover {
   color: var(--textandhovercolor) !important;
   transition: all 0.5s;
+}
+.selsectSearch option{
+  text-align: start;
+  text-transform: capitalize;
+  
 }
 
 .numoforderCat {
@@ -44,4 +49,19 @@ footer {
 }
 footer ul>li{
   list-style: none !important;
+}
+.activeNow{
+  color: var(--textandhovercolor) !important;
+}
+@media all and (max-width: 900px) {
+  .searchInpt select{
+    font-size: 70%;
+  }
+  .searchInpt input{
+    font-size: 70%;
+  }
+  .searchInpt button{
+    font-size: 70%;
+  }
+ 
 }

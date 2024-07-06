@@ -1,6 +1,6 @@
 @import "../css/style.css";
 body {
-  background-color: #eee;
+  background-color: #F5F6F9;
 }
 .ulsecond > ul > li > a {
   text-decoration: none;
@@ -10,20 +10,51 @@ body {
   font-family: sans-serif;
   text-transform: uppercase;
 }
+
 #hero {
   background: url(../images/slider-bg-1.jpg) no-repeat center;
   background-size: cover;
   height: 85vh;
   position: relative;
 }
+#hero #carouselExampleIndicators {
+  height: 100%;
+}
+.showCategories {
+  height: 80vh;
+}
 .upperHero {
   z-index: 10;
   position: absolute;
-  top: 7rem;
-  left: 1rem;
+  top: 7%;
+  left: 45%;
+  width: 55%;
+}
+.upperHero p {
+  /* white-space: nowrap; */
+  width: 400px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-align: center;
+  /* text-justify: inter-word; */
+  text-transform: capitalize;
+  /* overflow: hidden;
+  text-overflow: ellipsis; */
+}
+.upperHero p:hover {
+  width: 400px;
+  display: block;
+  overflow: visible;
+  text-align: justify;
+  text-justify: inter-word;
+}
+.sliderHeader div > img {
+  width: 60% !important;
 }
 .upperProductDis {
-  z-index: 10;
+  z-index: 20;
   position: absolute;
   top: 6%;
   left: 3%;
@@ -32,9 +63,21 @@ body {
   text-transform: capitalize;
   font-size: 1.1rem;
 }
+.discounts .upperProductDis h5 {
+  white-space: nowrap;
+  width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.discounts .upperProductDis h5:hover {
+  white-space: wrap;
+  width: 470px;
+  overflow: visible;
+}
+
 .forntDiv,
 .fornthDiv {
-  z-index: 20;
+  z-index: 10;
   background-color: #eeeeee2e;
   position: absolute;
   top: 0;
@@ -65,6 +108,22 @@ body {
     transform: scaleY(0);
   }
 }
+.discounts {
+  z-index: 10;
+  background-color: #eeeeee2e;
+  /* width: 100 %; */
+  height: 270px;
+}
+.frontdark {
+  z-index: 1;
+  background-color: #00000040;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .discounts:hover .forntDiv {
   animation: scaleHover 1s;
 }
@@ -91,75 +150,134 @@ body {
 }
 @media all and (max-width: 900px) {
   .upperHero {
-    width: 100%;
+    width: 50%;
   }
   .upperHero p {
     font-size: 0.8em;
   }
   .upperHero a {
     font-size: 0.5em;
-    width: 13% !important;
+    width: 100% !important;
     margin-top: 0 !important;
   }
   .upperHero h3 {
     font-size: 1.1em;
   }
+  #hero {
+    height: max-content !important;
+    padding-bottom: 2rem;
+  }
+  #hero #carouselExampleIndicators {
+    height: 300px !important;
+  }
+
+  #secondNav > div > ul > li a {
+    font-size: 12px;
+  }
+  .bestSellingSec div h3 {
+    font-size: 80%;
+  }
+  .bestSellingSec > ul {
+    justify-content: start !important;
+  }
+  .bestSellingSec > ul > li > button {
+    font-size: 0.6rem !important;
+  }
+  .discounts .upperProductDis h5 {
+    font-size: 0.9rem;
+  }
+  .discounts .upperProductDis {
+    font-size: 0.8rem;
+  }
+  .addToCart {
+    font-size: 0.8rem !important;
+    width: 60% !important;
+  }
+  /* .cardProducts .card-body .card-title,
+  .cardOnsale .card .card-body .card-title {
+    width: 137px;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cardProducts .card-body .card-title:hover,
+  .cardOnsale .card .card-body .card-title:hover {
+    width: 137px;
+    text-wrap: wrap;
+    overflow: visible;
+  } */
+  .cardProducts .card-body > button {
+    font-size: 0.5rem !important;
+    width: 90%;
+    left: 7%;
+    animation: none !important;
+  }
+  .cardProducts .card-body > button:hover {
+    display: block;
+    animation: none !important;
+  }
 }
+/* @media all and (max-width:500){
+  #hero{
+    height: 10px!important;
+  }
+  #hero #carouselExampleIndicators {
+    height:100%!important;
+  }
+} */
 .bestSellingSec ul li button {
-  transition: all 0.6s;
-  font-size: 1.2rem !important;
   border: none !important;
+  transition: all 0.6s;
 }
 
 .bestSellingSec ul li button:hover {
   color: var(--textandhovercolor);
 }
-.starsHome {
+/* .starsHome {
   font-size: 1.37rem;
   line-height: 0.3rem;
-}
-.cardProducts .card-body .card-title {
-  font-size: 1.1rem;
+} */
+.cardProducts .card-body .card-title,
+.cardOnsale .card .card-body .card-title {
+  font-size: 1rem;
   font-family: serif;
+  /* height: 70px; */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
-.cardProducts .card-body h6{
-    font-size:1rem; 
-    line-height:2.8rem;
+.cardOnsale .card .card-body{
+  height: 130px !important;
+}
+.cardProducts .card-body .card-title:hover,
+.cardOnsale .card .card-body .card-title:hover {
+  overflow: visible !important;
+}
+.cardProducts .card-body .card-title:hover {
+  height: 70px;
+}
+.cardOnsale .card .card-body .card-title:hover {
+  height: 40;
+}
+.cardProducts .card-body h6 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 2.8rem;
 }
 .cardProducts {
   height: 100%;
-  padding: 10px 0;
+  padding: 10px;
   /* position: relative; */
   border: 1px solid #eee;
+  transition: all 0.5s;
 }
-@keyframes btnsProduct {
-  from {
-    position: absolute;
-    bottom: 0;
-    left: 27%;
-
-  }
-  to {
-    position: absolute;
-    bottom: 10%;
-    left: 27%;
-  }
-}
-@keyframes whishlistbtn {
-  from {
-    position: absolute;
-    left: 45%;
-  /* bottom: 25%; */
-  bottom: -4%;
-
-  }
-  to {
-    position: absolute;
-    /* left: 45%;
-  bottom: 30%; */
-  left: 45%;
-  bottom:3%;
-  }
+/* .cardProducts > div > .imgs > img {
+  width: 100%;
+  height: 250px !important;
+} */
+.cardOnsale .card .divsimg > img {
+  height: 120px !important;
 }
 /* .wishlistHeart {
   font-size: 1.2rem;
@@ -168,29 +286,97 @@ body {
   bottom: 30%;
   border: 1px solid #ccc;
 } */
-.addToCart ,.addToCartbig{
+.imgsDiv > .imgs,
+.imgsDiv > .imgs2 {
+  width: 100% !important;
+  height: 250px !important;
+  transition: 0.1s ease-in-out;
+}
+
+.divsimg > .imgs,
+.divsimg > .imgs2 {
+  width: 100% !important;
+  height: 120px !important;
+  transition: 0.1s ease-in-out;
+}
+
+.imgsDiv > .imgs2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  opacity: 0;
+  scale: 0.1;
+}
+.divsimg > .imgs2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  opacity: 0;
+  scale: 0.1;
+}
+.cardProducts:hover .imgsDiv .imgs2,
+.cardOnsale .card:hover .divsimg .imgs2 {
+  opacity: 1;
+  scale: 1;
+}
+.cardProducts:hover .imgsDiv .imgs,
+.cardOnsale .card:hover .divsimg .imgs {
+  opacity: 0 !important;
+}
+
+.addToCart,
+.addToCartbig {
   color: #fff;
   font-weight: bold;
   font-size: 1rem;
-  padding: 0.7rem 1.1rem;
+  padding: 0.5em 1em;
   position: absolute;
-  left: 27%;
-  bottom:10%;
-  /* animation:reverse; */
-  transition: all 1s;
+  width: 55%;
+  z-index: -1;
+  bottom: -3%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.3s ease-in-out;
+  display: block !important;
 }
-
-.cardProducts:hover
-.addToCart{
-    display: block !important;
-    animation: btnsProduct 0.7s;
+.divheart .wishlistHeart {
+  position: absolute;
+  bottom: -20%;
+  z-index: -10;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--textandhovercolor);
+  color: #707070;
+  background-color: #fff;
+  display: block !important;
+  transition: 0.3s ease-in-out;
 }
-.cardProducts:hover
-.wishlistHeart{
-    display: block !important;
-    animation: whishlistbtn 0.7s;
+.wishlistHeart:hover {
+  background-color: var(--textandhovercolor);
+  color: #fff !important;
 }
-.cardProducts:hover
+.cardProducts:hover .addToCart {
+  display: block !important;
+  bottom: 5%;
+  z-index: 1;
+}
+.cardProducts:hover .card-body > ul > li,
+.cardProducts:hover .card-body > h6 {
+  display: none !important;
+}
+.cardProducts:hover .wishlistHeart {
+  bottom: -10%;
+  z-index: 1;
+}
+.cardProducts:hover {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  /* transform: scale(1.02); */
+}
+/* .cardProducts:hover
 .img1,.cardOnsale:hover
 .img1{
     display: none !important;
@@ -201,35 +387,69 @@ body {
 .img2{
     display: block !important;
     transform: scale(1);
+} */
+.BigProductCard {
+  height: 98%;
+  padding: 10px 0;
+  position: relative;
+  border: 1px solid #eee;
+  /* margin-bottom: 2px; */
 }
-.BigProductCard{
-    height: 98%;
-    padding: 10px 0;
-    position: relative;
-    border: 1px solid #eee;
-    margin-bottom: 2px;
+.BigProductCard .addToCartbig {
+  z-index: 1;
+  width: 50%;
+  position: absolute;
+  bottom: 5%;
 }
-.divheart .wishlistHeart{
-    position: absolute;
-    left: 45%;
-    bottom:3%;
-    border: 1px solid #ccc;
+.addToCart:hover {
+  border: 1px solid var(--textandhovercolor);
+  background-color: #fff !important;
 }
-.wishlistHeart:hover{
-    background-color: var(--textandhovercolor);
-    color: #fff !important;
+
+section {
+  padding-top: 10px;
 }
-.BigProductCard .addToCartbig{
-    
-    width: 50%;
-    position: absolute;
-    left: 30%;
-    bottom:7%;
-    /* transition: all 1s; */
+.flashDeals ul li button,.bestSellingSec ul li button{
+  border: none !important;
+  background: none;
+  text-transform: capitalize;
 }
-.BigProductCard .addToCartbig:hover{
-    animation:none;
-    border: 1px solid var(--textandhovercolor);
-    background-color: #fff !important;
-    /* color: var(--textandhovercolor) !important; */
+body {
+  margin: 0;
+  padding: 0;
+  height: 2000px; /* Make the page scrollable */
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #ccc;
+  z-index: 1;
+}
+
+#backToTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  background-color:transparent;
+  border: 2px solid var(--textandhovercolor);
+  padding: 10px 16px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 50%;
+  z-index: 10;
+}
+.ifFocused{
+  background: #00000060;
+  z-index: 11;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 140px;
+  left: 0;
+  display: none;
 }
