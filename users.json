@@ -5,28 +5,32 @@
       "username": "Admin",
       "password": "123",
       "role": "admin",
-      "isLoggedIn": ""
+      "isLoggedIn": "",
+      "wishList": []
     },
     {
       "email": "jane.smith@example.com",
       "username": "jane_smith",
       "password": "securepassword",
       "role": "user",
-      "isLoggedIn": ""
+      "isLoggedIn": "",
+      "wishList": []
     },
     {
       "email": "mike.brown@example.com",
       "username": "mike_brown",
       "password": "password456",
       "role": "seller",
-      "isLoggedIn": ""
+      "isLoggedIn": "",
+      "wishList": []
     },
     {
       "email": "susan.jones@example.com",
       "username": "susan_jones",
       "password": "mypassword",
       "role": "user",
-      "isLoggedIn": ""
+      "isLoggedIn": "",
+      "wishList": []
     }
   ]
 }
