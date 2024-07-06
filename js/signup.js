@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const usernameInput = document.querySelector('input[type="text"]');
   const emailInput = document.querySelector('input[type="email"]');
   const passwordInput = document.querySelector('input[type="password"]');
+  const taxInput = document.querySelector(".tax__input");
   const roleSelect = document.getElementById("roleSelect");
-  //
+  const taxContainer = document.querySelector(".container-tax ");
   const emailSuccess = document.querySelector(".validate__email--success");
   const emailError = document.querySelector(".validate__email--error");
   const userNameError = document.querySelector(".validate__userName--error");
@@ -15,6 +16,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordSuccess = document.querySelector(
     ".validate__password--success"
   );
+
+  roleSelect.addEventListener("change", function () {
+    roleSelect.value === "seller"
+      ? taxContainer.classList.remove("container-hidden")
+      : taxContainer.classList.add("container-hidden");
+  });
+
+  const taxError = document.querySelector(".validate__tax--error");
+  const taxSuccess = document.querySelector(".validate__tax--success");
 
   // TOAST Functionality
   function showToast(message, success = true) {
@@ -105,10 +115,23 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
+  function taxValidation() {
+    const isValid = /^\d{14}$/.test(taxInput.value);
+    showValidationMessage(
+      taxInput,
+      taxSuccess,
+      taxError,
+      isValid,
+      "",
+      "Tax No. should be a 14-digit number."
+    );
+  }
+
   // Input Validation Eventlisteners
   emailInput.addEventListener("blur", emailValidation);
   usernameInput.addEventListener("blur", userNameValidation);
   passwordInput.addEventListener("blur", passwordValidation);
+  taxInput.addEventListener("blur", taxValidation);
 
   // Checker For Filled Areas
   function areAreaFilled() {
@@ -121,13 +144,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Checker For Unique User
-  function isUniqueUser(users, email, userName) {
+  function isUniqueUser(users, email, userName, taxNo) {
     const usernameExists = users.some((user) => user.username === userName);
     const emailExists = users.some((user) => user.email === email);
-    return { emailUnique: !emailExists, usernameUnique: !usernameExists };
+    const taxNumberExists = users.some((user) => user.taxnumber === taxNo);
+    return {
+      emailUnique: !emailExists,
+      usernameUnique: !usernameExists,
+      taxNoUnique: !taxNumberExists,
+    };
   }
 
-  // Submit Listen
+  // Submit Listener
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -136,49 +164,85 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    const uniqueness = isUniqueUser(
-      users,
-      emailInput.value,
-      usernameInput.value
-    );
+    // Trim and lowercase input values
+    const email = emailInput.value.trim().toLowerCase();
+    const username = usernameInput.value.trim().toLowerCase();
+    const password = passwordInput.value.trim();
+    const role = roleSelect.value.trim().toLowerCase();
+    const tax = taxInput.value.trim();
 
-    if (uniqueness.emailUnique && uniqueness.usernameUnique) {
-      const newUser = {
-        email: emailInput.value,
-        username: usernameInput.value,
-        password: passwordInput.value,
-        role: roleSelect.value,
-      };
-      users.push(newUser);
-      // Save The User in local storage
-      localStorage.setItem("users", JSON.stringify(users));
+    try {
+      let response = await fetch("users.json");
+      let data = await response.json();
+      let users = data.users;
 
-      signInModal();
+      const uniqueness = isUniqueUser(
+        users,
+        emailInput.value,
+        usernameInput.value,
+        taxInput.value
+      );
 
-      // Redirect or perform other actions upon successful sign-up
-    } else {
-      if (!uniqueness.emailUnique) {
-        showValidationMessage(
-          emailInput,
-          emailSuccess,
-          emailError,
-          false,
-          "",
-          "Email is already in use."
-        );
+      if (
+        uniqueness.emailUnique &&
+        uniqueness.usernameUnique &&
+        uniqueness.taxNoUnique
+      ) {
+        // if (users.role === 'seller') {
+
+        // }
+
+        const newUser = {
+          email: email,
+          username: username,
+          password: password,
+          role: role,
+          taxnumber: tax,
+        };
+        users.push(newUser);
+        // Save The User in local storage
+        localStorage.setItem("users", JSON.stringify(users));
+
+        signInModal();
+
+        // Redirect or perform other actions upon successful sign-up
+      } else {
+        if (!uniqueness.emailUnique) {
+          showValidationMessage(
+            emailInput,
+            emailSuccess,
+            emailError,
+            false,
+            "",
+            "Email is already in use."
+          );
+        }
+
+        if (!uniqueness.usernameUnique) {
+          showValidationMessage(
+            usernameInput,
+            userNameSuccess,
+            userNameError,
+            false,
+            "",
+            "Username is already in use."
+          );
+        }
+
+        if (!uniqueness.taxNoUnique) {
+          showValidationMessage(
+            taxInput,
+            taxSuccess,
+            taxError,
+            false,
+            "",
+            "Tax Number is already in use."
+          );
+        }
       }
-
-      if (!uniqueness.usernameUnique) {
-        showValidationMessage(
-          usernameInput,
-          userNameSuccess,
-          userNameError,
-          false,
-          "",
-          "Username is already in use."
-        );
-      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      showToast("An error occurred. Please try again later.", false);
     }
   }); // end of submit function
 }); // end of function
