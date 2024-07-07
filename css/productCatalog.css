@@ -260,7 +260,7 @@ body {
   display: flex;
   position: absolute;
   right: 11%; /* Adjust as needed */
-  top: 48%; /* Adjust as needed */
+  top: 51%; /* Adjust as needed */
   z-index: 10; /* Bring the search bar to the front */
 }
 
@@ -329,7 +329,7 @@ body {
     position: absolute;
     left: 0;
     top: 60px;
-    width: 40%;
+    width: 50%;
     z-index: 1000;
     display: none;
   }
@@ -354,7 +354,7 @@ body {
     display: block;
     position: absolute;
     top: 0;
-    padding: 12px 30px;
+    padding: 7px 25px;
     background-color: var(--main-color);
     border-radius: 5px;
     font-size: 18px;

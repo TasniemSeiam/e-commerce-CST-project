@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", function () {
   const productsContainer = document.getElementById("products__container");
   const checkboxContainer = document.querySelector(".categorie__select");
   const productSearch = document.querySelector("input[type='text']");
@@ -16,12 +16,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
   try {
-    // Fetch products data from JSON (replace with your API endpoint or data source)
-    const response = await fetch("products.json");
-    if (!response.ok) {
-      throw new Error("Something went wrong while fetching data");
+    // Fetch products data from localStorage
+    let products = JSON.parse(localStorage.getItem("products"));
+
+    if (!products) {
+      throw new Error("No products found in localStorage.");
     }
-    const products = await response.json();
 
     // Function to render products based on current page
     function renderProducts(pageNumber) {
@@ -168,5 +168,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   } catch (error) {
     console.error("Error fetching or rendering data:", error);
+    // Handle error scenario, for example:
+    productsContainer.innerHTML =
+      "<p>Error fetching products. Please try again later.</p>";
   }
 });
