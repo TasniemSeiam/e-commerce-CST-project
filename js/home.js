@@ -1,5 +1,7 @@
+import { showToastUser } from "./config.js";
+
 let categoriesarr = [],
-    productsarr = [];
+  productsarr = [];
 let selsectSearch = document.querySelector(".selsectSearch");
 let searchInput = document.querySelector(".searchInput");
 let showCategories = document.querySelector(".showCategories");
@@ -18,6 +20,7 @@ let pright1 = imgrigthero1.children[1];
 // let isLoggedIn = false;
 
 let getProduct = JSON.parse(localStorage.getItem("products"));
+
 
 
 addEventListener("load", async function () {
@@ -137,21 +140,52 @@ async function loadProducts() {
         return getProduct;
     }
 }
+let checkLogOut = document.querySelector(".user__check");
+let welcomeMessage = document.querySelector(".welcoming__message");
+addEventListener("load", function () {
+  try {
+    loadProducts();
+  } catch (e) {
+    console.log("error when loading data" + e);
+  }
+
+  // Check if a user is logged in
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (currentUser) {
+    checkLogOut.innerHTML = "";
+    checkLogOut.innerHTML = "Logout";
+    welcomeMessage.innerHTML = "";
+    welcomeMessage.innerHTML = `Welcome Back ${currentUser.username} 👋`;
+    // Example usage after successful login
+    showToastUser("Welcome! You have successfully logged in.", true, 2000);
+  }
+
+  // Logout functionality
+  if (currentUser) {
+    checkLogOut.addEventListener("click", function () {
+      localStorage.removeItem("currentUser");
+      localStorage.setItem("logoutMessage", "You have been logged out.");
+      checkLogOut.innerHTML = "";
+      checkLogOut.innerHTML = "Sign-In";
+      welcomeMessage.innerHTML = "";
+      welcomeMessage.innerHTML = `Welcome to ITI Marketplace`;
+      window.location.href = "login.html"; // Redirect to the home page or login page
+    });
+  }
+
 function getCategories(getProduct) {
-    let keys = Object.keys(getProduct)
-    keys.forEach(key => {
-        console.log(getProduct[key].category); //categories
-        if (categoriesarr.includes(getProduct[key].category)) {
-
-            console.log(getProduct[key].category); //products
-        } else {
-            categoriesarr.push(getProduct[key].category);
-        }
-    })
-    console.log(categoriesarr);
-    return categoriesarr;
-};
-
+  let keys = Object.keys(getProduct);
+  keys.forEach((key) => {
+    console.log(getProduct[key].category); //categories
+    if (categoriesarr.includes(getProduct[key].category)) {
+      console.log(getProduct[key].category); //products
+    } else {
+      categoriesarr.push(getProduct[key].category);
+    }
+  });
+  console.log(categoriesarr);
+  return categoriesarr;
+}
 
 function displayProduct(product, _location) {
     let productDiv = document.createElement("div");
@@ -164,7 +198,7 @@ function displayProduct(product, _location) {
     let imgsDiv = document.createElement("div");
     imgsDiv.className = "imgsDiv position-relative p-1";
     let imgs = document.createElement("img");
-    imgs.className = " imgs  mx-auto card-img-top";
+    imgs.className = "   mx-auto card-img-top";
     imgs.src = product.image[0];
     imgs.alt = product.title;
     let imgs2 = document.createElement("img");
@@ -186,9 +220,9 @@ function displayProduct(product, _location) {
     let cardBody = document.createElement("div");
     cardBody.className = "card-body";
     let cardTitle = document.createElement("p");
-    cardTitle.className = "card-title text-primary"
+    cardTitle.className = "card-title text-primary";
     cardTitle.textContent = product.title;
-    let cardRate = document.createElement("ul")
+    let cardRate = document.createElement("ul");
     cardRate.className = "list-inline mb-1";
     for (let s = 0; s < 4; s++) {
         let li = document.createElement("li");
@@ -217,7 +251,7 @@ function displayProduct(product, _location) {
     cartBtn.className = "btn mx-auto mx-md-0 text-center btn-warning addToCart  rounded-pill";
 
     cartBtn.addEventListener('click', function (e) {
-        // if (currentuser) {
+        // if (currentUser) {
         addToCart(product.id);
         // } else {
         // e.preventDefault();            
@@ -226,7 +260,7 @@ function displayProduct(product, _location) {
 
     });
     wishlistBtn.addEventListener('click', async function (e) {
-        // if (currentuser) {
+        // if (currentser) {
         addToWishlist(product.id, e.target);
         const currentState = e.target.classList.contains('addedtowishlist');
 
@@ -267,24 +301,6 @@ function displayProduct(product, _location) {
     productCard.appendChild(cardBody);
     productDiv.appendChild(productCard);
     _location.appendChild(productDiv);
-    // cartBtn.addEventListener("click", function () {
-    //     addToCart(product);
-    // });
-    // wishlistBtn.addEventListener("click", function () {
-    //     addToWishlist(product);
-    // });
-    // $(cardBody).hover(function () { 
-    //     $(imgs).addClass("d-none");
-    //     $(imgs2).removeClass("d-none").css("animation"," imganimatehide 1s  ");
-    //     // $(imgs2).removeClass("d-none").fadeIn(2000);
-    // }, function () {
-    //     $(imgs2).addClass("d-none");
-    //     $(imgs).removeClass("d-none").css("animation"," imganimatehide 1s reverse");
-
-    // })
-    return _location;
-}
-
 
 function getBigSales(products) {
     let bigSales = products.filter(product => {
@@ -581,17 +597,17 @@ function onSale(products) {
         rowdiv.appendChild(divs2);
         cardDiv.appendChild(rowdiv);
 
-        onsalecol.appendChild(cardDiv);
+    onsalecol.appendChild(cardDiv);
 
-        onSalediv.appendChild(onsalecol);
-    }
+    onSalediv.appendChild(onsalecol);
+  }
 }
 
 function colorActived(ele) {
-    ele.addEventListener('click', function (e) {
-        $(e.target).addClass("text-warning");
-        $(e.target).parent().siblings().children().removeClass("text-warning");
-    })
+  ele.addEventListener("click", function (e) {
+    $(e.target).addClass("text-warning");
+    $(e.target).parent().siblings().children().removeClass("text-warning");
+  });
 } // active btn
 
 
@@ -659,30 +675,6 @@ async function addToWishlist(productId, btn) {
 }
 
 
-
-// function wishListUpdated(_wishList, _productId, btn) {
-//     let product = getProduct.find(product => product.id === _productId);
-//     // if (_wishList.includes(_productId))  {
-//     if (_wishList.some(item => item.id === _productId)) {
-//         updatedWishlist = _wishList.filter((item) => item.id !== _productId);
-//         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-
-//         // btn.classList.remove("addedtowishlist");
-//         alert('This product has been deleted from your wishlist');
-//     } else {
-//         // if ((product.rating.count) > 0) {}
-//         // btn.classList.add("addedtowishlist")
-//         _wishList.push(product);
-//         alert(`Product "${product.title}" has been added to your wishlist.`);
-//         // displayWishlistList();
-//         localStorage.setItem("wishlist", JSON.stringify(_wishList));
-//         console.log('Wishlist', _wishList);
-
-//     }
-// }
-
-
-
 async function wishListBtnStates(_wishListBtn, _data) {
     const wishlistBtnState = localStorage.getItem('wishlist-btn-state') || [];
     let btnStateObj = {};
@@ -706,12 +698,10 @@ async function wishListBtnStates(_wishListBtn, _data) {
 
 }
 
-
-
 // Show button when user scrolls down
 const backToTopBtn = document.getElementById('backToTopBtn');
 window.onscroll = function () {
-    scrollFunction();
+  scrollFunction();
 };
 function scrollFunction() {
     if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
@@ -724,4 +714,5 @@ function scrollFunction() {
 backToTopBtn.addEventListener('click', () => {
     document.documentElement.scrollTop = 0;// chrome scroll
     document.body.scrollTop = 0; // firefox scroll
+
 });

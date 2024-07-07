@@ -1,7 +1,18 @@
+import { showToastUser } from "./config.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector(".form");
   const emailInput = document.querySelector('input[type="email"]');
   const passwordInput = document.querySelector('input[type="password"]');
+  let users = JSON.parse(localStorage.getItem("users"));
+
+  const logoutMessage = localStorage.getItem("logoutMessage");
+  if (logoutMessage) {
+    // Display the toast message
+    showToastUser(logoutMessage, true, 4000);
+    // Clear the logout message from localStorage
+    localStorage.removeItem("logoutMessage");
+  }
 
   // TOAST Functionality
   function showToast(message, success = true) {
@@ -35,12 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
         showToast("Please fill out all fields.", false);
       } else {
         // Fetching data from Json File
-        let users = JSON.parse(localStorage.getItem("users"));
-        if (!users) {
-          const response = await fetch("users.json");
-          const data = await response.json();
-          users = data.users;
-        }
 
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
@@ -51,15 +56,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Check If The email is an existing one
         if (user) {
-          alert(
-            `Welcome, ${user.username}! You are logged in as ${user.role}.`
-          );
+          localStorage.setItem("currentUser", JSON.stringify(user));
 
           // Redirect upon successful Login
           if (user.role === "seller") {
-            window.location.href = "seller.html";
+            window.location.href = "sellerPanel.html";
           } else if (user.role === "admin") {
-            window.location.href = "admin.html";
+            window.location.href = "adminPanel.html";
           } else {
             window.location.href = "index.html";
           }
@@ -72,4 +75,19 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = "page404.html";
     }
   }); // end of submit
+
+  // // Check if a user is logged in on page load
+  // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  // if (currentUser) {
+  //   alert(
+  //     `Welcome back, ${currentUser.username}! You are logged in as ${currentUser.role}.`
+  //   );
+  //   if (currentUser.role === "seller") {
+  //     window.location.href = "sellerPanel.html";
+  //   } else if (currentUser.role === "admin") {
+  //     window.location.href = "adminPanel.html";
+  //   } else {
+  //     window.location.href = "index.html";
+  //   }
+  // }
 }); // end of event listener
