@@ -142,12 +142,12 @@ async function loadProducts() {
 }
 let checkLogOut = document.querySelector(".user__check");
 let welcomeMessage = document.querySelector(".welcoming__message");
-addEventListener("load", function () {
-  try {
-    loadProducts();
-  } catch (e) {
-    console.log("error when loading data" + e);
-  }
+//addEventListener("load", function () {
+  //try {
+    //loadProducts();
+  //} catch (e) {
+    //console.log("error when loading data" + e);
+  //}
 
   // Check if a user is logged in
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
