@@ -21,7 +21,7 @@
           aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <span class="navbar-text d-none d-md-block"> Welcome Here </span>
+        <span class="navbar-text d-none d-md-block welcoming__message">Welcome to ITI Marketplace</span>
         <div class="collapse navbar-collapse justify-content-around justify-content-md-end" id="navbarText">
           <ul class="navbar-nav">
             <li class="nav-item">
@@ -29,10 +29,10 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href=" myWishlist.html">My Wishlist</a>
+              <a class="nav-link" href="wishList.html">My Wishlist</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Sign In</a>
+              <a class="nav-link user__check" href="login.html">Sign In</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="myOrders.html">My orders</a>
@@ -108,7 +108,7 @@
             <a class="activeNow" href="index.html">Home </a>
           </li>
           <li class="list-inline-item">
-            <a class="" href=" products.html">Products</a>
+            <a class="" href="productCatalog.html">Products</a>
           </li>
           <li class="list-inline-item">
             <a class="" href="About Us.html">About Us</a>
@@ -118,8 +118,18 @@
           </li>
         </ul>
       </div>
+
     </section> <!-- section1  -->
+
+    </section>
+    <span aria-live="polite" aria-atomic="true" class="toast-container position-absolute top-0 end-0 p-3" >
+      <span class="toast-container p-3" id="toastPlacement">
+        <!-- This is where the toast will be dynamically added -->
+      </span>
+    </span> <!-- section1  -->
+
     <section class=" px-3" id="hero">
+
       <div class="row pt-4 px-lg-3 justify-content-between">
         <div class=" col-xl-2 d-none d-xl-block px-1 ">
 
@@ -1493,7 +1503,7 @@
   <script src="js/JQuery-3.3.1.js"></script>
   <!-- <script src="js/popper.js"></script> -->
   <script src="js/bootstrap.bundle.js"></script>
-  <script src="js/home.js"></script>
+  <script type="module" src="js/home.js"></script>
 </body>
 
 </html>

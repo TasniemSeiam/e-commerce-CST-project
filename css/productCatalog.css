@@ -1,0 +1,374 @@
+:root {
+  --main-color: #fcb700;
+  --main-color-dark: #d69d00;
+  --dark-color: #222222;
+  --parg-color: #666666;
+  --dark-red: #d01418;
+  --border-color: #6666662a;
+  --name-item: #0066c0;
+  --success-message: #5cb85c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1rem; /* Using Bootstrap's base font size */
+  background-color: #fdfcfc;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.product__catalog {
+  text-align: center;
+}
+
+.product__catalog--title {
+  color: var(--main-color);
+  font-weight: 700;
+}
+
+.product__catalog--text {
+  color: var(--parg-color);
+  margin-bottom: 4rem;
+}
+
+.filter {
+  width: 20rem;
+  height: 24rem;
+  background-color: #ffffff;
+  box-shadow: 5px 5px 10px var(--border-color);
+  border: 2px solid var(--main-color);
+  padding: 15px;
+}
+
+.filter hr {
+  text-align: center;
+}
+
+.products .products__container {
+  width: calc(100% - 22rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5%;
+  min-height: 100vh; /* Ensures the container takes the full height of the viewport */
+  padding-bottom: 1rem; /* Adds some padding at the bottom */
+}
+
+.products .products__container .product {
+  width: 22%;
+  margin-bottom: 30px;
+}
+
+/* Product Card Style */
+.product {
+  position: relative;
+  background-color: #ffffff;
+  padding: 20px 30px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 5px 5px 10px var(--border-color);
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px; /* Added max-width for better control */
+  height: 375px; /* Fixed height for uniformity */
+  cursor: pointer;
+}
+
+.product .sale__percent {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: var(--dark-red);
+  color: #fff;
+  padding: 4px 12px;
+  font-size: 12px;
+  z-index: 2;
+}
+
+.product .icons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  right: -80px;
+  z-index: 3;
+  top: 40%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease-in-out;
+}
+
+.product:hover .icons {
+  right: 15px;
+}
+
+.product .icons i {
+  color: var(--dark-color);
+  background: #fff;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.product .icons i:hover {
+  background: var(--main-color);
+}
+
+.product .product__name {
+  font-size: 1.3rem;
+  max-height: 3em; /* Limit the height */
+  overflow: hidden; /* Hide the overflow */
+  text-overflow: ellipsis; /* Show ellipsis (...) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+}
+
+.product .product__name a {
+  color: var(--name-item);
+  font-size: 12px;
+}
+
+.product:hover .product__name a {
+  text-decoration: underline;
+}
+
+.product .product__image {
+  position: relative;
+  width: 100%;
+  height: 200px; /* Fixed height for the image container */
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.product .product__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensures the image covers the entire container */
+  transition: 0.3s ease-in-out;
+}
+
+.product .product__image .product__image--hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: scale(0.1);
+}
+
+.product:hover .product__image img {
+  opacity: 0;
+}
+.product:hover .product__image .product__image--hover {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.product__price {
+  display: flex;
+}
+
+.product__stars {
+  margin: 15px 0;
+}
+
+.product__stars i {
+  color: var(--main-color);
+}
+
+.product__price {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.old__price {
+  font-size: 0.9rem !important;
+}
+
+.price {
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.new__price {
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.product__price .old__price {
+  color: var(--parg-color);
+  text-decoration: line-through;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.filter__title {
+  font-weight: bold;
+}
+
+.categorie__select {
+  display: flex;
+  flex-direction: column;
+}
+
+.categorie__select li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px; /* Optional: Adds some space between list items */
+  font-weight: 600;
+}
+
+.search-bar {
+  display: flex;
+  position: absolute;
+  right: 171px;
+  top: 91%;
+}
+
+/* Ensure the form is aligned correctly */
+.form-group {
+  margin-bottom: 0;
+}
+
+/* Search bar styling */
+.search-bar {
+  display: flex;
+  position: absolute;
+  right: 11%; /* Adjust as needed */
+  top: 51%; /* Adjust as needed */
+  z-index: 10; /* Bring the search bar to the front */
+}
+
+/* Input container styling */
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Input field styling */
+.input-container input {
+  width: 300px; /* Set a fixed width */
+  padding: 0.5rem 0.8rem 0.5rem 2.2rem; /* Adjust padding to make space for the icon */
+  border: 1px solid #ced4da;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+/* Input field focus state */
+.input-container input:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem var(--main-color, 0.25);
+}
+
+/* Icon inside input field */
+.input-container i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d; /* Muted color for the icon */
+}
+
+.pagination__contaier {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 15px 20px;
+  cursor: pointer;
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.products .button__filter {
+  display: none;
+}
+
+@media (max-width: 1300px) {
+  .products .products__container .product {
+    width: 31%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .products .container {
+    position: relative;
+    padding-top: 60px;
+  }
+  .filter {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    width: 50%;
+    z-index: 1000;
+    display: none;
+  }
+
+  .filter.active {
+    z-index: 1000;
+    display: block;
+  }
+
+  .search-bar {
+    right: 2%;
+    top: 4%;
+  }
+
+  .products .products__container {
+    width: 100%;
+    gap: 0;
+    justify-content: space-between;
+  }
+
+  .products .button__filter {
+    display: block;
+    position: absolute;
+    top: 0;
+    padding: 7px 25px;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    font-size: 18px;
+    text-transform: capitalize;
+  }
+}
+
+@media (max-width: 790px) {
+  .products .products__container .product {
+    width: 48%;
+  }
+
+  .search-bar {
+    right: 4%;
+    top: 2.3%;
+  }
+}

@@ -16,15 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordSuccess = document.querySelector(
     ".validate__password--success"
   );
+  const taxError = document.querySelector(".validate__tax--error");
+  const taxSuccess = document.querySelector(".validate__tax--success");
 
   roleSelect.addEventListener("change", function () {
     roleSelect.value === "seller"
       ? taxContainer.classList.remove("container-hidden")
       : taxContainer.classList.add("container-hidden");
   });
-
-  const taxError = document.querySelector(".validate__tax--error");
-  const taxSuccess = document.querySelector(".validate__tax--success");
 
   // TOAST Functionality
   function showToast(message, success = true) {
@@ -116,14 +115,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function taxValidation() {
-    const isValid = /^\d{14}$/.test(taxInput.value);
+    const isValid =
+      roleSelect.value === "seller" ? /^\d{14}$/.test(taxInput.value) : true;
     showValidationMessage(
       taxInput,
       taxSuccess,
       taxError,
       isValid,
       "",
-      "Tax No. should be a 14-digit number."
+      "Invalid Tax Number"
     );
   }
 
@@ -155,6 +155,28 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
+  async function initializeUsers() {
+    // Fetch users from JSON file
+    try {
+      const response = await fetch("users.json");
+      const data = await response.json();
+      const jsonUsers = data.users;
+
+      // Retrieve existing users from local storage
+      const localStorageUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+      // Check if local storage is empty, then initialize it with JSON users
+      if (localStorageUsers.length === 0) {
+        localStorage.setItem("users", JSON.stringify(jsonUsers));
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  }
+
+  // Initialize users when the page loads
+  initializeUsers();
+
   // Submit Listener
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -172,38 +194,46 @@ document.addEventListener("DOMContentLoaded", function () {
     const tax = taxInput.value.trim();
 
     try {
-      let response = await fetch("users.json");
-      let data = await response.json();
-      let users = data.users;
+      // Retrieve existing users from local storage
+      let users = JSON.parse(localStorage.getItem("users")) || [];
 
-      const uniqueness = isUniqueUser(
-        users,
-        emailInput.value,
-        usernameInput.value,
-        taxInput.value
-      );
+      // Check for uniqueness
+      const uniqueness = isUniqueUser(users, email, username, tax);
 
       if (
         uniqueness.emailUnique &&
         uniqueness.usernameUnique &&
-        uniqueness.taxNoUnique
+        (uniqueness.taxNoUnique || role !== "seller")
       ) {
-        // if (users.role === 'seller') {
-
-        // }
-
         const newUser = {
+          id: users.length,
           email: email,
           username: username,
           password: password,
           role: role,
-          taxnumber: tax,
+          taxnumber: role === "seller" ? tax : "",
+          wishList: [],
+          orders: [],
         };
         users.push(newUser);
-        // Save The User in local storage
+
+        // Save the updated user list in local storage
         localStorage.setItem("users", JSON.stringify(users));
 
         signInModal();
+
+        // Reset form after successful submission
+        form.reset();
+
+        // Clear validation messages
+        emailSuccess.style.display = "none";
+        emailError.style.display = "none";
+        userNameSuccess.style.display = "none";
+        userNameError.style.display = "none";
+        passwordSuccess.style.display = "none";
+        passwordError.style.display = "none";
+        taxSuccess.style.display = "none";
+        taxError.style.display = "none";
 
         // Redirect or perform other actions upon successful sign-up
       } else {
@@ -228,8 +258,8 @@ document.addEventListener("DOMContentLoaded", function () {
             "Username is already in use."
           );
         }
-
-        if (!uniqueness.taxNoUnique) {
+        // only validation for seller
+        if (role === "seller" && !uniqueness.taxNoUnique) {
           showValidationMessage(
             taxInput,
             taxSuccess,
