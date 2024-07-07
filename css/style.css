@@ -2,6 +2,9 @@
   --textandhovercolor: #FCB700;
   --footerBGcolor: #394150;
 }
+body{
+  min-height: max-content;
+}
 .navbar .nav-link:after {
   content: " |";
   height: 12px;
