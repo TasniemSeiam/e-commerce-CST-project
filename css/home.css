@@ -1,6 +1,7 @@
 @import "../css/style.css";
 body {
-  background-color: #F5F6F9;
+  background-color: #f5f6f9;
+  min-height: max-content;
 }
 .ulsecond > ul > li > a {
   text-decoration: none;
@@ -27,18 +28,19 @@ body {
   z-index: 10;
   position: absolute;
   top: 7%;
-  left: 45%;
-  width: 55%;
+  left: 52%;
+  width: 50%;
 }
 .upperHero p {
   /* white-space: nowrap; */
-  width: 400px;
+  width: 300px !important;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   overflow: hidden;
-  text-align: center;
-  /* text-justify: inter-word; */
+  text-align: justify;
+
+  text-justify: inter-word;
   text-transform: capitalize;
   /* overflow: hidden;
   text-overflow: ellipsis; */
@@ -148,75 +150,7 @@ body {
 .features h6 {
   font-weight: bold;
 }
-@media all and (max-width: 900px) {
-  .upperHero {
-    width: 50%;
-  }
-  .upperHero p {
-    font-size: 0.8em;
-  }
-  .upperHero a {
-    font-size: 0.5em;
-    width: 100% !important;
-    margin-top: 0 !important;
-  }
-  .upperHero h3 {
-    font-size: 1.1em;
-  }
-  #hero {
-    height: max-content !important;
-    padding-bottom: 2rem;
-  }
-  #hero #carouselExampleIndicators {
-    height: 300px !important;
-  }
 
-  #secondNav > div > ul > li a {
-    font-size: 12px;
-  }
-  .bestSellingSec div h3 {
-    font-size: 80%;
-  }
-  .bestSellingSec > ul {
-    justify-content: start !important;
-  }
-  .bestSellingSec > ul > li > button {
-    font-size: 0.6rem !important;
-  }
-  .discounts .upperProductDis h5 {
-    font-size: 0.9rem;
-  }
-  .discounts .upperProductDis {
-    font-size: 0.8rem;
-  }
-  .addToCart {
-    font-size: 0.8rem !important;
-    width: 60% !important;
-  }
-  /* .cardProducts .card-body .card-title,
-  .cardOnsale .card .card-body .card-title {
-    width: 137px;
-    text-wrap: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .cardProducts .card-body .card-title:hover,
-  .cardOnsale .card .card-body .card-title:hover {
-    width: 137px;
-    text-wrap: wrap;
-    overflow: visible;
-  } */
-  .cardProducts .card-body > button {
-    font-size: 0.5rem !important;
-    width: 90%;
-    left: 7%;
-    animation: none !important;
-  }
-  .cardProducts .card-body > button:hover {
-    display: block;
-    animation: none !important;
-  }
-}
 /* @media all and (max-width:500){
   #hero{
     height: 10px!important;
@@ -242,13 +176,28 @@ body {
   font-size: 1rem;
   font-family: serif;
   /* height: 70px; */
-  display: -webkit-box;
+  /* display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 2; */
   overflow: hidden;
 }
-.cardOnsale .card .card-body{
-  height: 130px !important;
+.cardProducts .card-body .card-title {
+  height: 50px;
+}
+.cardOnsale .card .card-body .card-title {
+  /* display: -webkit-box;
+  -webkit-box-orient: vertical; */
+  /* -webkit-line-clamp: 2; */
+  height: 30px;
+  margin-bottom: 15px;
+  /* overflow: hidden; */
+}
+.cardOnsale {
+  padding: 3px;
+  height: 100%;
+}
+.cardOnsale .card .card-body {
+  height: 140px !important;
 }
 .cardProducts .card-body .card-title:hover,
 .cardOnsale .card .card-body .card-title:hover {
@@ -266,7 +215,8 @@ body {
   line-height: 2.8rem;
 }
 .cardProducts {
-  height: 100%;
+  /* height: 100%; */
+  height: 450px;
   padding: 10px;
   /* position: relative; */
   border: 1px solid #eee;
@@ -277,7 +227,7 @@ body {
   height: 250px !important;
 } */
 .cardOnsale .card .divsimg > img {
-  height: 120px !important;
+  height: 150px !important;
 }
 /* .wishlistHeart {
   font-size: 1.2rem;
@@ -350,19 +300,38 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid var(--textandhovercolor);
-  color: #707070;
+  color: #a9a9a9;
   background-color: #fff;
   display: block !important;
+  padding: 0.7em;
   transition: 0.3s ease-in-out;
 }
 .wishlistHeart:hover {
-  background-color: var(--textandhovercolor);
+  background-color: var(--textandhovercolor) !important;
   color: #fff !important;
+}
+.addedtowishlist {
+  background-color: var(--textandhovercolor)!important ;
+  color: #fff !important;
+  /* bottom: 5%;
+  z-index: 1; */
+}
+.addedtowishlist >i{
+  color: #fff !important;
+}
+.addtocartIcon,.addTofavIcon{
+  color: #a9a9a9;
+}
+.addtocart:hover >i 
+,.addtofav:hover >i{
+  /* background-color: var(--textandhovercolor) ; */
+  color: #fff !important;
+  /* width: 100%; */
 }
 .cardProducts:hover .addToCart {
   display: block !important;
   bottom: 5%;
-  z-index: 1;
+  z-index: 10;
 }
 .cardProducts:hover .card-body > ul > li,
 .cardProducts:hover .card-body > h6 {
@@ -370,7 +339,7 @@ body {
 }
 .cardProducts:hover .wishlistHeart {
   bottom: -10%;
-  z-index: 1;
+  z-index: 10;
 }
 .cardProducts:hover {
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
@@ -409,33 +378,111 @@ body {
 section {
   padding-top: 10px;
 }
-.flashDeals ul li button,.bestSellingSec ul li button{
+.flashDeals ul li button,
+.bestSellingSec ul li button {
   border: none !important;
   background: none;
   text-transform: capitalize;
 }
-body {
-  margin: 0;
-  padding: 0;
-  height: 2000px; /* Make the page scrollable */
+
+/** Responsive **/
+@media all and (max-width: 900px) {
+  .upperHero {
+    width: 50%;
+    /* left: 40%; */
+  }
+  .upperHero p {
+    font-size: 0.7em;
+    width: 80% !important;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+  .upperHero a {
+    font-size: 0.5em;
+    width: 80% !important;
+    margin-top: 0 !important;
+  }
+  .upperHero h3 {
+    font-size: 1.1em;
+  }
+  #hero {
+    height: max-content !important;
+    padding-bottom: 2rem;
+  }
+  #hero #carouselExampleIndicators {
+    height: 300px !important;
+  }
+
+  #secondNav > div > ul > li a {
+    font-size: 12px;
+  }
+  .bestSellingSec div h3 {
+    font-size: 80%;
+  }
+  .bestSellingSec > ul {
+    justify-content: start !important;
+  }
+  .bestSellingSec > ul > li > button {
+    font-size: 0.6rem !important;
+  }
+  .discounts .upperProductDis h5 {
+    font-size: 0.9rem;
+  }
+  .discounts .upperProductDis {
+    font-size: 0.8rem;
+  }
+  .addToCart {
+    font-size: 0.8rem !important;
+    width: 60% !important;
+  }
+  /* .cardProducts .card-body .card-title,
+  .cardOnsale .card .card-body .card-title {
+    width: 137px;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cardProducts .card-body .card-title:hover,
+  .cardOnsale .card .card-body .card-title:hover {
+    width: 137px;
+    text-wrap: wrap;
+    overflow: visible;
+  } */
+  .cardProducts .card-body > button {
+    font-size: 0.5rem !important;
+    width: 90%;
+    left: 7%;
+    animation: none !important;
+  }
+  .cardProducts .card-body > button:hover {
+    display: block;
+    animation: none !important;
+  }
+}
+@media all and (min-width: 0px) {
+  .cardOnsale .card {
+    /* height: 300px; */
+    height: 350px !important;
+  }
+}
+@media all and (min-width: 770px) {
+  .cardOnsale .card {
+    /* height: 300px; */
+    height: 200px !important;
+  }
 }
 
-.progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background-color: #ccc;
-  z-index: 1;
-}
+/********back to top*********************/
 
 #backToTopBtn {
   position: fixed;
   bottom: 20px;
   right: 20px;
   display: none;
-  background-color:transparent;
+  background-color: transparent;
   border: 2px solid var(--textandhovercolor);
   padding: 10px 16px;
   text-align: center;
@@ -443,7 +490,11 @@ body {
   border-radius: 50%;
   z-index: 10;
 }
-.ifFocused{
+.imgrigthero {
+  height: 250px;
+  padding: 10px;
+}
+/* .ifFocused{
   background: #00000060;
   z-index: 11;
   width: 100%;
@@ -452,4 +503,4 @@ body {
   top: 140px;
   left: 0;
   display: none;
-}
+} */

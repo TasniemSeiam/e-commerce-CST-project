@@ -5,12 +5,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link href="css/bootstrap.css" rel="stylesheet" />
   <link href="css/font-awesome.css" rel="stylesheet" />
   <link href="css/all.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="./css/home.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -94,10 +94,10 @@
           <a href="cart.html" class="rounded-circle divofCart px-3 py-3"><i
               class="fas fa-shopping-bag text-black"></i></a>
           <div class="rounded-circle numoforderCat bg-warning px-2 text-center">
-            0
+            <span id="cartCount" >0</span>
           </div>
         </div>
-        <p class="ms-3">My carts: 0</p>
+        <p class="ms-3">My carts: <span id="cartTotalPrice" >0</span></p>
       </div>
       <!-- 2 -->
     </header>
@@ -119,7 +119,6 @@
         </ul>
       </div>
     </section> <!-- section1  -->
-    <div class="ifFocused"></div>
     <section class=" px-3" id="hero">
       <div class="row pt-4 px-lg-3 justify-content-between">
         <div class=" col-xl-2 d-none d-xl-block px-1 ">
@@ -180,12 +179,12 @@
           </div>
         </div> <!-- end carsoul -->
 
-        <div class="col-2 d-flex d-none d-xl-block flex-column align-items-center overflow-hidden  h-100 ">
-          <div class="bg-light col-6 mb-1 w-100 imgrigthero rounded-3 overflow-hidden position-relative">
+        <div class="col-2 d-flex d-none d-xl-block flex-column align-items-center  overflow-hidden  h-100 " style="height: 70vh !important;" >
+          <div class="bg-white col-6 mb-1 w-100 imgrigthero rounded-3 overflow-hidden position-relative">
             <img src="./images/banner/banner-sm-1.jpg" class="w-100 h-100" alt="">
             <p class="position-absolute top-50 text-white bg-black bg-opacity-50 p-2 fw-bold "></p>
           </div>
-          <div class="bg-light col-6 w-100 imgrigthero position-relative rounded-3 overflow-hidden">
+          <div class="bg-white col-6  w-100 imgrigthero mt-4 position-relative rounded-3 overflow-hidden">
             <img src="./images/banner/banner-sm-1.jpg" class="w-100 h-100" alt="">
             <p class="position-absolute top-50 text-white bg-black bg-opacity-50 p-2 fw-bold "></p>
           </div>
@@ -1032,10 +1031,6 @@
                                   Cart</button>
                               </div>
                             </div>
-
-                          </div>
-                          <!--  -->
-
                           </div><!--  --
 
                         </div>
@@ -1317,7 +1312,7 @@
           </div>
 
         </div>
-        <div class="row">
+        <div class="row ">
           <!-- <div class="col-6 col-lg-4 cardOnsale">
             <div class="card mb-3" style="max-width: 540px;">
               <div class="row g-0">
@@ -1489,12 +1484,12 @@
 
     <button id="backToTopBtn">
       <i class="fa-solid fa-arrow-up"></i>
-    </button> back to top
+    </button>
 
   </div>
   <!-- end container fluid all page -->
 
-
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="js/JQuery-3.3.1.js"></script>
   <!-- <script src="js/popper.js"></script> -->
   <script src="js/bootstrap.bundle.js"></script>
