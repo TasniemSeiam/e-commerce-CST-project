@@ -2,36 +2,112 @@ document.addEventListener("DOMContentLoaded", function () {
   const contentDiv = document.getElementById("content");
 
   const sections = {
-    dashboard: `<h2>Dashboard</h2><p>Welcome to the Seller Dashboard!</p>`,
+    dashboard: `<h2>Dashboard</h2><p class="text-muted mt-n3 ml-5">powered by canvas</p>
+    <div class="chart-container">
+        <canvas id="productCategoriesChart" width="450" height="450"></canvas>
+    </div>`,
     products: `
       <h2>All Products</h2>
-      <table class="table">
+       <div class="search">
+        <input
+          type="search"
+          placeholder="search for products..."
+          aria-label="Search"
+          class="form-control w-55 border-1 border-warning p-2"
+          oninput="searchTable('product-tbody')"
+        />
+      </div>
+      <table class="table" id="products-table">
         <thead>
           <tr>
-            <th>ID</th>
+            <th class="hide-column">Image</th>
             <th>Name</th>
             <th>Price</th>
             <th>Edit</th>
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Product A</td>
-            <td>$10.00</td>
-            <td>Edit</td>
-            <td>X</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Product B</td>
-            <td>$20.00</td>
-            <td>Edit</td>
-            <td>X</td>
-          </tr>
+        <tbody id="product-tbody">
         </tbody>
       </table>
+      <div id="search-message"></div>
+    `,
+    newProduct: `
+    <h2>Add a new Product</h2>
+    <div class="col-12 col-md-6">
+      <label for="pname"> Product Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="pname"
+        name="pname"
+        placeholder="Enter your Product name here..."
+        required
+      />
+      <div id="pnameError" class="error"></div>
+      <label for="desc"> Description</label>
+      <textarea
+        rows="3"
+        class="form-control"
+        id="desc"
+        name="desc"
+        class="desc"
+        placeholder="Product description..."
+        required
+      ></textarea>
+      <div id="descError" class="error"></div>
+      <div class="price">
+        <label for="price"> Price</label>
+        <input
+          type="number"
+          class="form-control"
+          id="price"
+          name="price"
+          required
+        />
+        <div id="priceError" class="error"></div>
+        <label for="discPrice"> Discounted Price</label>
+        <input type="number" class="form-control" id="discPrice" name="discPrice" />
+        <div id="discPriceError" class="error"></div>
+      </div>
+      <div class="category">
+        <label for="category">Category: </label>
+        <select name="category" id="category" class="category" required>
+            <option value="">Select Your Category</option>
+            <option value="men's clothing">men's clothing</option>
+            <option value="jewelery">jewelery</option>
+            <option value="electronics">electronics</option>
+            <option value="women's clothing">women's clothing</option>
+            <option value="mobile phones">mobile phones</option>
+            <option value="furniture">furniture</option>
+            <option value="cosmetics">cosmetics</option>
+        </select>
+        <div id="categoryError" class="error"></div>
+      </div>
+      <div class="rating">
+        <label for="rate"> Rating</label>
+        <input
+          type="number"
+          class="form-control"
+          id="rate"
+          name="rate"
+          placeholder="Order Rate from 5"
+          min="1"
+          max="5"
+          required
+        />
+        <div id="rateError" class="error"></div>
+        <label for="count">Product Quantity</label>
+        <input type="number" class="form-control" id="count" name="count" />
+        <div id="countError" class="error"></div>
+      </div>
+      <div class="imgUpload">
+        <label for="images">Upload Your Product Images</label>
+        <input type="file" name="images" id="images" multiple required>
+        <div id="imagesError" class="error"></div>
+      </div>
+      <button class="btn save-product" id="save-product-btn">Save your product</button>
+    </div>
     `,
     orders: `
       <h2>All Orders</h2>
@@ -64,6 +140,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function displayContent(section) {
     contentDiv.innerHTML = sections[section];
+    if (section === "dashboard") {
+      displayProductCategoriesChart();
+    }
   }
 
   function setActiveButton(activeButtonId) {
@@ -74,6 +153,276 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById(activeButtonId).classList.add("active");
   }
 
+  const productsData = JSON.parse(localStorage.getItem("products")) || [];
+
+  function fetchProducts() {
+    const productTbody = document.getElementById("product-tbody");
+    productTbody.innerHTML = "";
+    if (productsData && Array.isArray(productsData)) {
+      productsData.forEach((product) => {
+        const row = document.createElement("tr");
+        row.setAttribute("data-id", product.id);
+        row.innerHTML = `
+              <td class="hide-column"><img src="${product.image[0]}" alt="${
+          product.title
+        }" width="80" height="80"></td>
+              <td>${product.title}</td>
+              <td>$${product.discount.toFixed(2)}</td>
+              <td><button class="btn btn-success btn-sm">Edit</button></td>
+              <td><button class="btn btn-danger btn-sm">Delete</button></td>
+            `;
+        const deleteButton = row.querySelector(".btn-danger");
+        deleteButton.addEventListener("click", () => deleteProduct(product.id));
+        productTbody.appendChild(row);
+      });
+    } else {
+      productTbody.innerHTML =
+        "<tr><td colspan='5'>No products found.</td></tr>";
+    }
+  }
+
+  function deleteProduct(id) {
+    const products = JSON.parse(localStorage.getItem("products"));
+    const productIndex = products.findIndex((product) => product.id === id);
+
+    if (productIndex !== -1) {
+      if (confirm("Are you sure you want to delete this product?")) {
+        const updatedProducts = [...products];
+        updatedProducts.splice(productIndex, 1);
+
+        localStorage.setItem("products", JSON.stringify(updatedProducts));
+        // Remove the row from the DOM
+        const row = document.querySelector(`tr[data-id='${id}']`);
+        if (row) {
+          row.remove();
+        }
+      }
+    } else {
+      console.error("Product with id", id, "not found");
+    }
+  }
+
+  function openEditModal(product) {
+    $("#editProductModal").modal("show");
+    document.getElementById("edit-pname").value = product.title;
+    document.getElementById("edit-desc").value = product.description;
+    document.getElementById("edit-price").value = product.price;
+    document.getElementById("edit-discPrice").value = product.discount;
+    document.getElementById("edit-category").value = product.category;
+    document.getElementById("edit-rate").value = product.rating.rate;
+    document.getElementById("edit-count").value = product.rating.count;
+    document.getElementById("edit-product-form").dataset.productId = product.id;
+  }
+
+  function saveChanges(event) {
+    event.preventDefault();
+    const productId = parseInt(
+      document.getElementById("edit-product-form").dataset.productId
+    );
+    const pname = document.getElementById("edit-pname").value;
+    const desc = document.getElementById("edit-desc").value;
+    const price = parseFloat(document.getElementById("edit-price").value);
+    const discPrice = parseFloat(
+      document.getElementById("edit-discPrice").value
+    );
+    const category = document.getElementById("edit-category").value;
+    const rate = parseFloat(document.getElementById("edit-rate").value);
+    const count = parseInt(document.getElementById("edit-count").value);
+    const images = document.getElementById("edit-images").files;
+
+    // Validate the discounted price
+    if (discPrice >= price) {
+      document.getElementById(
+        "edit-discPriceError"
+      ).textContent = `Discounted price must be less than ${price}`;
+      return; // Prevent form submission
+    }
+
+    let product = productsData.find((p) => p.id === productId);
+
+    if (product) {
+      product.title = pname;
+      product.description = desc;
+      product.price = price;
+      product.discount = discPrice;
+      product.category = category;
+      product.rating.rate = rate;
+      product.rating.count = count;
+
+      if (images.length > 0) {
+        const readImagesAsBase64 = async () => {
+          const imageUrls = [];
+          for (const image of images) {
+            const base64String = await toBase64(image);
+            imageUrls.push(base64String);
+          }
+          return imageUrls;
+        };
+
+        const toBase64 = (file) =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+          });
+
+        readImagesAsBase64().then((imageUrls) => {
+          product.image = imageUrls;
+          localStorage.setItem("products", JSON.stringify(productsData));
+          fetchProducts();
+          $("#editProductModal").modal("hide");
+        });
+      } else {
+        localStorage.setItem("products", JSON.stringify(productsData));
+        fetchProducts();
+        $("#editProductModal").modal("hide");
+      }
+    }
+  }
+
+  function addProduct() {
+    const pname = document.getElementById("pname").value;
+    const desc = document.getElementById("desc").value;
+    const price = parseFloat(document.getElementById("price").value);
+    const discPrice = parseFloat(document.getElementById("discPrice").value);
+    const category = document.getElementById("category").value;
+    const rate = parseFloat(document.getElementById("rate").value);
+    const count = parseInt(document.getElementById("count").value);
+    const images = document.getElementById("images").files;
+
+    let isValid = true;
+
+    // Clear previous error messages
+    document.getElementById("pnameError").textContent = "";
+    document.getElementById("descError").textContent = "";
+    document.getElementById("priceError").textContent = "";
+    document.getElementById("discPriceError").textContent = "";
+    document.getElementById("categoryError").textContent = "";
+    document.getElementById("rateError").textContent = "";
+    document.getElementById("countError").textContent = "";
+    document.getElementById("imagesError").textContent = "";
+
+    // Validate inputs
+    if (!pname) {
+      document.getElementById("pnameError").textContent =
+        "You must enter a product name.";
+      isValid = false;
+    }
+    if (!desc) {
+      document.getElementById("descError").textContent =
+        "You must enter a description.";
+      isValid = false;
+    }
+    if (!price) {
+      document.getElementById("priceError").textContent =
+        "You must enter a price.";
+      isValid = false;
+    }
+    if (!discPrice) {
+      document.getElementById("discPriceError").textContent =
+        "You must enter a discounted price.";
+      isValid = false;
+    }
+    if (price < discPrice) {
+      document.getElementById(
+        "discPriceError"
+      ).textContent = `Discounted price must be less than ${price}`;
+      isValid = false;
+    }
+    if (!category) {
+      document.getElementById("categoryError").textContent =
+        "You must select a category.";
+      isValid = false;
+    }
+    if (!rate || rate > 5 || rate < 1) {
+      document.getElementById("rateError").textContent =
+        "You must enter a rating from 1 to 5.";
+      isValid = false;
+    }
+    if (!count) {
+      document.getElementById("countError").textContent =
+        "Your product quantity must be greater than zero.";
+      isValid = false;
+    }
+    if (images.length < 2) {
+      document.getElementById("imagesError").textContent =
+        "Please upload at least two images.";
+      isValid = false;
+    }
+
+    // Check if the product name already exists
+    const existingProduct = productsData.find(
+      (product) => product.title.toLowerCase() === pname.toLowerCase()
+    );
+    if (existingProduct) {
+      document.getElementById("pnameError").textContent =
+        "This product name is already taken.";
+      isValid = false;
+    }
+
+    if (!isValid) {
+      return;
+    }
+
+    const readImagesAsBase64 = async () => {
+      const imageUrls = [];
+      for (const image of images) {
+        const base64String = await toBase64(image);
+        imageUrls.push(base64String);
+      }
+      return imageUrls;
+    };
+
+    const toBase64 = (file) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+
+    readImagesAsBase64().then((imageUrls) => {
+      const newProduct = {
+        id: Date.now(),
+        title: pname,
+        description: desc,
+        price: price,
+        discount: discPrice,
+        category: category,
+        rating: { rate: rate, count: count },
+        image: imageUrls,
+      };
+
+      productsData.push(newProduct);
+      localStorage.setItem("products", JSON.stringify(productsData));
+      alert("Product added successfully!");
+      displayContent("products");
+      fetchProducts();
+      setActiveButton("products-btn");
+    });
+  }
+
+  document
+    .getElementById("edit-product-form")
+    .addEventListener("submit", saveChanges);
+
+  document
+    .getElementById("products-btn")
+    .addEventListener("click", function () {
+      displayContent("products");
+      setActiveButton("products-btn");
+      fetchProducts();
+
+      document.querySelectorAll(".btn-success").forEach((button) => {
+        button.addEventListener("click", function (e) {
+          const productId = parseInt(e.target.closest("tr").dataset.id);
+          const product = productsData.find((p) => p.id === productId);
+          openEditModal(product);
+        });
+      });
+    });
+
   document
     .getElementById("dashboard-btn")
     .addEventListener("click", function () {
@@ -82,10 +431,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   document
-    .getElementById("products-btn")
+    .getElementById("new-product-btn")
     .addEventListener("click", function () {
-      displayContent("products");
-      setActiveButton("products-btn");
+      displayContent("newProduct");
+      setActiveButton("new-product-btn");
+
+      document
+        .getElementById("save-product-btn")
+        .addEventListener("click", addProduct);
     });
 
   document.getElementById("orders-btn").addEventListener("click", function () {
@@ -96,3 +449,80 @@ document.addEventListener("DOMContentLoaded", function () {
   // Display dashboard content by default
   displayContent("dashboard");
 });
+
+function searchTable(tbodyId) {
+  let input, filter, table, tr, td, i, j, txtValue;
+  input = document.querySelector(".search input");
+  filter = input.value.toUpperCase();
+  table = document.getElementById(tbodyId).parentNode;
+  tr = table.getElementsByTagName("tr");
+
+  for (i = 1; i < tr.length; i++) {
+    // start from 1 to skip header row
+    tr[i].style.display = "none";
+    td = tr[i].getElementsByTagName("td");
+    for (j = 0; j < td.length; j++) {
+      if (td[j]) {
+        txtValue = td[j].textContent || td[j].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        }
+      }
+    }
+  }
+  // Search filter
+  let matchingRecords = 0;
+  for (i = 1; i < tr.length; i++) {
+    // start from 1 to skip header row
+    if (tr[i].style.display !== "none") {
+      matchingRecords++;
+    }
+  }
+
+  if (matchingRecords === 0) {
+    document.getElementById("search-message").innerHTML =
+      "No matching data found.";
+  } else {
+    document.getElementById("search-message").innerHTML = "";
+  }
+}
+
+// display Product Categories Pie Chart
+function displayProductCategoriesChart() {
+  const productsData = JSON.parse(localStorage.getItem("products"));
+  const categoriesCount = productsData.reduce((acc, product) => {
+    acc[product.category] = (acc[product.category] || 0) + 1;
+    return acc;
+  }, {});
+
+  const categoryLabels = Object.keys(categoriesCount);
+  const categoryValues = Object.values(categoriesCount);
+
+  new Chart(document.getElementById("productCategoriesChart"), {
+    type: "pie",
+    data: {
+      labels: categoryLabels,
+      datasets: [
+        {
+          backgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#4BC0C0",
+            "#9966FF",
+            "#1611AA",
+            "#FF5317",
+          ],
+          data: categoryValues,
+        },
+      ],
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Products by Category",
+      },
+    },
+  });
+}

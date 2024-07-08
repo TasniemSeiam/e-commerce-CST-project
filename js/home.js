@@ -1,7 +1,7 @@
 import { showToastUser } from "./config.js";
 
 let categoriesarr = [],
-  productsarr = [];
+  productsarr = []; // =>
 let selsectSearch = document.querySelector(".selsectSearch");
 let searchInput = document.querySelector(".searchInput");
 let showCategories = document.querySelector(".showCategories");
@@ -21,7 +21,6 @@ let getProduct = JSON.parse(localStorage.getItem("products"));
 
 let checkLogOut = document.querySelector(".user__check");
 let welcomeMessage = document.querySelector(".welcoming__message");
-
 addEventListener("load", async function () {
   try {
     await loadProducts();
@@ -366,7 +365,6 @@ function sillingProduct() {
     ".divOFbestselleng .divOFbestsellengProduct1 .carousel-item .row"
   )[0];
   silingProductFromstart(0, 5, getProduct, carouselItemDiv1);
-
   let carouselItemDiv2 = document.querySelectorAll(
     ".divOFbestselleng .divOFbestsellengProduct1 .carousel-item .row"
   )[1];
