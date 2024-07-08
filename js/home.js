@@ -689,7 +689,7 @@ async function addToWishlist(productId, btn) {
 
 
 function wishListUpdated(_wishList, _productId) {
-  let product = products.find((product) => product.id === _productId);
+  let product = getProduct.find((product) => product.id === _productId);
   // if (_wishList.includes(_productId))  {
   if (_wishList.some((item) => item.id === _productId)) {
     updatedWishlist = _wishList.filter((item) => item.id !== _productId);
