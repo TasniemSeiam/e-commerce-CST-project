@@ -29,6 +29,7 @@ addEventListener("load", async function () {
     console.log("error when loading data" + e);
   }
 
+
   // Check if a user is logged in
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (currentUser) {
