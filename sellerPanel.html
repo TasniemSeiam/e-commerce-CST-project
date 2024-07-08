@@ -20,7 +20,7 @@
     />
     <style>
       .container-fluid p {
-        color: blue;
+        color: #fcb700;
         margin: 0px 90px;
         font-size: large;
         font-weight: 600;
@@ -62,24 +62,102 @@
         background-color: black;
         color: white;
       }
+
+      .price,
+      .rating {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .category {
+        margin-top: 10px;
+      }
+
+      .imgUpload {
+        margin-top: 10px;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .imgUpload input {
+        border: 1px solid rgb(202, 198, 198);
+        border-radius: 10px;
+        padding: 5px;
+      }
+
+      .save-product {
+        margin-top: 10px;
+        width: 100%;
+        border: 1px solid gray;
+        border-radius: 10px;
+        transition: 0.5s;
+      }
+
+      .save-product:hover {
+        background-color: #fab700;
+      }
+
+      .error {
+        color: red;
+        font-size: 12px;
+        margin-top: -10px;
+      }
+
+      input {
+        margin-bottom: 20px;
+      }
+
+      textarea {
+        margin-bottom: 10px;
+      }
+
+      .category {
+        margin-bottom: 10px;
+      }
+
+      .chart-container {
+        display: flex;
+      }
+
+      canvas {
+        max-width: 50%;
+        max-height: 100%;
+        display: block;
+        margin: 0 auto;
+      }
+
+      @media (max-width: 650px) {
+        .full-container {
+          display: flex;
+          flex-direction: column;
+        }
+        .hide-column {
+          display: none;
+        }
+        .all-products-table,
+        .all-users-table {
+          font-size: small;
+        }
+        .table {
+          margin-left: -20px;
+        }
+        .chart-container {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+        canvas {
+          max-width: 100%;
+        }
+      }
     </style>
   </head>
   <body>
     
     <nav class="navbar navbar-expand-sm navbar-light border-bottom">
       <div class="container-fluid">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarText"
-          aria-controls="navbarText"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <span class="navbar-text d-none d-md-block">
+        <span class="navbar-text">
           <a href="index.html" class="col-12 col-md-2">
             <img src="./images/logo-black.png" alt="" />
           </a>
@@ -117,11 +195,124 @@
       <div class="left">
         <button id="dashboard-btn" class="active">Seller Dashboard</button>
         <button id="products-btn">All Products</button>
+        <button id="new-product-btn">Add a new Product</button>
         <button id="orders-btn">All Orders</button>
       </div>
       <hr />
       <div class="right" id="content">
         <!-- Content will be displayed here -->
+      </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div
+      class="modal fade"
+      id="editProductModal"
+      tabindex="-1"
+      aria-labelledby="editProductModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+            <button
+              type="button"
+              class="close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="edit-product-form">
+              <div class="form-group">
+                <label for="edit-pname">Product Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="edit-pname"
+                  required
+                />
+                <div id="edit-prodNameError" class="error"></div>
+              </div>
+              <div class="form-group">
+                <label for="edit-desc">Description</label>
+                <textarea
+                  class="form-control"
+                  id="edit-desc"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="edit-price">Price</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="edit-price"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="edit-discPrice">Discounted Price</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="edit-discPrice"
+                  required
+                />
+                <div id="edit-discPriceError" class="error"></div>
+              </div>
+              <div class="form-group">
+                <label for="edit-category">Category</label>
+                <select class="form-control" id="edit-category" required>
+                  <option value="">Select Category</option>
+                  <option value="men's clothing">Men's Clothing</option>
+                  <option value="jewelery">Jewelery</option>
+                  <option value="electronics">Electronics</option>
+                  <option value="women's clothing">Women's Clothing</option>
+                  <option value="mobile phones">Mobile Phones</option>
+                  <option value="furniture">Furniture</option>
+                  <option value="cosmetics">Cosmetics</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="edit-rate">Rating</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="edit-rate"
+                  min="1"
+                  max="5"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="edit-count">Quantity</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="edit-count"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="edit-images">Product Images</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="edit-images"
+                  multiple
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Save Changes
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -143,6 +334,7 @@
     <script src="js/JQuery-3.3.1.js"></script>
     <!-- <script src="js/popper.js"></script> -->
     <script src="js/bootstrap.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./js/sellerPanel.js"></script>
   </body>
 </html>
