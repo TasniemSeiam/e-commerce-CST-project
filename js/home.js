@@ -1,7 +1,7 @@
 import { showToastUser, currentUser } from "./config.js";
 
-let categoriesarr = [],
-  productsarr = []; // =>
+let categoriesarr = [];
+  // productsarr = []; // =>
 let selsectSearch = document.querySelector(".selsectSearch");
 let searchInput = document.querySelector(".searchInput");
 let showCategories = document.querySelector(".showCategories");
@@ -191,7 +191,7 @@ function displayProduct(product, _location) {
   let productCard = document.createElement("div");
   productCard.className = "card text-center cardProducts";
   productCard.setAttribute("id", `pro${product.id}`);
-  divHeart = document.createElement("div");
+  let divHeart = document.createElement("div");
   divHeart.className = "position-relative divheart";
   let imgsDiv = document.createElement("div");
   imgsDiv.className = "imgsDiv position-relative p-1";
@@ -206,7 +206,7 @@ function displayProduct(product, _location) {
   let wishlistBtn = document.createElement("span");
   wishlistBtn.title = "add to wishlist";
 
-  wishListBtnStates(wishlistBtn, product);
+  // wishListBtnStates(wishlistBtn, product);
   let productCount = document.createElement("div");
   productCount.className =
     "productCount bg-danger text-center rounded-top text-white";
@@ -316,7 +316,7 @@ function randomproduct(getproduct, num) {
     let newprod = getProduct.slice();
     randomProducts.push(newprod.splice(randomIndex, 1)[0]);
   }
-  console.log("random array " + randomProducts); // array of random products
+  // console.log("random array " + randomProducts); // array of random products
   return randomProducts; // array of random products
 }
 
@@ -394,7 +394,7 @@ function sillingProduct() {
     carouselItemnewArrival2
   );
 
-  //random product
+  // //random product
   let carouselItemRandom1 = document.querySelectorAll(
     ".divOFRandom .divOFbestsellengrandom .carousel-item .row"
   )[0];
@@ -537,7 +537,7 @@ function onSale(products) {
     let addTofavBtn = document.createElement("button");
     addTofavBtn.className = "addtofav ";
 
-    wishListBtnStates(addTofavBtn, product);
+    // wishListBtnStates(addTofavBtn, product);
 
     // const wishlistBtnState = localStorage.getItem('wishlist-btn-state') || [];
     // let btnStateObj = {};
@@ -727,24 +727,24 @@ function wishListUpdated(_wishList, _productId) {
 //     }
 // }
 
-async function wishListBtnStates(_wishListBtn, _data) {
-  const wishlistBtnState = localStorage.getItem("wishlist-btn-state") || [];
-  let btnStateObj = {};
+// async function wishListBtnStates(_wishListBtn, _data) {
+//   const wishlistBtnState = localStorage.getItem("wishlist-btn-state") || [];
+//   let btnStateObj = {};
 
-  if (wishlistBtnState) {
-    btnStateObj = await JSON.parse(wishlistBtnState);
-  }
-  if (wishlistBtnState.indexOf(_data.id) !== -1) {
-    if (btnStateObj[_data.id]) {
-      _wishListBtn.classList.add = "addedtowishlist ";
+//   if (wishlistBtnState) {
+//     btnStateObj = await JSON.parse(wishlistBtnState);
+//   }
+//   if (wishlistBtnState.indexOf(_data.id) !== -1) {
+//     if (btnStateObj[_data.id]) {
+//       _wishListBtn.classList.add = "addedtowishlist ";
 
-      // addTofavBtn.className = "addtofav addedtowishlist "
-    } else {
-      // addTofavBtn.className = "addtofav"
-      _wishListBtn.classList.remove = "addedtowishlist";
-    }
-  }
-}
+//       // addTofavBtn.className = "addtofav addedtowishlist "
+//     } else {
+//       // addTofavBtn.className = "addtofav"
+//       _wishListBtn.classList.remove = "addedtowishlist";
+//     }
+//   }
+// }
 
 // Show button when user scrolls down
 const backToTopBtn = document.getElementById("backToTopBtn");
