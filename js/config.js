@@ -58,3 +58,32 @@ export function showToastUser(message, success = true, timeout = 3000) {
     bootstrapToast.hide();
   }, timeout);
 }
+
+// Current User Functionality
+export function currentUser() {
+  let checkLogOut = document.querySelector(".user__check");
+  let welcomeMessage = document.querySelector(".welcoming__message");
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (currentUser) {
+    const loginMessage = localStorage.getItem("loginMessage");
+    if (loginMessage) {
+      // Display the toast message
+      showToastUser(loginMessage, true, 2000);
+      // Clear the login message from localStorage
+      localStorage.removeItem("loginMessage");
+    }
+    checkLogOut.innerHTML = "Logout";
+    welcomeMessage.innerHTML = `Welcome Back ${currentUser.username} 👋`;
+  }
+
+  // Logout functionality
+  if (currentUser) {
+    checkLogOut.addEventListener("click", function () {
+      localStorage.removeItem("currentUser");
+      localStorage.setItem("logoutMessage", "You have been logged out.");
+      checkLogOut.innerHTML = "Sign-In";
+      welcomeMessage.innerHTML = "Welcome to ITI Marketplace";
+      window.location.href = "login.html"; // Redirect to login page
+    });
+  }
+}

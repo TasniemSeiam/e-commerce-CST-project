@@ -57,6 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Check If The email is an existing one
         if (user) {
           localStorage.setItem("currentUser", JSON.stringify(user));
+          localStorage.setItem(
+            "loginMessage",
+            "Welcome! You have successfully logged in."
+          );
 
           // Redirect upon successful Login
           if (user.role === "seller") {
