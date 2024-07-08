@@ -84,7 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
       });
 
-      // Add click event listener to each product element
+      //IMPORTANT
+      // Redirect to Product Details After after clicking on certain one
       document.querySelectorAll(".product").forEach((productElement) => {
         productElement.addEventListener("click", function () {
           const productId = this.getAttribute("data-id");
@@ -92,10 +93,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
     }
-
     function redirectToProductDetails(productId) {
       window.location.href = `productdetalis.html?id=${productId}`;
-    }
+    } // End OF redirection
 
     // Initial rendering of products
     filteredProducts = products; // Start with all products
