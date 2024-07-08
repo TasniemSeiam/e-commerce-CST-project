@@ -1,6 +1,9 @@
 :root {
-  --textandhovercolor: #FCB700;
+  --textandhovercolor: #fcb700;
   --footerBGcolor: #394150;
+}
+body {
+  min-height: max-content;
 }
 .navbar .nav-link:after {
   content: " |";
@@ -9,15 +12,14 @@
   margin-left: 1rem;
 }
 .nav-link:hover,
-.ulsecond>ul > li > a:hover,
+.ulsecond > ul > li > a:hover,
 footer ul > li > a:hover {
   color: var(--textandhovercolor) !important;
   transition: all 0.5s;
 }
-.selsectSearch option{
+.selsectSearch option {
   text-align: start;
   text-transform: capitalize;
-  
 }
 
 .numoforderCat {
@@ -42,26 +44,26 @@ footer ul > li > a:hover {
 .divofCart:hover i {
   color: #fff !important;
 }
+/**************** start footer********/
 footer {
   background-color: var(--footerBGcolor);
   padding: 50px 0;
-  color: #eee;
+  color: #eee !important;
 }
-footer ul>li{
+footer ul > li {
   list-style: none !important;
 }
-.activeNow{
+.activeNow {
   color: var(--textandhovercolor) !important;
 }
 @media all and (max-width: 900px) {
-  .searchInpt select{
+  .searchInpt select {
     font-size: 70%;
   }
-  .searchInpt input{
+  .searchInpt input {
     font-size: 70%;
   }
-  .searchInpt button{
+  .searchInpt button {
     font-size: 70%;
   }
- 
 }

@@ -94,8 +94,8 @@
             <th>Remove</th>
           </tr>
         </thead>
-        <tbody id="cartItems">
-          <tr>
+        <tbody>
+          <!-- <tr>
             <td class="d-none d-md-table-cell d-flex align-items-center">
               <img
                 class="rounded-circle img-fluid"
@@ -129,11 +129,53 @@
             </td>
             <td class="fw-bold mb-1 total-price">$ 130.00</td>
             <td class="">
-              <button type="button" class="btn btn-sm fw-bold remove-item">
+              <button type="button" class="btn btn-sm fw-bold">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td> -->
+          <!-- </tr>
+          <tr>
+            <td class="d-none d-md-table-cell d-flex align-items-center">
+              <img
+                class="rounded-circle img-fluid"
+                style="width: 100px; height: 100px"
+                src="./images/product/product1.jpg"
+                alt=""
+              />
+            </td>
+            <td class="fw-bold mb-1">Iphone X</td>
+            <td class="fw-bold mb-1 unit-price">$ 130.00</td>
+            <td>
+              <div class="d-flex align-items-center justify-content-center">
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  onclick="decrementQuantity()"
+                >
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <input
+                  type="text"
+                  class="form-control mx-2"
+                  id="quantity"
+                  value="1"
+                  style="width: 45px"
+                  onchange="updateTotalPrice()"
+                />
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  onclick="incrementQuantity()"
+                >
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </td>
+            <td class="fw-bold mb-1 total-price">$ 130.00</td>
+            <td class="">
+              <button type="button" class="btn btn-sm fw-bold">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </td>
-          </tr>
+          </tr> --> 
         </tbody>
       </table>
       <div class="my-3">

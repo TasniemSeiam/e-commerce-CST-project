@@ -116,10 +116,10 @@
             <div
               class="rounded-circle numoforderCat bg-warning px-2 text-center"
             >
-              0
+              <span id="cartCount">0</span>
             </div>
           </div>
-          <p class="ms-3">My carts: 0</p>
+          <p class="ms-3">My carts: <span id="cartTotalPrice">0</span></p>
         </div>
         <!-- 2 -->
       </header>
@@ -147,91 +147,85 @@
 
       <section>
         <div class="container">
-          <div class="row wrapperDiv"></div>
+          <div
+            class="row row-cols-lg-5 justify-content-center wrapperDiv"
+          ></div>
         </div>
       </section>
 
-      <footer class="container-fluid">
-        <div class="container">
-          <div class="row">
-            <div class="col-6">
-              <a href="index.html" class="col-12 col-md-2">
-                <img src="./images/logo-white.png" alt="" />
-              </a>
-              <div class="my-3">
-                <p>Add: Walls Street 68, Mahattan, New York, USA</p>
-                <p>Email: info@thebuesky.com</p>
-                <p>phone: (+100) 123 456 7890</p>
-              </div>
-            </div>
-            <div class="col-6 p-2 text-center text-md-start">
-              <div class="row">
-                <ul class="col-12 col-md-6">
-                  <li class="pb-1"></li>
-
-                  <li class="pb-1">
-                    <a
-                      class="text-decoration-none text-light"
-                      href="contact.html"
-                      >Contact Us</a
-                    >
-                  </li>
-                  <li class="pb-1">
-                    <a
-                      class="text-decoration-none text-light"
-                      href="aboutUs.html"
-                      >About Us</a
-                    >
-                  </li>
-                  <li class="pb-1">
-                    <a class="text-decoration-none text-light" href="login.html"
-                      >Sign In</a
-                    >
-                  </li>
-                </ul>
-                <ul class="col-12 col-md-6">
-                  <li class="pb-1">
-                    <a
-                      class="text-decoration-none text-light"
-                      href="myAccount.html"
-                      >My Account
-                    </a>
-                  </li>
-                  <li class="pb-1">
-                    <a
-                      class="text-decoration-none text-light"
-                      href=" myWishlist.html"
-                      >My Wishlist</a
-                    >
-                  </li>
-                  <li class="pb-1">
-                    <a
-                      class="text-decoration-none text-light"
-                      href="myOrders.html"
-                      >My orders</a
-                    >
-                  </li>
-                </ul>
-              </div>
+    </div>
+    <footer class="container-fluid">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <a href="index.html" class="col-12 col-md-2">
+              <img src="./images/logo-white.png" alt="" />
+            </a>
+            <div class="my-3">
+              <p>Add: Walls Street 68, Mahattan, New York, USA</p>
+              <p>Email: info@thebuesky.com</p>
+              <p>phone: (+100) 123 456 7890</p>
             </div>
           </div>
-          <p class="text-capitalize text-center">
-            Created By ITI Team &copy;2024
-          </p>
+          <div class="col-6 p-2 text-center text-md-start">
+            <div class="row">
+              <ul class="col-12 col-md-6">
+                <li class="pb-1"></li>
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light"
+                    href="contact.html"
+                    >Contact Us</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light"
+                    href="aboutUs.html"
+                    >About Us</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a class="text-decoration-none text-light" href="login.html"
+                    >Sign In</a
+                  >
+                </li>
+              </ul>
+              <ul class="col-12 col-md-6">
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light"
+                    href="myAccount.html"
+                    >My Account
+                  </a>
+                </li>
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light"
+                    href=" myWishlist.html"
+                    >My Wishlist</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light"
+                    href="myOrders.html"
+                    >My orders</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </footer>
-
-      <!-- 
-
-        <button id="backToTopBtn">
-            <i class="fa-solid fa-arrow-up"></i>
-        </button> back to top -->
-
-      <!-- end container fluid all page -->
-    </div>
+        <p class="text-capitalize text-center">
+          Created By ITI Team &copy;2024
+        </p>
+      </div>
+    </footer>
     <script src="js/JQuery-3.3.1.js"></script>
     <!-- <script src="js/popper.js"></script> -->
     <script src="js/bootstrap.bundle.js"></script>
+
     <script src="js/productsSearch.js"></script>
   </body>
 </html>
