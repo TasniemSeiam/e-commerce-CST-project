@@ -190,7 +190,7 @@ function displayProduct(product, _location) {
   let productCard = document.createElement("div");
   productCard.className = "card text-center cardProducts";
   productCard.setAttribute("id", `pro${product.id}`);
-  divHeart = document.createElement("div");
+  let divHeart = document.createElement("div");
   divHeart.className = "position-relative divheart";
   let imgsDiv = document.createElement("div");
   imgsDiv.className = "imgsDiv position-relative p-1";
@@ -311,6 +311,7 @@ function randomproduct(getproduct, num) {
 
   let randomProducts = [];
   while (randomProducts.length < numRandomProducts) {
+
     const randomIndex = Math.floor(Math.random() * getproduct.length);
     let newprod = getProduct.slice();
     randomProducts.push(newprod.splice(randomIndex, 1)[0]);
@@ -675,7 +676,7 @@ function cartListUpdated(_cartdata, _productId) {
 // add to wishlist  list
 
 let wishList = [];
-let wishlistdata = JSON.parse(localStorage.getItem("wishlist")) || [];
+// let wishlistdata = JSON.parse(localStorage.getItem("wishlist")) || [];
 async function addToWishlist(productId, btn) {
   let wishlistdata = await JSON.parse(localStorage.getItem("wishlist"))||[];
   if (wishlistdata && wishlistdata.length > 0) {
