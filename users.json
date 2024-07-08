@@ -7,7 +7,8 @@
       "password": "123",
       "role": "admin",
       "wishList": [],
-      "orders": []
+      "orders": [],
+      "cart": []
     },
     {
       "id": 1,
@@ -16,7 +17,8 @@
       "password": "securepassword",
       "role": "user",
       "wishList": [],
-      "orders": []
+      "orders": [],
+      "cart": []
     },
     {
       "id": 2,
@@ -25,7 +27,8 @@
       "password": "password456",
       "role": "seller",
       "wishList": [],
-      "orders": []
+      "orders": [],
+      "cart": []
     },
     {
       "id": 3,
@@ -34,7 +37,8 @@
       "password": "mypassword",
       "role": "user",
       "wishList": [],
-      "orders": []
+      "orders": [],
+      "cart": []
     }
   ]
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Catalog</title>
+    <title>My Account</title>
     <link href="./css/bootstrap.css" rel="stylesheet" />
     <link href="./css/font-awesome.css" rel="stylesheet" />
     <link href="css/all.css" rel="stylesheet" />
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/productCatalog.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/myAccount.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -136,7 +137,7 @@
       </header>
     </div>
     <!-- Start Of Main -->
-    <main class="productCatalog">
+    <main class="myAccount">
       <section class="breadcrumb__area box-plr-75">
         <div class="container-fluid">
           <div class="row">
@@ -151,7 +152,7 @@
                       class="breadcrumb-item breadcrumb__item--avtive"
                       aria-current="page"
                     >
-                      Product Catalog
+                      My Account
                     </li>
                   </ol>
                 </nav>
@@ -161,91 +162,73 @@
         </div>
       </section>
       <!-- breadCrumb End -->
-      <section class="product__catalog box-plr-75 pb-75">
-        <h1 class="product__catalog--title">
-          Experience the Perfect Shopping Destination
-        </h1>
-        <p class="product__catalog--text">
-          Find Everything you need. Our <strong>ITI Marketplace</strong> offers
-          a wide range of products to fit your desire
-        </p>
-      </section>
 
-      <section class="products">
-        <div class="container d-flex gap-5 flex-column align-items-start">
-          <!-- Search Bar -->
-          <div class="search-bar">
-            <div class="input-container form-group position-relative">
-              <i class="fas fa-search"></i>
-              <input
-                type="text"
-                class="form_input pl-5"
-                placeholder="Search for product.."
-                required
-              />
-            </div>
-          </div>
-
-          <!-- Rest of the content -->
-          <div
-            class="container d-flex justify-content-between align-items-lg-start"
-          >
-            <span class="button__filter">
-              Filter <i class="fa-solid fa-filter"></i>
-            </span>
-            <div class="filter">
-              <h3 class="filter__title">Filter</h3>
-              <div class="categorie">
-                <p class="categorie__title">Categorie</p>
-                <hr />
-                <ul class="categorie__select">
-                  <li>
-                    <label for="men's clothing">Men's Clothing</label>
-                    <input type="checkbox" value="men's clothing" />
+      <section class="myAccount">
+        <div class="container my-5">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="account-sidebar bg-dark text-white p-3 rounded">
+                <h4 class="sidebar-title">My Account</h4>
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#">Profile</a>
                   </li>
-                  <li>
-                    <label for="jewelery">Jewelery</label>
-                    <input type="checkbox" value="jewelery" />
+                  <li class="nav-item">
+                    <a class="nav-link" href="myOrders.html">Orders</a>
                   </li>
-                  <li>
-                    <label for="electronics">Electronics</label>
-                    <input type="checkbox" value="electronics" />
-                  </li>
-                  <li>
-                    <label for="women's clothing">Women's Clothing</label>
-                    <input type="checkbox" value="women's clothing" />
-                  </li>
-                  <li>
-                    <label for="watches">Watches</label>
-                    <input type="checkbox" value="watches" />
-                  </li>
-                  <li>
-                    <label for="phones">Phones</label>
-                    <input type="checkbox" value="phones" />
+                  <li class="nav-item">
+                    <a class="nav-link" href="wishList.html">Wishlist</a>
                   </li>
                 </ul>
               </div>
             </div>
-            <div id="products__container" class="products__container"></div>
+            <div class="col-md-9">
+              <div class="account-content">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <h4 class="card-title">Profile</h4>
+                    <form>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          placeholder="Enter your email"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="username">Username</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="username"
+                          placeholder="Enter your username"
+                        />
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        Update
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <h4 class="card-title">Orders</h4>
+                    <p>No orders yet.</p>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <h4 class="card-title">Wishlist</h4>
+                    <p>No items in your wishlist.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
-      <nav class="pagination__contaier" aria-label="...">
-        <ul class="pagination align-content-center justify-content-center">
-          <li class="page-item disabled">
-            <span class="page-link">Previous</span>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item active" aria-current="page">
-            <span class="page-link">2</span>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
     </main>
     <!-- End Of Main -->
     <!-- Start Of Footer -->

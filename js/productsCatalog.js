@@ -1,3 +1,5 @@
+import { currentUser } from "./config.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const productsContainer = document.getElementById("products__container");
   const checkboxContainer = document.querySelector(".categorie__select");
@@ -11,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let filteredProducts = []; // Array to store currently filtered products
   let pageCount = 0;
 
+  // For Displaying The Current User
+  currentUser();
+
   filterBtn.addEventListener("click", function () {
     filter.classList.toggle("active");
   });
@@ -18,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
   try {
     // Fetch products data from localStorage
     let products = JSON.parse(localStorage.getItem("products"));
-
     if (!products) {
       throw new Error("No products found in localStorage.");
     }
@@ -52,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
         productsContainer.innerHTML += `
-          <div class="product">
+          <div class="product" data-id="${product.id}">
             <div class="icons">
               <span><i class="fa-solid fa-cart-shopping"></i></span>
               <span><i class="fa-solid fa-heart"></i></span>
@@ -79,7 +83,19 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
         `;
       });
+
+      //IMPORTANT
+      // Redirect to Product Details After after clicking on certain one
+      document.querySelectorAll(".product").forEach((productElement) => {
+        productElement.addEventListener("click", function () {
+          const productId = this.getAttribute("data-id");
+          redirectToProductDetails(productId);
+        });
+      });
     }
+    function redirectToProductDetails(productId) {
+      window.location.href = `productdetalis.html?id=${productId}`;
+    } // End OF redirection
 
     // Initial rendering of products
     filteredProducts = products; // Start with all products

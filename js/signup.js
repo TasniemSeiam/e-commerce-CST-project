@@ -214,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
           taxnumber: role === "seller" ? tax : "",
           wishList: [],
           orders: [],
+          cart: [],
         };
         users.push(newUser);
 

@@ -1,0 +1,44 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f8f9fa;
+}
+
+.account-sidebar {
+  background-color: #343a40;
+  color: white;
+}
+
+.account-sidebar .sidebar-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.account-sidebar .nav-link {
+  color: #fcb700;
+  margin-bottom: 0.5rem;
+}
+
+.account-sidebar .nav-link.active {
+  font-weight: bold;
+  color: white;
+  background-color: #fcb700;
+  border-radius: 0.25rem;
+}
+
+.account-content .card {
+  border-color: #fcb700;
+}
+
+.account-content .card-title {
+  color: #343a40;
+}
+
+.account-content .btn-primary {
+  background-color: #fcb700;
+  border-color: #fcb700;
+}
+
+.account-content .btn-primary:hover {
+  background-color: #e0a600;
+  border-color: #e0a600;
+}

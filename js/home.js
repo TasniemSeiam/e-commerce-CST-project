@@ -1,7 +1,7 @@
-import { showToastUser } from "./config.js";
+import { showToastUser, currentUser } from "./config.js";
 
-let categoriesarr = [],
-  productsarr = []; // =>
+let categoriesarr = [];
+  // productsarr = []; // =>
 let selsectSearch = document.querySelector(".selsectSearch");
 let searchInput = document.querySelector(".searchInput");
 let showCategories = document.querySelector(".showCategories");
@@ -19,38 +19,11 @@ let pright1 = imgrigthero1.children[1];
 
 let getProduct = JSON.parse(localStorage.getItem("products"));
 
-let checkLogOut = document.querySelector(".user__check");
-let welcomeMessage = document.querySelector(".welcoming__message");
 addEventListener("load", async function () {
   try {
     await loadProducts();
   } catch (e) {
     console.log("error when loading data" + e);
-  }
-
-
-  // Check if a user is logged in
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (currentUser) {
-    checkLogOut.innerHTML = "";
-    checkLogOut.innerHTML = "Logout";
-    welcomeMessage.innerHTML = "";
-    welcomeMessage.innerHTML = `Welcome Back ${currentUser.username} 👋`;
-    // Example usage after successful login
-    showToastUser("Welcome! You have successfully logged in.", true, 2000);
-  }
-
-  // Logout functionality
-  if (currentUser) {
-    checkLogOut.addEventListener("click", function () {
-      localStorage.removeItem("currentUser");
-      localStorage.setItem("logoutMessage", "You have been logged out.");
-      checkLogOut.innerHTML = "";
-      checkLogOut.innerHTML = "Sign-In";
-      welcomeMessage.innerHTML = "";
-      welcomeMessage.innerHTML = `Welcome to ITI Marketplace`;
-      window.location.href = "login.html"; // Redirect to the home page or login page
-    });
   }
 
   getCategories(getProduct).forEach((cat) => {
@@ -163,12 +136,40 @@ async function loadProducts() {
 }
 // let checkLogOut = document.querySelector(".user__check");
 // let welcomeMessage = document.querySelector(".welcoming__message");
-// addEventListener("load", function () {
-//   try {
-//     loadProducts();
-//   } catch (e) {
-//     console.log("error when loading data" + e);
+//addEventListener("load", function () {
+//try {
+//loadProducts();
+//} catch (e) {
+//console.log("error when loading data" + e);
+//}
+
+// Check if a user is logged in
+
+currentUser();
+// Check if a user is logged in
+// const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+// if (currentUser) {
+//   const loginMessage = localStorage.getItem("loginMessage");
+//   if (loginMessage) {
+//     // Display the toast message
+//     showToastUser(loginMessage, true, 2000);
+//     // Clear the login message from localStorage
+//     localStorage.removeItem("loginMessage");
 //   }
+//   checkLogOut.innerHTML = "Logout";
+//   welcomeMessage.innerHTML = `Welcome Back ${currentUser.username} 👋`;
+// }
+
+// // Logout functionality
+// if (currentUser) {
+//   checkLogOut.addEventListener("click", function () {
+//     localStorage.removeItem("currentUser");
+//     localStorage.setItem("logoutMessage", "You have been logged out.");
+//     checkLogOut.innerHTML = "Sign-In";
+//     welcomeMessage.innerHTML = "Welcome to ITI Marketplace";
+//     window.location.href = "login.html"; // Redirect to login page
+//   });
+// }
 
 function getCategories(getProduct) {
   let keys = Object.keys(getProduct);
@@ -205,7 +206,7 @@ function displayProduct(product, _location) {
   let wishlistBtn = document.createElement("span");
   wishlistBtn.title = "add to wishlist";
 
-  wishListBtnStates(wishlistBtn, product);
+  // wishListBtnStates(wishlistBtn, product);
   let productCount = document.createElement("div");
   productCount.className =
     "productCount bg-danger text-center rounded-top text-white";
@@ -316,7 +317,7 @@ function randomproduct(getproduct, num) {
     let newprod = getProduct.slice();
     randomProducts.push(newprod.splice(randomIndex, 1)[0]);
   }
-  console.log("random array " + randomProducts); // array of random products
+  // console.log("random array " + randomProducts); // array of random products
   return randomProducts; // array of random products
 }
 
@@ -394,7 +395,7 @@ function sillingProduct() {
     carouselItemnewArrival2
   );
 
-  //random product
+  // //random product
   let carouselItemRandom1 = document.querySelectorAll(
     ".divOFRandom .divOFbestsellengrandom .carousel-item .row"
   )[0];
@@ -537,7 +538,7 @@ function onSale(products) {
     let addTofavBtn = document.createElement("button");
     addTofavBtn.className = "addtofav ";
 
-    wishListBtnStates(addTofavBtn, product);
+    // wishListBtnStates(addTofavBtn, product);
 
     // const wishlistBtnState = localStorage.getItem('wishlist-btn-state') || [];
     // let btnStateObj = {};
@@ -678,14 +679,13 @@ function cartListUpdated(_cartdata, _productId) {
 let wishList = [];
 // let wishlistdata = JSON.parse(localStorage.getItem("wishlist")) || [];
 async function addToWishlist(productId, btn) {
-  let wishlistdata = await JSON.parse(localStorage.getItem("wishlist"))||[];
+  let wishlistdata = (await JSON.parse(localStorage.getItem("wishlist"))) || [];
   if (wishlistdata && wishlistdata.length > 0) {
     wishListUpdated(wishlistdata, productId, btn);
   } else {
     wishListUpdated(wishList, productId, btn);
   }
 }
-
 
 function wishListUpdated(_wishList, _productId) {
   let product = getProduct.find((product) => product.id === _productId);
@@ -728,24 +728,24 @@ function wishListUpdated(_wishList, _productId) {
 //     }
 // }
 
-async function wishListBtnStates(_wishListBtn, _data) {
-  const wishlistBtnState = localStorage.getItem("wishlist-btn-state") || [];
-  let btnStateObj = {};
+// async function wishListBtnStates(_wishListBtn, _data) {
+//   const wishlistBtnState = localStorage.getItem("wishlist-btn-state") || [];
+//   let btnStateObj = {};
 
-  if (wishlistBtnState) {
-    btnStateObj = await JSON.parse(wishlistBtnState);
-  }
-  if (wishlistBtnState.indexOf(_data.id) !== -1) {
-    if (btnStateObj[_data.id]) {
-      _wishListBtn.classList.add = "addedtowishlist ";
+//   if (wishlistBtnState) {
+//     btnStateObj = await JSON.parse(wishlistBtnState);
+//   }
+//   if (wishlistBtnState.indexOf(_data.id) !== -1) {
+//     if (btnStateObj[_data.id]) {
+//       _wishListBtn.classList.add = "addedtowishlist ";
 
-      // addTofavBtn.className = "addtofav addedtowishlist "
-    } else {
-      // addTofavBtn.className = "addtofav"
-      _wishListBtn.classList.remove = "addedtowishlist";
-    }
-  }
-}
+//       // addTofavBtn.className = "addtofav addedtowishlist "
+//     } else {
+//       // addTofavBtn.className = "addtofav"
+//       _wishListBtn.classList.remove = "addedtowishlist";
+//     }
+//   }
+// }
 
 // Show button when user scrolls down
 const backToTopBtn = document.getElementById("backToTopBtn");
