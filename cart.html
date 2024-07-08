@@ -12,33 +12,27 @@
       .btn.btn-sm.fw-bold i.fa-solid.fa-trash {
         transition: color 0.3s ease;
       }
-
       .btn.btn-sm.fw-bold:hover i.fa-solid.fa-trash {
         color: red !important;
       }
-
       .proceed-btn button {
         border: 1px solid gray;
         background-color: white;
         border-radius: 10px;
         transition: 0.3s ease;
       }
-
       .proceed-btn button:hover {
         background-color: #fab700;
         color: white;
       }
-
       @media (max-width: 768px) {
         table th,
         table td {
           font-size: 0.8rem;
         }
-
         .fw-bold {
           font-size: 0.8rem;
         }
-
         .proceed-btn button {
           font-size: 0.9rem;
         }
@@ -71,11 +65,11 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="myAccount.html"
-                >My Account
-              </a>
+                >My Account</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href=" myWishlist.html">My Wishlist</a>
+              <a class="nav-link" href="myWishlist.html">My Wishlist</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="SignIn.html">Sign In</a>
@@ -86,10 +80,8 @@
           </ul>
         </div>
       </div>
-      <!-- end container fluid -->
     </nav>
 
-    <!-- Cart table -->
     <div class="container">
       <table class="table align-middle mb-0 bg-white my-3">
         <thead class="bg-white">
@@ -102,7 +94,7 @@
             <th>Remove</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="cartItems">
           <tr>
             <td class="d-none d-md-table-cell d-flex align-items-center">
               <img
@@ -117,22 +109,19 @@
             <td>
               <div class="d-flex align-items-center justify-content-center">
                 <button
-                  class="btn btn-sm btn-outline-secondary"
-                  onclick="decrementQuantity()"
+                  class="btn btn-sm btn-outline-secondary decrement-quantity"
                 >
                   <i class="fa-solid fa-minus"></i>
                 </button>
                 <input
                   type="text"
-                  class="form-control mx-2"
-                  id="quantity"
+                  class="form-control mx-2 quantity"
                   value="1"
                   style="width: 45px"
-                  onchange="updateTotalPrice()"
+                  onchange="updateTotalPrice(this)"
                 />
                 <button
-                  class="btn btn-sm btn-outline-secondary"
-                  onclick="incrementQuantity()"
+                  class="btn btn-sm btn-outline-secondary increment-quantity"
                 >
                   <i class="fa-solid fa-plus"></i>
                 </button>
@@ -140,49 +129,7 @@
             </td>
             <td class="fw-bold mb-1 total-price">$ 130.00</td>
             <td class="">
-              <button type="button" class="btn btn-sm fw-bold">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="d-none d-md-table-cell d-flex align-items-center">
-              <img
-                class="rounded-circle img-fluid"
-                style="width: 100px; height: 100px"
-                src="./images/product/product1.jpg"
-                alt=""
-              />
-            </td>
-            <td class="fw-bold mb-1">Iphone X</td>
-            <td class="fw-bold mb-1 unit-price">$ 130.00</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-center">
-                <button
-                  class="btn btn-sm btn-outline-secondary"
-                  onclick="decrementQuantity()"
-                >
-                  <i class="fa-solid fa-minus"></i>
-                </button>
-                <input
-                  type="text"
-                  class="form-control mx-2"
-                  id="quantity"
-                  value="1"
-                  style="width: 45px"
-                  onchange="updateTotalPrice()"
-                />
-                <button
-                  class="btn btn-sm btn-outline-secondary"
-                  onclick="incrementQuantity()"
-                >
-                  <i class="fa-solid fa-plus"></i>
-                </button>
-              </div>
-            </td>
-            <td class="fw-bold mb-1 total-price">$ 130.00</td>
-            <td class="">
-              <button type="button" class="btn btn-sm fw-bold">
+              <button type="button" class="btn btn-sm fw-bold remove-item">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </td>
@@ -197,15 +144,15 @@
         >
           <div class="d-flex justify-content-between">
             <p>Subtotal</p>
-            <span>$ 260</span>
+            <span id="subtotal">$ 260</span>
           </div>
           <div class="d-flex justify-content-between">
             <p>Delivery fees</p>
-            <span>$ 50</span>
+            <span id="delivery-fees">$ 50</span>
           </div>
           <div class="d-flex justify-content-between">
             <p>Total</p>
-            <span>$ 310</span>
+            <span id="total">$ 310</span>
           </div>
           <div class="proceed-btn">
             <button
@@ -219,9 +166,7 @@
       </div>
     </div>
     <script src="js/JQuery-3.3.1.js"></script>
-    <!-- <script src="js/popper.js"></script> -->
     <script src="js/bootstrap.bundle.js"></script>
-    <!-- Logic -->
     <script src="./js/cart.js"></script>
   </body>
 </html>

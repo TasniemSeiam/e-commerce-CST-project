@@ -18,7 +18,7 @@
     />
     <style>
       .container-fluid p {
-        color: blue;
+        color: #fcb700;
         margin: 0px 90px;
         font-size: large;
         font-weight: 600;
@@ -60,25 +60,65 @@
         background-color: black;
         color: white;
       }
+
+      .search {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .search button {
+        width: 100px;
+        height: 38px;
+      }
+
+      .chart-container {
+        display: flex;
+      }
+
+      canvas {
+        max-width: 50%;
+        max-height: 100%;
+        display: block;
+        margin: 0 auto;
+      }
+
+      @media (max-width: 650px) {
+        .full-container {
+          display: flex;
+          flex-direction: column;
+        }
+        img {
+          width: 30px;
+          height: 30px;
+        }
+        .all-products-table,
+        .all-users-table {
+          font-size: small;
+        }
+        .table {
+          margin-left: -20px;
+        }
+        .chart-container {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+        canvas {
+          max-width: 100%;
+        }
+        .logo {
+          width: 130px;
+        }
+      }
     </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-sm navbar-light border-bottom">
       <div class="container-fluid">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarText"
-          aria-controls="navbarText"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <span class="navbar-text d-none d-md-block">
-          <a href="index.html" class="col-12 col-md-2">
-            <img src="./images/logo-black.png" alt="" />
+        <span class="navbar-text">
+          <a href="index.html" class="col-12 col-md-2 ">
+            <img src="./images/logo-black.png" class="logo" alt="" />
           </a>
           <p>Admin Panel</p>
         </span>
@@ -95,9 +135,7 @@
         <button id="orders-btn">All Orders</button>
       </div>
       <hr />
-      <div class="right" id="content">
-        <!-- Content will be displayed here -->
-      </div>
+      <div class="right" id="content"></div>
     </div>
 
     <script
@@ -106,18 +144,18 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"
-      integrity="sha384-B4gt1jrGC7Jh4AgEPkEYnDd/9+YkG8X4FwW9OUj1qKxr13Aq0LGhz4+30JwVhnbb"
+      src="https://unpkg.com/@popperjs/core@2.5.2/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
       crossorigin="anonymous"
     ></script>
     <script
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-      integrity="sha384-B4gt1jrGC7Jh4AgEPkEYnDd/9+YkG8X4FwW9OUj1qKxr13Aq0LGhz4+30JwVhnbb"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
     <script src="js/JQuery-3.3.1.js"></script>
-    <!-- <script src="js/popper.js"></script> -->
     <script src="js/bootstrap.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./js/adminPanel.js"></script>
   </body>
 </html>

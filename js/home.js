@@ -1,7 +1,7 @@
 import { showToastUser } from "./config.js";
 
 let categoriesarr = [],
-  productsarr = [];
+  productsarr = []; // =>
 let selsectSearch = document.querySelector(".selsectSearch");
 let searchInput = document.querySelector(".searchInput");
 let showCategories = document.querySelector(".showCategories");
@@ -19,9 +19,9 @@ let pright1 = imgrigthero1.children[1];
 let getProduct = JSON.parse(localStorage.getItem("products"));
 let checkLogOut = document.querySelector(".user__check");
 let welcomeMessage = document.querySelector(".welcoming__message");
-addEventListener("load", function () {
+addEventListener("load", async function () {
   try {
-    loadProducts();
+    await loadProducts();
   } catch (e) {
     console.log("error when loading data" + e);
   }
@@ -142,15 +142,15 @@ addEventListener("load", function () {
 async function loadProducts() {
   getProduct = JSON.parse(localStorage.getItem("products"));
   if (!getProduct || getProduct.length == 0) {
-    products = await fetch("../data/products.json");
-    getProduct = await products.json();
-    localdata = JSON.stringify(getProduct);
-    localStorage.setItem("products", localdata);
-    console.log(localdata);
-    return getProduct;
+      products = await fetch("../data/products.json");
+      getProduct = await products.json();
+      localdata = JSON.stringify(getProduct);
+      localStorage.setItem("products", localdata);
+      // console.log(localdata);
+      return getProduct;
   } else {
-    console.log(getProduct);
-    return getProduct;
+      // console.log(getProduct);
+      return getProduct;
   }
 }
 // function getProducts(_products) {
@@ -233,13 +233,13 @@ function displayBigSales(x, sect) {
   }
 } // end big sale section
 
-function sillingProduct() {
+ function sillingProduct() {
   let carouselItemDiv1 = document.querySelectorAll(
     ".divOFbestselleng .divOFbestsellengProduct1 .carousel-item .row"
   )[0];
   for (let i = 0; i < 5; i++) {
     let items = getProduct[i];
-    displayProduct(items, carouselItemDiv1);
+     displayProduct(items, carouselItemDiv1);
   }
   let carouselItemDiv2 = document.querySelectorAll(
     ".divOFbestselleng .divOFbestsellengProduct1 .carousel-item .row"
