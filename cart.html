@@ -18,12 +18,16 @@
       .proceed-btn button {
         border: 1px solid gray;
         background-color: white;
+        padding: 10px;
         border-radius: 10px;
         transition: 0.3s ease;
       }
       .proceed-btn button:hover {
         background-color: #fab700;
         color: white;
+      }
+      .q {
+        width: 10px; 
       }
       @media (max-width: 768px) {
         table th,
@@ -83,13 +87,13 @@
     </nav>
 
     <div class="container">
-      <table class="table align-middle mb-0 bg-white my-3">
+      <table id="cartItems" class="table align-middle mb-0 bg-white my-3">
         <thead class="bg-white">
           <tr>
             <th class="d-none d-md-table-cell">Images</th>
-            <th>Product</th>
+            <th>Product name</th>
             <th>Unit price</th>
-            <th>Quantity</th>
+            <th class="q">Quantity</th>
             <th>Total</th>
             <th>Remove</th>
           </tr>
@@ -178,7 +182,7 @@
           </tr> --> 
         </tbody>
       </table>
-      <div class="my-3">
+      <div class="my-3 cart-totals">
         <h2 class="my-3">Cart Totals</h2>
         <div
           class="cart-totals d-flex justify-content-start flex-column border rounded p-2"
@@ -186,15 +190,15 @@
         >
           <div class="d-flex justify-content-between">
             <p>Subtotal</p>
-            <span id="subtotal">$ 260</span>
+            <span id="subtotal">$ 0</span>
           </div>
           <div class="d-flex justify-content-between">
             <p>Delivery fees</p>
-            <span id="delivery-fees">$ 50</span>
+            <span id="delivery-fees">$ 0</span>
           </div>
           <div class="d-flex justify-content-between">
             <p>Total</p>
-            <span id="total">$ 310</span>
+            <span id="total">$ 0</span>
           </div>
           <div class="proceed-btn">
             <button
