@@ -1,3 +1,5 @@
+import { initializeUsers } from "./config.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector(".form");
   const usernameInput = document.querySelector('input[type="text"]');
@@ -153,25 +155,6 @@ document.addEventListener("DOMContentLoaded", function () {
       usernameUnique: !usernameExists,
       taxNoUnique: !taxNumberExists,
     };
-  }
-
-  async function initializeUsers() {
-    // Fetch users from JSON file
-    try {
-      const response = await fetch("users.json");
-      const data = await response.json();
-      const jsonUsers = data.users;
-
-      // Retrieve existing users from local storage
-      const localStorageUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-      // Check if local storage is empty, then initialize it with JSON users
-      if (localStorageUsers.length === 0) {
-        localStorage.setItem("users", JSON.stringify(jsonUsers));
-      }
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
   }
 
   // Initialize users when the page loads

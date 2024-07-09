@@ -372,3 +372,7 @@ body {
     top: 2.3%;
   }
 }
+
+.add-to-wishlist.wishlist-added i {
+  color: red;
+}

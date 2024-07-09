@@ -1,4 +1,4 @@
-import { currentUser } from "./config.js";
+import { currentUser, showToastUser } from "./config.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const productsContainer = document.getElementById("products__container");
@@ -33,6 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const endIndex = startIndex + productsPerPage;
       const currentProducts = filteredProducts.slice(startIndex, endIndex);
 
+      // Retrieve the current user from localStorage
+      let user = JSON.parse(localStorage.getItem("currentUser"));
+
       productsContainer.innerHTML = ""; // Clear existing products
       currentProducts.forEach((product) => {
         const percentDiscount = Math.floor(
@@ -55,11 +58,15 @@ document.addEventListener("DOMContentLoaded", function () {
           ${'<i class="fa-regular fa-star"></i>'.repeat(emptyStars)}
         `;
 
+        // Check if the product is in the wishlist
+
         productsContainer.innerHTML += `
           <div class="product" data-id="${product.id}">
             <div class="icons">
               <span><i class="fa-solid fa-cart-shopping"></i></span>
-              <span><i class="fa-solid fa-heart"></i></span>
+              <span class="add-to-wishlist">
+                <i class="fa-solid fa-heart"></i>
+              </span>
             </div>
             <span class="sale__percent ${
               product.rating.count > 250 ? "hidden" : "show"
@@ -92,10 +99,65 @@ document.addEventListener("DOMContentLoaded", function () {
           redirectToProductDetails(productId);
         });
       });
+
+      // Add event listeners to heart icons
+      document.querySelectorAll(".add-to-wishlist").forEach((wishlistIcon) => {
+        wishlistIcon.addEventListener("click", function (e) {
+          e.stopPropagation(); // Prevent triggering the product click event
+          const productId = this.closest(".product").getAttribute("data-id");
+          toggleWishlist(productId);
+        });
+      });
     }
+
     function redirectToProductDetails(productId) {
       window.location.href = `productdetalis.html?id=${productId}`;
     } // End OF redirection
+
+    function toggleWishlist(productId) {
+      // Retrieve the current user from localStorage
+      let user = JSON.parse(localStorage.getItem("currentUser"));
+
+      if (!user) {
+        showToastUser("No user logged in.", true, 2000);
+
+        return;
+      }
+
+      // Find the product element
+      const productElement = document.querySelector(
+        `.product[data-id="${productId}"]`
+      );
+      const wishlistIcon = productElement.querySelector(".add-to-wishlist");
+
+      // Check if the product is already in the wishlist
+      const wishlistIndex = user.wishList.indexOf(productId);
+      if (wishlistIndex === -1) {
+        // Product is not in wishlist, add it
+        user.wishList.push(productId);
+
+        showToastUser("Product added to wishlist!", true, 2000);
+
+        wishlistIcon.classList.add("wishlist-added");
+      } else {
+        // Product is in wishlist, remove it
+        user.wishList.splice(wishlistIndex, 1);
+        showToastUser("Product removed from wishlist!", true, 2000);
+
+        wishlistIcon.classList.remove("wishlist-added");
+      }
+
+      // Save updated user to localStorage
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      // Update the users array in localStorage
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      const userIndex = users.findIndex((u) => u.id === user.id);
+      if (userIndex > -1) {
+        users[userIndex] = user;
+        localStorage.setItem("users", JSON.stringify(users));
+      }
+    }
 
     // Initial rendering of products
     filteredProducts = products; // Start with all products

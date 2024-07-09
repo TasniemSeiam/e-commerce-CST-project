@@ -135,6 +135,9 @@
         <!-- 2 -->
       </header>
     </div>
+
+    <!-- </section> -->
+
     <!-- Start Of Main -->
     <main class="productCatalog">
       <section class="breadcrumb__area box-plr-75">
@@ -171,6 +174,16 @@
         </p>
       </section>
 
+      <span
+        aria-live="polite"
+        aria-atomic="true"
+        class="toast-container position-absolute top-0 end-0 p-3"
+      >
+        <span class="toast-container p-3" id="toastPlacement">
+          <!-- This is where the toast will be dynamically added -->
+        </span>
+      </span>
+
       <section class="products">
         <div class="container d-flex gap-5 flex-column align-items-start">
           <!-- Search Bar -->
@@ -200,8 +213,8 @@
                 <hr />
                 <ul class="categorie__select">
                   <li>
-                    <label for="men's clothing">Men's Clothing</label>
-                    <input type="checkbox" value="men's clothing" />
+                    <label for="men clothes">Men's Clothing</label>
+                    <input type="checkbox" value="men clothes" />
                   </li>
                   <li>
                     <label for="jewelery">Jewelery</label>
