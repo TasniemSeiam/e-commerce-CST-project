@@ -1,3 +1,5 @@
+@import "../css/style.css";
+
 .wishlist-table {
   width: 100%;
   margin: 20px 0;
@@ -52,6 +54,24 @@
 .wishlist-table .remove-btn:focus {
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.5);
+}
+.wishlist-table .cart-btn {
+  margin-left: 3px;
+  color: white;
+  background-color:var(--textandhovercolor) ;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.wishlist-table .cart-btn:hover {
+  background-color: #b5720f;
+}
+.wishlist-table .cart-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem var(--textandhovercolor);
 }
 .breadcrumb_wrraper {
   padding-bottom: 0px;

@@ -19,6 +19,12 @@
       referrerpolicy="no-referrer"
     />
   </head>
+  <script>
+    function preventIfNotLogin(event) {
+      event.preventDefault();
+      window.location.href = "./login.html";
+    }
+  </script>
 
   <body class="bg-light">
     <div class="container-fluid">
@@ -44,12 +50,21 @@
           >
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="myAccount.html"
+                <a
+                  class="nav-link"
+                  aria-current="page"
+                  href="myAccount.html"
+                  onclick="preventIfNotLogin(event)"
                   >My Account
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href=" myWishlist.html">My Wishlist</a>
+                <a
+                  class="nav-link"
+                  href=" myWishlist.html"
+                  onclick="preventIfNotLogin(event)"
+                  >My Wishlist</a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link checkLogOut user__check" href="login.html"
@@ -57,7 +72,12 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="myOrders.html">My orders</a>
+                <a
+                  class="nav-link"
+                  href="myOrders.html"
+                  onclick="preventIfNotLogin(event)"
+                  >My orders</a
+                >
               </li>
             </ul>
           </div>
@@ -122,14 +142,17 @@
         <div
           class="col-10 col-md-3 col-xl-2 position-relative my-3 my-md-2 my-lg-0 d-flex"
         >
-          <div class="text-center border-secondary">
+          <div
+            class="text-center border-secondary"
+            onclick="preventIfNotLogin(event)"
+          >
             <a href="cart.html" class="rounded-circle divofCart px-3 py-3"
               ><i class="fas fa-shopping-bag text-black"></i
             ></a>
             <div
               class="rounded-circle numoforderCat bg-warning px-2 text-center"
             >
-              0
+            <span id="cartCount">0</span>
             </div>
           </div>
           <p class="ms-3">My carts: 0</p>
@@ -323,7 +346,6 @@
       <!-- Product Area End -->
       <!--  -->
     </main>
-
     <footer class="container-fluid">
       <div class="container">
         <div class="row">
@@ -332,38 +354,68 @@
               <img src="./images/logo-white.png" alt="" />
             </a>
             <div class="my-3">
-              <p>Add: Walls Street 68, Mahattan, New York, USA</p>
-              <p>Email: info@thebuesky.com</p>
-              <p>phone: (+100) 123 456 7890</p>
+              <p class="text-white">
+                Add: Walls Street 68, Mahattan, New York, USA
+              </p>
+              <p class="text-white">Email: info@thebuesky.com</p>
+              <p class="text-white">phone: (+100) 123 456 7890</p>
             </div>
           </div>
-          <div class="offset-1 col-4">
-            <ul class="">
-              <li class="pb-1">
-                <a class="text-decoration-none text-light" href="myAccount.html"
-                  >My Account
-                </a>
-              </li>
-              <li class="pb-1">
-                <a
-                  class="text-decoration-none text-light"
-                  href=" myWishlist.html"
-                  >My Wishlist</a
-                >
-              </li>
-              <li class="pb-1">
-                <a class="text-decoration-none text-light" href="myOrders.html"
-                  >My orders</a
-                >
-              </li>
-              <li class="pb-1">
-                <a class="text-decoration-none text-light" href="sigin.html"
-                  >Sign In</a
-                >
-              </li>
-            </ul>
+          <!-- 1 -->
+          <div class="col-6 p-2 text-center text-md-start">
+            <div class="row">
+              <ul class="col-12 col-md-6">
+                <li class="pb-1"></li>
+
+                <li class="pb-1">
+                  <a class="text-decoration-none text-light" href="contact.html"
+                    >Contact Us</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a class="text-decoration-none text-light" href="aboutUs.html"
+                    >About Us</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a class="text-decoration-none text-light" href="login.html"
+                    >Sign In</a
+                  >
+                </li>
+              </ul>
+              <ul class="col-12 col-md-6">
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light"
+                    href="myAccount.html"
+                    onclick="preventIfNotLogin(event)"
+                    >My Account
+                  </a>
+                </li>
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light"
+                    href=" myWishlist.html"
+                    onclick="preventIfNotLogin(event)"
+                    >My Wishlist</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light"
+                    href="myOrders.html"
+                    onclick="preventIfNotLogin(event)"
+                    >My orders</a
+                  >
+                </li>
+              </ul>
+            </div>
           </div>
+          <!-- 2 -->
         </div>
+        <p class="text-capitalize text-white text-center">
+          Created By ITI Team &copy;2024
+        </p>
       </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
