@@ -87,3 +87,22 @@ export function currentUser() {
     });
   }
 }
+
+export async function initializeUsers() {
+  // Fetch users from JSON file
+  try {
+    const response = await fetch("users.json");
+    const data = await response.json();
+    const jsonUsers = data.users;
+
+    // Retrieve existing users from local storage
+    const localStorageUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Check if local storage is empty, then initialize it with JSON users
+    if (localStorageUsers.length === 0) {
+      localStorage.setItem("users", JSON.stringify(jsonUsers));
+    }
+  } catch (error) {
+    console.error("Error fetching users:", error);
+  }
+}

@@ -1,4 +1,4 @@
-import { showToastUser } from "./config.js";
+import { showToastUser, initializeUsers } from "./config.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector(".form");
@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return email !== "" && password !== "";
   }
 
+  initializeUsers();
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -76,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
-      window.location.href = "page404.html";
     }
   }); // end of submit
 
