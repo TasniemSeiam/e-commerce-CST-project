@@ -168,31 +168,92 @@ let cartdata = currentUsers.cart;
 
 cartCount.textContent = cartdata ? cartdata.length : 0;
 
+// export function addToCart(productId) {
+//   // let cartdata =  JSON.parse(localStorage.getItem("cart"));
+//   // console.log('Cart data', cartdata.length);
+//   if (cartdata && cartdata.length > 0) {
+//     cartListUpdated(cartdata, productId);
+//   } else {
+//     cartListUpdated(addToCartList, productId);
+//   }
+// }
+// export function cartListUpdated(_cartdata, _productId) {
+//   let product = getProduct.find((product) => product.id === _productId);
+//   if (_cartdata.some((item) => item.id === _productId)) {
+//     // alert("This product has already been added to the cart.");
+//   } else {
+//     if (product.rating.count > 0) {
+//       _cartdata.push(product);
+//       cartCount.textContent = _cartdata.length;
+//       alert(`Product "${product.title}" has been added to the cart.`);
+//       // displayCartList();
+//       localStorage.setItem("cart", JSON.stringify(_cartdata));
+//       console.log("Cart", _cartdata);
+//     } else {
+//       alert("This product: " + product.title + " is out of stock.");
+//     }
+//   }
+// }
+
 export function addToCart(productId) {
-  // let cartdata =  JSON.parse(localStorage.getItem("cart"));
-  // console.log('Cart data', cartdata.length);
-  if (cartdata && cartdata.length > 0) {
-    cartListUpdated(cartdata, productId);
-  } else {
-    cartListUpdated(addToCartList, productId);
+  let users = localStorage.getItem("users");
+  let products = localStorage.getItem("products");
+  let currentUser = localStorage.getItem("currentUser");
+
+  if (!currentUser) {
+    console.error("You need to login first to add to your cart.");
+    return;
   }
-}
-export function cartListUpdated(_cartdata, _productId) {
-  let product = getProduct.find((product) => product.id === _productId);
-  if (_cartdata.some((item) => item.id === _productId)) {
-    // alert("This product has already been added to the cart.");
-  } else {
-    if (product.rating.count > 0) {
-      _cartdata.push(product);
-      cartCount.textContent = _cartdata.length;
-      alert(`Product "${product.title}" has been added to the cart.`);
-      // displayCartList();
-      localStorage.setItem("cart", JSON.stringify(_cartdata));
-      console.log("Cart", _cartdata);
-    } else {
-      alert("This product: " + product.title + " is out of stock.");
-    }
+
+  if (!users) {
+    console.error("No users found in local storage.");
+    return;
   }
+
+  if (!products) {
+    console.error("No products found in local storage.");
+    return;
+  }
+
+  currentUser = JSON.parse(currentUser);
+  users = JSON.parse(users);
+  products = JSON.parse(products);
+
+  // Find the logged in user in the users array
+  const userIndex = users.findIndex(user => user.id === currentUser.id);
+  if (userIndex === -1) {
+    console.error("Current user not found in users.");
+    return;
+  }
+
+  let user = users[userIndex];
+
+  if (!Array.isArray(user.cart)) {
+    console.error("Invalid cart structure in currentUser.");
+    return;
+  }
+
+  const productAlreadyInCart = user.cart.some(item => item.id === productId);
+  if (productAlreadyInCart) {
+    console.error("Product already in cart.");
+    return;
+  }
+
+  const product = products.find(p => p.id === productId);
+  if (!product) {
+    console.error("Product not found.");
+    return;
+  }
+
+  user.cart.push({ id: productId, price: product.price, quantity: 1 });
+
+  users[userIndex] = user;
+  localStorage.setItem("users", JSON.stringify(users));
+
+  console.log("Product added to cart successfully");
+
+  // Refresh the cart items
+  getCartItems();
 }
 
 // add to wishlist  list

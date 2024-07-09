@@ -1,5 +1,5 @@
 import { showToastUser, currentUser } from "./config.js";
-import { addToCart,cartListUpdated,displayProduct,addToWishlist,getCategories,wishListUpdated} from "./sharedHome.js";
+import { addToCart,displayProduct,addToWishlist,getCategories,wishListUpdated} from "./sharedHome.js";
 let categoriesarr = [];
 // productsarr = []; // =>
 let selsectSearch = document.querySelector(".selsectSearch");
@@ -686,99 +686,99 @@ async function filteredProductsByCategory(
 }
 
 // add to cart
-function addToCart(productId) {
-  let users = localStorage.getItem("users");
-  let products = localStorage.getItem("products");
-  let currentUser = localStorage.getItem("currentUser");
+// function addToCart(productId) {
+//   let users = localStorage.getItem("users");
+//   let products = localStorage.getItem("products");
+//   let currentUser = localStorage.getItem("currentUser");
 
-  if (!currentUser) {
-    console.error("You need to login first to add to your cart.");
-    return;
-  }
+//   if (!currentUser) {
+//     console.error("You need to login first to add to your cart.");
+//     return;
+//   }
 
-  if (!users) {
-    console.error("No users found in local storage.");
-    return;
-  }
+//   if (!users) {
+//     console.error("No users found in local storage.");
+//     return;
+//   }
 
-  if (!products) {
-    console.error("No products found in local storage.");
-    return;
-  }
+//   if (!products) {
+//     console.error("No products found in local storage.");
+//     return;
+//   }
 
-  currentUser = JSON.parse(currentUser);
-  users = JSON.parse(users);
-  products = JSON.parse(products);
+//   currentUser = JSON.parse(currentUser);
+//   users = JSON.parse(users);
+//   products = JSON.parse(products);
 
-  // Find the logged in user in the users array
-  const userIndex = users.findIndex(user => user.id === currentUser.id);
-  if (userIndex === -1) {
-    console.error("Current user not found in users.");
-    return;
-  }
+//   // Find the logged in user in the users array
+//   const userIndex = users.findIndex(user => user.id === currentUser.id);
+//   if (userIndex === -1) {
+//     console.error("Current user not found in users.");
+//     return;
+//   }
 
-  let user = users[userIndex];
+//   let user = users[userIndex];
 
-  if (!Array.isArray(user.cart)) {
-    console.error("Invalid cart structure in currentUser.");
-    return;
-  }
+//   if (!Array.isArray(user.cart)) {
+//     console.error("Invalid cart structure in currentUser.");
+//     return;
+//   }
 
-  const productAlreadyInCart = user.cart.some(item => item.id === productId);
-  if (productAlreadyInCart) {
-    console.error("Product already in cart.");
-    return;
-  }
+//   const productAlreadyInCart = user.cart.some(item => item.id === productId);
+//   if (productAlreadyInCart) {
+//     console.error("Product already in cart.");
+//     return;
+//   }
 
-  const product = products.find(p => p.id === productId);
-  if (!product) {
-    console.error("Product not found.");
-    return;
-  }
+//   const product = products.find(p => p.id === productId);
+//   if (!product) {
+//     console.error("Product not found.");
+//     return;
+//   }
 
-  user.cart.push({ id: productId, price: product.price, quantity: 1 });
+//   user.cart.push({ id: productId, price: product.price, quantity: 1 });
 
-  users[userIndex] = user;
-  localStorage.setItem("users", JSON.stringify(users));
+//   users[userIndex] = user;
+//   localStorage.setItem("users", JSON.stringify(users));
 
-  console.log("Product added to cart successfully");
+//   console.log("Product added to cart successfully");
 
-  // Refresh the cart items
-  getCartItems();
-}
+//   // Refresh the cart items
+//   getCartItems();
+// }
 
 // add to wishlist  list
 
-let wishList = [];
-let wishlistdata = JSON.parse(localStorage.getItem("wishlist")) || [];
-async function addToWishlist(productId, btn) {
-  let wishlistdata = (await JSON.parse(localStorage.getItem("wishlist"))) || [];
-  if (wishlistdata && wishlistdata.length > 0) {
-    wishListUpdated(wishlistdata, productId, btn);
-  } else {
-    wishListUpdated(wishList, productId, btn);
-  }
-}
+// let wishList = [];
+// let wishlistdata = JSON.parse(localStorage.getItem("wishlist")) || [];
+// async function addToWishlist(productId, btn) {
+//   let wishlistdata = (await JSON.parse(localStorage.getItem("wishlist"))) || [];
+//   if (wishlistdata && wishlistdata.length > 0) {
+//     wishListUpdated(wishlistdata, productId, btn);
+//   } else {
+//     wishListUpdated(wishList, productId, btn);
+//   }
+// }
 
-function wishListUpdated(_wishList, _productId) {
-  let product = getProduct.find((product) => product.id === _productId);
-  // if (_wishList.includes(_productId))  {
-  if (_wishList.some((item) => item.id === _productId)) {
-    updatedWishlist = _wishList.filter((item) => item.id !== _productId);
-    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+// function wishListUpdated(_wishList, _productId) {
+//   let product = getProduct.find((product) => product.id === _productId);
+//   // if (_wishList.includes(_productId))  {
+//   if (_wishList.some((item) => item.id === _productId)) {
+//     updatedWishlist = _wishList.filter((item) => item.id !== _productId);
+//     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
 
-    // btn.classList.remove("addedtowishlist");
-    alert("This product has been deleted from your wishlist");
-  } else {
-    // if ((product.rating.count) > 0) {}
-    // btn.classList.add("addedtowishlist")
-    _wishList.push(product);
-    alert(`Product "${product.title}" has been added to your wishlist.`);
-    // displayWishlistList();
-    localStorage.setItem("wishlist", JSON.stringify(_wishList));
-    console.log("Wishlist", _wishList);
-  }
-}
+//     // btn.classList.remove("addedtowishlist");
+//     alert("This product has been deleted from your wishlist");
+//   } else {
+//     // if ((product.rating.count) > 0) {}
+//     // btn.classList.add("addedtowishlist")
+//     _wishList.push(product);
+//     alert(`Product "${product.title}" has been added to your wishlist.`);
+//     // displayWishlistList();
+//     localStorage.setItem("wishlist", JSON.stringify(_wishList));
+//     console.log("Wishlist", _wishList);
+//   }
+// }
 
 // function wishListUpdated(_wishList, _productId, btn) {
 //     let product = getProduct.find(product => product.id === _productId);
