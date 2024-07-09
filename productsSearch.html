@@ -10,7 +10,12 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="./css/home.css" />
   </head>
-
+  <script>
+    function preventIfNotLogin(event) {
+      event.preventDefault();
+      window.location.href = "./login.html";
+    }
+  </script>
   <body>
     <div class="container-fluid">
       <nav class="navbar navbar-expand-sm navbar-light border-bottom">
@@ -33,18 +38,32 @@
           >
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="myAccount.html"
+                <a
+                  class="nav-link"
+                  aria-current="page"
+                  href="myAccount.html"
+                  onclick="preventIfNotLogin(event)"
                   >My Account
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href=" myWishlist.html">My Wishlist</a>
+                <a
+                  class="nav-link"
+                  href=" myWishlist.html"
+                  onclick="preventIfNotLogin(event)"
+                  >My Wishlist</a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="login.html">Sign In</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="myOrders.html">My orders</a>
+                <a
+                  class="nav-link"
+                  href="myOrders.html"
+                  onclick="preventIfNotLogin(event)"
+                  >My orders</a
+                >
               </li>
             </ul>
           </div>
@@ -152,7 +171,6 @@
           ></div>
         </div>
       </section>
-
     </div>
     <footer class="container-fluid">
       <div class="container">
@@ -172,16 +190,12 @@
               <ul class="col-12 col-md-6">
                 <li class="pb-1"></li>
                 <li class="pb-1">
-                  <a
-                    class="text-decoration-none text-light"
-                    href="contact.html"
+                  <a class="text-decoration-none text-light" href="contact.html"
                     >Contact Us</a
                   >
                 </li>
                 <li class="pb-1">
-                  <a
-                    class="text-decoration-none text-light"
-                    href="aboutUs.html"
+                  <a class="text-decoration-none text-light" href="aboutUs.html"
                     >About Us</a
                   >
                 </li>
@@ -196,6 +210,7 @@
                   <a
                     class="text-decoration-none text-light"
                     href="myAccount.html"
+                    onclick="preventIfNotLogin(event)"
                     >My Account
                   </a>
                 </li>
@@ -203,6 +218,7 @@
                   <a
                     class="text-decoration-none text-light"
                     href=" myWishlist.html"
+                    onclick="preventIfNotLogin(event)"
                     >My Wishlist</a
                   >
                 </li>
@@ -210,6 +226,7 @@
                   <a
                     class="text-decoration-none text-light"
                     href="myOrders.html"
+                    onclick="preventIfNotLogin(event)"
                     >My orders</a
                   >
                 </li>
@@ -226,6 +243,6 @@
     <!-- <script src="js/popper.js"></script> -->
     <script src="js/bootstrap.bundle.js"></script>
 
-    <script src="js/productsSearch.js"></script>
+    <script type="module" src="js/productsSearch.js"></script>
   </body>
 </html>

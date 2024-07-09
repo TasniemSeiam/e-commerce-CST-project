@@ -1,7 +1,7 @@
 @import "../css/style.css";
 body {
   background-color: #f5f6f9;
-  min-height: max-content;
+  height: max-content;
 }
 .ulsecond > ul > li > a {
   text-decoration: none;
@@ -311,13 +311,13 @@ body {
   color: #fff !important;
 }
 .addedtowishlist {
-  background-color: var(--textandhovercolor)!important ;
-  color: #fff !important;
+  background-color: white!important ;
+  color: #ce0606 !important;
   /* bottom: 5%;
   z-index: 1; */
 }
 .addedtowishlist >i{
-  color: #fff !important;
+  color: #ce0606 !important;
 }
 .addtocartIcon,.addTofavIcon{
   color: #a9a9a9;
