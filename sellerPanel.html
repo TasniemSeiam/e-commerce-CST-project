@@ -19,6 +19,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <style>
+      .mb-0 {
+        margin-bottom: 0 !important;
+      }
       .container-fluid p {
         color: #fcb700;
         margin: 0px 90px;
@@ -127,6 +130,21 @@
         margin: 0 auto;
       }
 
+      .details {
+        width: 100px;
+        height: 30px;
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        border-radius: 10px;
+        transition: 0.5s ease;
+      }
+
+      .details:hover {
+        background-color: black;
+        color: white;
+      }
+
       @media (max-width: 650px) {
         .full-container {
           display: flex;
@@ -154,7 +172,6 @@
     </style>
   </head>
   <body>
-    
     <nav class="navbar navbar-expand-sm navbar-light border-bottom">
       <div class="container-fluid">
         <span class="navbar-text">
@@ -173,7 +190,7 @@
           <div class="col-xxl-12">
             <div class="breadcrumb_wrraper">
               <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent ">
+                <ol class="breadcrumb bg-transparent">
                   <li class="breadcrumb-item">
                     <a href="index.html">Home</a>
                   </li>
@@ -311,6 +328,55 @@
                 Save Changes
               </button>
             </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order details model -->
+    <div
+      class="modal fade"
+      id="orderDetailsModal"
+      tabindex="-1"
+      aria-labelledby="orderDetailsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="orderDetailsModalLabel">
+              Order Details
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form id="order-details-form">
+            <div class="form-group d-flex m-2 align-content-center gap-2">
+              <label for="order-details" class="mb-0"
+                >Change order tracking</label
+              >
+              <select
+                class="form-control"
+                style="width: 300px"
+                id="order-details-select"
+                required
+              >
+                <option value="">Change order tracking</option>
+                <option value="Order processed">Order processed</option>
+                <option value="Out for delivery">Out for delivery</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+          <div class="modal-body" id="order-details-body">
+            <!-- Order details will be displayed here -->
           </div>
         </div>
       </div>
