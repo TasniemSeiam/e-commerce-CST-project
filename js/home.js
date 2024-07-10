@@ -131,10 +131,6 @@ async function loadProducts() {
     const products = await fetch("../data/products.json");
     const getProduct = await products.json();
     const localdata = JSON.stringify(getProduct);
-  try {
-    const products = await fetch("../data/products.json");
-    const getProduct = await products.json();
-    const localdata = JSON.stringify(getProduct);
     localStorage.setItem("products", localdata);
     const localStorgeProducts = JSON.parse(localStorage.getItem("products"));
 
@@ -142,15 +138,7 @@ async function loadProducts() {
       localStorage.setItem("users", JSON.stringify(localdata));
     }
 
-    const localStorgeProducts = JSON.parse(localStorage.getItem("products"));
-
-    if (localStorgeProducts.length == 0) {
-      localStorage.setItem("users", JSON.stringify(localdata));
-    }
-
     // console.log(getProduct);
-  } catch (error) {
-    console.log("Error fetching products", error);
   } catch (error) {
     console.log("Error fetching products", error);
   }
