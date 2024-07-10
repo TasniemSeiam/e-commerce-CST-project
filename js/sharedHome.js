@@ -1,5 +1,6 @@
 import { showToastUser, currentUser } from "./config.js";
 // currentUser();
+
 let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];
 
 let getProduct = JSON.parse(localStorage.getItem("products"));
@@ -166,7 +167,7 @@ let cartCount = document.getElementById("cartCount");
 // let cartdata = JSON.parse(localStorage.getItem("cart")) || [];
 let cartdata = currentUsers.cart;
 
-cartCount.textContent = cartdata ? cartdata.length : 0;
+// cartCount.textContent = cartdata ? cartdata.length : 0;
 
 // export function addToCart(productId) {
 //   // let cartdata =  JSON.parse(localStorage.getItem("cart"));
@@ -196,6 +197,8 @@ cartCount.textContent = cartdata ? cartdata.length : 0;
 // }
 
 export function addToCart(productId) {
+  console.log("Inside addToCart, product ID:", productId); // Debug log
+
   let users = localStorage.getItem("users");
   let products = localStorage.getItem("products");
   let currentUser = localStorage.getItem("currentUser");
@@ -220,7 +223,7 @@ export function addToCart(productId) {
   products = JSON.parse(products);
 
   // Find the logged in user in the users array
-  const userIndex = users.findIndex(user => user.id === currentUser.id);
+  const userIndex = users.findIndex((user) => user.id === currentUser.id);
   if (userIndex === -1) {
     console.error("Current user not found in users.");
     return;
@@ -229,31 +232,59 @@ export function addToCart(productId) {
   let user = users[userIndex];
 
   if (!Array.isArray(user.cart)) {
-    console.error("Invalid cart structure in currentUser.");
-    return;
+    user.cart = []; // Initialize the cart if it doesn't exist
   }
 
-  const productAlreadyInCart = user.cart.some(item => item.id === productId);
-  if (productAlreadyInCart) {
-    console.error("Product already in cart.");
-    return;
-  }
+  const productIndexInCart = user.cart.findIndex(
+    (item) => item.id === productId
+  );
 
-  const product = products.find(p => p.id === productId);
-  if (!product) {
-    console.error("Product not found.");
-    return;
-  }
+  if (productIndexInCart > -1) {
+    // Remove product if it's already in the cart
+    user.cart.splice(productIndexInCart, 1);
+    console.log("Product removed from cart successfully");
+  } else {
+    // Add product if it's not in the cart
+    const product = products.find((p) => p.id == productId);
+    if (!product) {
+      console.error("Product not found.");
+      return;
+    }
 
-  user.cart.push({ id: productId, price: product.price, quantity: 1 });
+    user.cart.push({ id: productId, price: product.price, quantity: 1 });
+    console.log("Product added to cart successfully");
+  }
 
   users[userIndex] = user;
   localStorage.setItem("users", JSON.stringify(users));
 
-  console.log("Product added to cart successfully");
-
   // Refresh the cart items
   getCartItems();
+}
+
+function getCartItems() {
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    console.error("No current user found.");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users"));
+  if (!users) {
+    console.error("No users found in local storage.");
+    return;
+  }
+
+  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  if (userIndex === -1) {
+    console.error("Current user not found in users.");
+    return;
+  }
+
+  let user = users[userIndex];
+  let cartItems = user.cart || [];
+  console.log("Cart Items: ", cartItems);
+  // Add further logic to display or process the cart items if needed
 }
 
 // add to wishlist  list
@@ -317,20 +348,20 @@ export async function wishListUpdated(_wishList, _productId, btn) {
     // Remove product from wishlist
     _wishList = _wishList.filter((item) => item.id !== _productId);
     btn.classList.remove("addedtowishlist");
-    showToastAdded(`Product has been deleted from your wishlist.`,"danger");
+    showToastAdded(`Product has been deleted from your wishlist.`, "danger");
   } else {
     // Add product to wishlist
     _wishList.push(product);
     btn.classList.add("addedtowishlist");
-      showToastAdded(`Product has been added to your wishlist.`,"success");
+    showToastAdded(`Product has been added to your wishlist.`, "success");
   }
 
   // Update currentUser wishlist
   currentUsers.wishList = _wishList;
   localStorage.setItem("currentUser", JSON.stringify(currentUsers));
 }
-export function showToastAdded(messg,added ) {
-    const toastHTML = `
+export function showToastAdded(messg, added) {
+  const toastHTML = `
     <div class="" role="alert" aria-live="assertive" aria-atomic="true">
   <div class="d-flex ">
    <div class="toast-body">
@@ -341,26 +372,25 @@ ${messg}
   </div>
   `;
 
-// Create a new toast element
-const toastElement = document.createElement("div");
-toastElement.innerHTML = toastHTML;
-toastElement.className =
-` fixed-top p-1 w-25 toast align-items-center mx-auto text-bg-${added} border-0`; // Add fixed-top class to position at top of page
-toastElement.style.top = "10px"; // Add some margin from top
-toastElement.style.right = "10px"; // Add some margin from right
-toastElement.style.zIndex = "1000"; // Make sure it's on top of other elements
+  // Create a new toast element
+  const toastElement = document.createElement("div");
+  toastElement.innerHTML = toastHTML;
+  toastElement.className = ` fixed-top p-1 w-25 toast align-items-center mx-auto text-bg-${added} border-0`; // Add fixed-top class to position at top of page
+  toastElement.style.top = "10px"; // Add some margin from top
+  toastElement.style.right = "10px"; // Add some margin from right
+  toastElement.style.zIndex = "1000"; // Make sure it's on top of other elements
 
-// Add the toast element to the body
-document.body.appendChild(toastElement);
+  // Add the toast element to the body
+  document.body.appendChild(toastElement);
 
-// Create a new Bootstrap Toast instance
-const toast = new bootstrap.Toast(toastElement);
+  // Create a new Bootstrap Toast instance
+  const toast = new bootstrap.Toast(toastElement);
 
-// Show the toast message
-toast.show();
-console.log("ssss");
-// Hide the toast message after 3 seconds
-setTimeout(() => {
-toast.hide();
-}, 3000);
+  // Show the toast message
+  toast.show();
+  console.log("ssss");
+  // Hide the toast message after 3 seconds
+  setTimeout(() => {
+    toast.hide();
+  }, 3000);
 }

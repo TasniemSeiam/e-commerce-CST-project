@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function userNameValidation() {
-    const isValid = usernameInput.value.length > 3;
+    const isValid = usernameInput.value.length > 3 && usernameInput !== "";
     showValidationMessage(
       usernameInput,
       userNameSuccess,
@@ -105,14 +105,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function passwordValidation() {
-    const isValid = passwordInput.value.length > 7;
+    const isValid = passwordInput.value.length > 7 && passwordInput !== "";
     showValidationMessage(
       passwordInput,
       passwordSuccess,
       passwordError,
       isValid,
       "",
-      "Password Should be 8 characters or more."
+      "Password Should be Valid and 8 characters or more."
     );
   }
 

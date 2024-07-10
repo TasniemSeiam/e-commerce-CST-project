@@ -80,19 +80,4 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error fetching user data:", error);
     }
   }); // end of submit
-
-  // // Check if a user is logged in on page load
-  // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  // if (currentUser) {
-  //   alert(
-  //     `Welcome back, ${currentUser.username}! You are logged in as ${currentUser.role}.`
-  //   );
-  //   if (currentUser.role === "seller") {
-  //     window.location.href = "sellerPanel.html";
-  //   } else if (currentUser.role === "admin") {
-  //     window.location.href = "adminPanel.html";
-  //   } else {
-  //     window.location.href = "index.html";
-  //   }
-  // }
 }); // end of event listener

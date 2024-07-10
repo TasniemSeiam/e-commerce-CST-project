@@ -1,3 +1,5 @@
+import { showToastAdded } from "../js/sharedHome.js";
+
 export function showToastUser(message, success = true, timeout = 3000) {
   // Create a new toast element
   const toastElement = document.createElement("div");
@@ -105,4 +107,89 @@ export async function initializeUsers() {
   } catch (error) {
     console.error("Error fetching users:", error);
   }
+}
+
+export function toggleWishlist(product) {
+  let user = JSON.parse(localStorage.getItem("currentUser")) || {
+    wishList: [],
+  };
+  // Retrieve the current user from localStorage
+  // Retrieve the current user from localStorage
+
+  if (!user) {
+    showToastAdded("No user logged in.", "red");
+    return;
+  }
+
+  // Log product ID for debugging
+  console.log("Product ID:", product.id);
+
+  // Find the product element
+  const productElement = document.querySelector(
+    `.product[data-id="${product.id}"]`
+  );
+
+  // Check if the product element exists
+  if (!productElement) {
+    console.error(`Product element with ID ${product.id} not found.`);
+    return;
+  }
+
+  const wishlistIcon = productElement.querySelector(".add-to-wishlist");
+
+  // Check if the wishlist icon exists
+  if (!wishlistIcon) {
+    console.error("Wishlist icon not found in the product element.");
+    return;
+  }
+
+  // Check if the product is already in the wishlist
+  const wishlistIndex = user.wishList.findIndex(
+    (item) => item.id.toString() === product.id.toString()
+  );
+
+  if (wishlistIndex === -1) {
+    // Product is not in wishlist, add it
+    user.wishList.push(product);
+
+    showToastAdded("Product added to wishlist!", "green");
+
+    wishlistIcon.classList.add("wishlist-added");
+  } else {
+    // Product is in wishlist, remove it
+    user.wishList.splice(wishlistIndex, 1);
+
+    showToastAdded("Product removed from wishlist!", "red");
+
+    wishlistIcon.classList.remove("wishlist-added");
+  }
+
+  // Save updated user to localStorage
+  localStorage.setItem("currentUser", JSON.stringify(user));
+
+  // Update the users array in localStorage
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  const userIndex = users.findIndex(
+    (u) => u.id.toString() === user.id.toString()
+  );
+  if (userIndex > -1) {
+    users[userIndex] = user;
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+}
+
+export function redirectToProductDetails(productId) {
+  window.location.href = `productdetalis.html?id=${productId}`;
+}
+
+export function getProductDetailsById(productId) {
+  let products = localStorage.getItem("products");
+
+  if (!products) {
+    console.error("No products found in local storage.");
+    return null;
+  }
+
+  products = JSON.parse(products);
+  return products.find((product) => product.id === productId);
 }
