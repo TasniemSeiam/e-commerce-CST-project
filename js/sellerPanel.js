@@ -1,19 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Retrieve the current user from localStorage
-  let user = JSON.parse(localStorage.getItem("currentUser"));
-
-  // If no user is logged in, redirect to login page
-  if (!user) {
-    window.location.href = "login.html"; // Adjust the URL to your login page
-    return;
-  }
-
-  // Ensure only seller users can access this page
-  if (user.role !== "seller") {
-    window.location.href = "index.html"; // Adjust the URL to a different page
-    return;
-  }
-
   const contentDiv = document.getElementById("content");
 
   const sections = {

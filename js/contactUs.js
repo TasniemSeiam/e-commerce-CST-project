@@ -24,7 +24,7 @@ function getPosition(position) {
     let marker = new google.maps.Marker({ position: location, map: map, title: "this is your location" });
     marker.setMap(map);
     let infowindow = new google.maps.InfoWindow({
-        content: "Our Main Branch"
+        content: "our Location"
     });
     marker.addListener("click", function() {
         infowindow.open(map, marker);
@@ -46,18 +46,3 @@ function getPosition(position) {
 function errorHandeler() {
     alert('error for loading map')
 }
-
-
-
-let notLogIn = document.querySelectorAll(".preventIfLogOut");
-
-notLogIn.forEach((ele) => {
-  ele.addEventListener("click", (e) => {
-    let currentUser = localStorage.getItem("currentUser");
-    if (!currentUser) {
-      e.preventDefault();
-      window.location.href = "./login.html";
-      return;
-    }
-  });
-});

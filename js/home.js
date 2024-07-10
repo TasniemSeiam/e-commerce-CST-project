@@ -1,28 +1,12 @@
-<<<<<<< HEAD
-import {
-  showToastUser,
-  currentUser,
-  redirectToProductDetails,
-} from "./config.js";
-=======
 import {currentUser } from "./config.js";
->>>>>>> 93648ea726f10c0ffa7276d825fc5a12dd63d301
 import {
   addToCart,
   displayProduct,
   addToWishlist,
-<<<<<<< HEAD
-  getCategories,
-  wishListUpdated,
-} from "./sharedHome.js";
-let categoriesarr = [];
-=======
   getCategories,updateWishlistButtonStates
 } from "./sharedHome.js";
 // let categoriesarr = [];
->>>>>>> 93648ea726f10c0ffa7276d825fc5a12dd63d301
 // productsarr = []; // =>
-
 let selsectSearch = document.querySelector(".selsectSearch");
 let searchInput = document.querySelector(".searchInput");
 let showCategories = document.querySelector(".showCategories");
@@ -40,21 +24,12 @@ let pright1 = imgrigthero1.children[1];
 
 let getProduct = JSON.parse(localStorage.getItem("products")) || [];
 
-<<<<<<< HEAD
-document.addEventListener("DOMContentLoaded", async function () {
-  try {
-    await loadProducts();
-  } catch (e) {
-    console.log("error when loading data" + e);
-  }
-=======
 addEventListener("DOMContentLoaded", async function () {
   // try {
   await loadProducts();
   // } catch (e) {
   // console.log("error when loading data" + e);
   // }
->>>>>>> 93648ea726f10c0ffa7276d825fc5a12dd63d301
 
   getCategories(getProduct).forEach((cat) => {
     let option = document.createElement("option");
@@ -125,7 +100,7 @@ addEventListener("DOMContentLoaded", async function () {
     btn.addEventListener("click", function (e) {
       e.stopPropagation();
       // colorActived(e.target);
-      // console.log("hello");
+
       console.log(e.target.id);
       if (e.target.id == "pills-product-tab") {
         nextprevBtn.forEach((nextPrev, i) => {
@@ -165,11 +140,7 @@ async function loadProducts() {
 
     // console.log(getProduct);
   } catch (error) {
-<<<<<<< HEAD
-    console.error("Error fetching Products:", error);
-=======
     console.log("Error fetching products", error);
->>>>>>> 93648ea726f10c0ffa7276d825fc5a12dd63d301
   }
 }
 // Check if a user is logged in
@@ -1078,29 +1049,6 @@ backToTopBtn.addEventListener("click", () => {
   document.body.scrollTop = 0; // firefox scroll
 });
 
-<<<<<<< HEAD
-// function preventIfNotLogin(e) {
-//   e.preventDefault();
-//   window.location.href = "../login.html";
-// }
-// if (!currentUsers) {
-//   let preventIfLogOut = document.getElementsByClassName("preventIfLogOut");
-//   for (let i = 0; i < preventIfLogOut.length; i++) {
-//     preventIfLogOut[i].addEventListener("click", preventIfNotLogin);
-//   }
-// }
-// productElement.setAttribute("data-id", getProduct.id);
-
-// document
-//   .querySelectorAll(".divOFbestsellengProduct1")
-//   .forEach((productElement) => {
-//     productElement.addEventListener("click", function () {
-//       console.log("hello");
-//       const productId = this.getAttribute("data-id");
-//       redirectToProductDetails(productId);
-//     });
-//   });
-=======
 let notLogIn = document.querySelectorAll(".preventIfLogOut");
 
 notLogIn.forEach((ele) => {
@@ -1113,4 +1061,3 @@ notLogIn.forEach((ele) => {
     }
   });
 });
->>>>>>> 93648ea726f10c0ffa7276d825fc5a12dd63d301

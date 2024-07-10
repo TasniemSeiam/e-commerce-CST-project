@@ -200,8 +200,6 @@ export function getCategories(getProduct) {
 // cartCount.textContent = cartdata ? cartdata.length : 0;
 
 export function addToCart(productId) {
-  console.log("Inside addToCart, product ID:", productId); // Debug log
-
   let users = localStorage.getItem("users");
   let products = localStorage.getItem("products");
   let currentUser = localStorage.getItem("currentUser");
@@ -263,18 +261,16 @@ export function addToCart(productId) {
   }
 
   user.cart.push({ id: productId, price: product.price, quantity: 1 });
+
+  users[userIndex] = user;
+  localStorage.setItem("users", JSON.stringify(users));
+
   console.log("Product added to cart successfully");
+  showToastAdded("Product added to cart successfully.", "text-bg-success");
+
+  // Refresh the cart items
+  // getCartItems();
 }
-
-users[userIndex] = user;
-localStorage.setItem("users", JSON.stringify(users));
-
-console.log("Product added to cart successfully");
-showToastAdded("Product added to cart successfully.", "text-bg-success");
-
-// Refresh the cart items
-// getCartItems();
-
 // add to wishlist
 export async function addToWishlist(productId, btn) {
   let currentUser = localStorage.getItem("currentUser");
@@ -356,31 +352,6 @@ export async function addToWishlist(productId, btn) {
   // Update user in the users array
   users[userIndex] = user;
   localStorage.setItem("users", JSON.stringify(users));
-}
-
-function getCartItems() {
-  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUser) {
-    console.error("No current user found.");
-    return;
-  }
-
-  let users = JSON.parse(localStorage.getItem("users"));
-  if (!users) {
-    console.error("No users found in local storage.");
-    return;
-  }
-
-  const userIndex = users.findIndex((user) => user.id === currentUser.id);
-  if (userIndex === -1) {
-    console.error("Current user not found in users.");
-    return;
-  }
-
-  let user = users[userIndex];
-  let cartItems = user.cart || [];
-  console.log("Cart Items: ", cartItems);
-  // Add further logic to display or process the cart items if needed
 }
 
 // add to wishlist  list

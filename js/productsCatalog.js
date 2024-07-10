@@ -1,10 +1,4 @@
-import {
-  currentUser,
-  toggleWishlist,
-  redirectToProductDetails,
-  getProductDetailsById,
-} from "./config.js";
-import { addToCart } from "../js/sharedHome.js";
+import { currentUser, showToastUser } from "./config.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const productsContainer = document.getElementById("products__container");
@@ -33,14 +27,14 @@ document.addEventListener("DOMContentLoaded", function () {
       throw new Error("No products found in localStorage.");
     }
 
-    // Retrieve the current user from localStorage
-    let user = JSON.parse(localStorage.getItem("currentUser"));
-
     // Function to render products based on current page
     function renderProducts(pageNumber) {
       const startIndex = (pageNumber - 1) * productsPerPage;
       const endIndex = startIndex + productsPerPage;
       const currentProducts = filteredProducts.slice(startIndex, endIndex);
+
+      // Retrieve the current user from localStorage
+      let user = JSON.parse(localStorage.getItem("currentUser"));
 
       productsContainer.innerHTML = ""; // Clear existing products
       currentProducts.forEach((product) => {
@@ -65,16 +59,12 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
         // Check if the product is in the wishlist
-        const isInWishlist =
-          user && user.wishList.some((item) => item.id === product.id);
 
         productsContainer.innerHTML += `
           <div class="product" data-id="${product.id}">
             <div class="icons">
-              <span class="add-to-cart"><i class="fa-solid fa-cart-shopping"></i></span>
-              <span class="add-to-wishlist ${
-                isInWishlist ? "wishlist-added" : ""
-              }">
+              <span><i class="fa-solid fa-cart-shopping"></i></span>
+              <span class="add-to-wishlist">
                 <i class="fa-solid fa-heart"></i>
               </span>
             </div>
@@ -101,7 +91,8 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
       });
 
-      // Redirect to Product Details After clicking on a certain one
+      //IMPORTANT
+      // Redirect to Product Details After after clicking on certain one
       document.querySelectorAll(".product").forEach((productElement) => {
         productElement.addEventListener("click", function () {
           const productId = this.getAttribute("data-id");
@@ -114,29 +105,58 @@ document.addEventListener("DOMContentLoaded", function () {
         wishlistIcon.addEventListener("click", function (e) {
           e.stopPropagation(); // Prevent triggering the product click event
           const productId = this.closest(".product").getAttribute("data-id");
-
-          // Find the product object by ID
-          const product = products.find(
-            (p) => p.id.toString() === productId.toString()
-          );
-
-          if (product) {
-            toggleWishlist(product);
-          } else {
-            console.error(`Product with ID ${productId} not found.`);
-          }
+          toggleWishlist(productId);
         });
       });
+    }
 
-      // Add event listeners to cart icons
-      document.querySelectorAll(".add-to-cart").forEach((cartIcon) => {
-        cartIcon.addEventListener("click", function (e) {
-          e.stopPropagation(); // Prevent triggering the product click event
-          const productId = this.closest(".product").getAttribute("data-id");
-          console.log("Adding to cart, product ID:", productId); // Debug log
-          addToCart(productId);
-        });
-      });
+    function redirectToProductDetails(productId) {
+      window.location.href = `productdetalis.html?id=${productId}`;
+    } // End OF redirection
+
+    function toggleWishlist(productId) {
+      // Retrieve the current user from localStorage
+      let user = JSON.parse(localStorage.getItem("currentUser"));
+
+      if (!user) {
+        showToastUser("No user logged in.", true, 2000);
+
+        return;
+      }
+
+      // Find the product element
+      const productElement = document.querySelector(
+        `.product[data-id="${productId}"]`
+      );
+      const wishlistIcon = productElement.querySelector(".add-to-wishlist");
+
+      // Check if the product is already in the wishlist
+      const wishlistIndex = user.wishList.indexOf(productId);
+      if (wishlistIndex === -1) {
+        // Product is not in wishlist, add it
+        user.wishList.push(productId);
+
+        showToastUser("Product added to wishlist!", true, 2000);
+
+        wishlistIcon.classList.add("wishlist-added");
+      } else {
+        // Product is in wishlist, remove it
+        user.wishList.splice(wishlistIndex, 1);
+        showToastUser("Product removed from wishlist!", true, 2000);
+
+        wishlistIcon.classList.remove("wishlist-added");
+      }
+
+      // Save updated user to localStorage
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      // Update the users array in localStorage
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      const userIndex = users.findIndex((u) => u.id === user.id);
+      if (userIndex > -1) {
+        users[userIndex] = user;
+        localStorage.setItem("users", JSON.stringify(users));
+      }
     }
 
     // Initial rendering of products
