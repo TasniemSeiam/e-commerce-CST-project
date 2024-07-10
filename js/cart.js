@@ -1,6 +1,6 @@
 let cartItem = document.getElementById("cartItems");
 let cartTotals = document.querySelector(".cart-totals");
-
+//get cart items
 function getCartItems() {
   let users = localStorage.getItem("users");
   let currentUser = localStorage.getItem("currentUser");
