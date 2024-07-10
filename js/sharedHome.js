@@ -3,7 +3,7 @@ import { showToastUser, currentUser } from "./config.js";
 
 let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];
 
-let getProduct = JSON.parse(localStorage.getItem("products"));
+let getProduct = JSON.parse(localStorage.getItem("products")) || [];
 
 export function displayProduct(product, _location) {
   // product.forEach((product) => {
@@ -30,29 +30,29 @@ export function displayProduct(product, _location) {
     "mx-auto mx-md-0  wishlistHeart btn-white  rounded-circle fas fa-heart wishlistHearti";
 
   wishlistBtn.setAttribute("data-product-id", product.id);
+  updateWishlistButtonStates();
+  // // let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  // if (currentUsers) {
+  //   console.log("loged in as current user");
+  // }
+  // let wish = currentUsers.wishList || [];
 
-  // let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (currentUsers) {
-    console.log("loged in as current user");
-  }
-  let wish = currentUsers.wishList;
+  // // Get all wishlist buttons
+  // const wishlistButtons = document.querySelectorAll("[data-product-id]");
 
-  // Get all wishlist buttons
-  const wishlistButtons = document.querySelectorAll("[data-product-id]");
+  // // Loop through each button and update its state
+  // wishlistButtons.forEach((btn) => {
+  //   const productId = btn.dataset.productId;
+  //   const product = getProduct.find(
+  //     (product) => product.id === Number(productId)
+  //   );
 
-  // Loop through each button and update its state
-  wishlistButtons.forEach((btn) => {
-    const productId = btn.dataset.productId;
-    const product = getProduct.find(
-      (product) => product.id === Number(productId)
-    );
-
-    if (wish.find((s) => s.id === product.id)) {
-      btn.classList.add("addedtowishlist");
-    } else {
-      btn.classList.remove("addedtowishlist");
-    }
-  });
+  //   if (wish.find((s) => s.id === product.id)) {
+  //     btn.classList.add("addedtowishlist");
+  //   } else {
+  //     btn.classList.remove("addedtowishlist");
+  //   }
+  // });
 
   // const wishlistBtnState = localStorage.getItem("wishlist-btn-state") || [];
   // let btnStateObj = {};
@@ -113,24 +113,27 @@ export function displayProduct(product, _location) {
   // wishListBtnStates(wishlistBtn, product, currentUsers.id);
 
   cartBtn.addEventListener("click", function (e) {
-    if (currentUsers) {
-      addToCart(product.id);
-    } else {
+    let currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
       e.preventDefault();
-      window.location.href = "../login.html";
+      window.location.href = "./login.html";
+      return;
+    } else {
+      addToCart(product.id);
     }
   });
   wishlistBtn.addEventListener("click", function (e) {
     // wishListBtnStates(e.target, product);
+    let currentUser = localStorage.getItem("currentUser");
 
-    if (currentUsers) {
-      addToWishlist(product.id, e.target);
-      console.log("Wishlist", currentUsers.wishList);
-    } else {
+    if (!currentUser) {
       e.preventDefault();
       window.location.href = "./login.html";
+      return;
+    } else {
+      addToWishlist(product.id, e.target);
+      console.log("Wishlist", currentUsers.wishList);
     }
-    console.log(currentUsers.wishList);
   });
 
   cardBody.appendChild(cardTitle);
@@ -162,12 +165,7 @@ export function getCategories(getProduct) {
 
 ////// add to cart list
 
-let addToCartList = [];
-let cartCount = document.getElementById("cartCount");
-// let cartdata = JSON.parse(localStorage.getItem("cart")) || [];
-let cartdata = currentUsers.cart;
-
-// cartCount.textContent = cartdata ? cartdata.length : 0;
+// let addToCartList = [];
 
 // export function addToCart(productId) {
 //   // let cartdata =  JSON.parse(localStorage.getItem("cart"));
@@ -195,6 +193,11 @@ let cartdata = currentUsers.cart;
 //     }
 //   }
 // }
+// let cartCount = document.getElementById("cartCount");
+// let cartdata = JSON.parse(localStorage.getItem("cart")) || [];
+// let cartdata = currentUsers.cart;
+
+// cartCount.textContent = cartdata ? cartdata.length : 0;
 
 export function addToCart(productId) {
   console.log("Inside addToCart, product ID:", productId); // Debug log
@@ -205,16 +208,22 @@ export function addToCart(productId) {
 
   if (!currentUser) {
     console.error("You need to login first to add to your cart.");
+    showToastAdded(
+      "You need to login first to add to your cart.",
+      "text-bg-danger"
+    );
     return;
   }
 
   if (!users) {
     console.error("No users found in local storage.");
+    showToastAdded("No users found in local storage.", "text-bg-danger");
     return;
   }
 
   if (!products) {
     console.error("No products found in local storage.");
+    showToastAdded("No products found in local storage.", "text-bg-danger");
     return;
   }
 
@@ -226,40 +235,127 @@ export function addToCart(productId) {
   const userIndex = users.findIndex((user) => user.id === currentUser.id);
   if (userIndex === -1) {
     console.error("Current user not found in users.");
+    showToastAdded("Current user not found in users.", "text-bg-danger");
+
     return;
   }
 
   let user = users[userIndex];
 
   if (!Array.isArray(user.cart)) {
-    user.cart = []; // Initialize the cart if it doesn't exist
+    console.error("Invalid cart structure in currentUser.");
+    showToastAdded("Invalid cart structure in currentUser.", "text-bg-danger");
+
+    return;
   }
 
-  const productIndexInCart = user.cart.findIndex(
+  const productAlreadyInCart = user.cart.some((item) => item.id === productId);
+  if (productAlreadyInCart) {
+    console.error("Product already in cart.");
+    showToastAdded("Product already in cart.", "text-bg-warning");
+    return;
+  }
+
+  const product = products.find((p) => p.id === productId);
+  if (!product) {
+    console.error("Product not found.");
+    return;
+  }
+
+  user.cart.push({ id: productId, price: product.price, quantity: 1 });
+  console.log("Product added to cart successfully");
+}
+
+users[userIndex] = user;
+localStorage.setItem("users", JSON.stringify(users));
+
+console.log("Product added to cart successfully");
+showToastAdded("Product added to cart successfully.", "text-bg-success");
+
+// Refresh the cart items
+// getCartItems();
+
+// add to wishlist
+export async function addToWishlist(productId, btn) {
+  let currentUser = localStorage.getItem("currentUser");
+  let users = localStorage.getItem("users");
+  let products = localStorage.getItem("products");
+
+  if (!currentUser) {
+    console.error("You need to login first to add to your wishlist.");
+    showToastAdded(
+      "You need to login first to add to your wishlist.",
+      "text-bg-danger"
+    );
+    return;
+  }
+
+  if (!users) {
+    console.error("No users found in local storage.");
+    showToastAdded("No users found in local storage.", "text-bg-danger");
+    return;
+  }
+
+  if (!products) {
+    console.error("No products found in local storage.");
+    showToastAdded("No products found in local storage.", "text-bg-danger");
+    return;
+  }
+
+  currentUser = JSON.parse(currentUser);
+  users = JSON.parse(users);
+  products = JSON.parse(products);
+
+  // Find the logged-in user in the users array
+  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  if (userIndex === -1) {
+    console.error("Current user not found in users.");
+    showToastAdded("Current user not found in users.", "text-bg-danger");
+    return;
+  }
+
+  let user = users[userIndex];
+
+  if (!Array.isArray(user.wishList)) {
+    console.error("Invalid wishlist structure in currentUser.");
+    showToastAdded(
+      "Invalid wishlist structure in currentUser.",
+      "text-bg-danger"
+    );
+    return;
+  }
+
+  const productAlreadyInWishlist = user.wishList.some(
     (item) => item.id === productId
   );
-
-  if (productIndexInCart > -1) {
-    // Remove product if it's already in the cart
-    user.cart.splice(productIndexInCart, 1);
-    console.log("Product removed from cart successfully");
+  if (productAlreadyInWishlist) {
+    // Remove product from wishlist
+    user.wishList = user.wishList.filter((item) => item.id !== productId);
+    btn.classList.remove("addedtowishlist");
+    showToastAdded(
+      "Product has been deleted from your wishlist.",
+      "text-bg-danger"
+    );
   } else {
-    // Add product if it's not in the cart
-    const product = products.find((p) => p.id == productId);
+    const product = products.find((p) => p.id === productId);
     if (!product) {
       console.error("Product not found.");
+
       return;
     }
 
-    user.cart.push({ id: productId, price: product.price, quantity: 1 });
-    console.log("Product added to cart successfully");
+    // Add product to wishlist
+    user.wishList.push(product);
+    btn.classList.add("addedtowishlist");
+    showToastAdded(
+      "Product has been added to your wishlist.",
+      "text-bg-success"
+    );
   }
 
+  // Update user in the users array
   users[userIndex] = user;
   localStorage.setItem("users", JSON.stringify(users));
-
-  // Refresh the cart items
-  getCartItems();
 }
 
 function getCartItems() {
@@ -328,38 +424,44 @@ function getCartItems() {
 //   }
 // }
 
-export async function addToWishlist(productId, btn) {
-  const currentUser =
-    (await JSON.parse(localStorage.getItem("currentUser"))) || {};
-  const wishlist = currentUser.wishList || [];
+// export async function addToWishlist(productId, btn) {
+//   const currentUser =
+//     (await JSON.parse(localStorage.getItem("currentUser"))) || {};
+//   const wishlist = currentUser.wishList || [];
 
-  if (wishlist.some((item) => item.id === productId)) {
-    wishListUpdated(wishlist, productId, btn);
-  } else {
-    wishListUpdated(wishlist, productId, btn);
-  }
-}
+//   if (wishlist.some((item) => item.id === productId)) {
+//     wishListUpdated(wishlist, productId, btn);
+//   } else {
+//     wishListUpdated(wishlist, productId, btn);
+//   }
+// }
 
-export async function wishListUpdated(_wishList, _productId, btn) {
-  let product = await getProduct.find((product) => product.id === _productId);
-  const currentUsers = JSON.parse(localStorage.getItem("currentUser"));
+// export async function wishListUpdated(_wishList, _productId, btn) {
+//   let product = await getProduct.find((product) => product.id === _productId);
+//   const currentUsers = JSON.parse(localStorage.getItem("currentUser"));
 
-  if (_wishList.some((item) => item.id === _productId)) {
-    // Remove product from wishlist
-    _wishList = _wishList.filter((item) => item.id !== _productId);
-    btn.classList.remove("addedtowishlist");
-    showToastAdded(`Product has been deleted from your wishlist.`, "danger");
-  } else {
-    // Add product to wishlist
-    _wishList.push(product);
-    btn.classList.add("addedtowishlist");
-    showToastAdded(`Product has been added to your wishlist.`, "success");
-  }
+//   if (_wishList.some((item) => item.id === _productId)) {
+//     // Remove product from wishlist
+//     _wishList = _wishList.filter((item) => item.id !== _productId);
+//     btn.classList.remove("addedtowishlist");
+//     showToastAdded(
+//       `Product has been deleted from your wishlist.`,
+//       "text-bg-danger"
+//     );
+//   } else {
+//     // Add product to wishlist
+//     _wishList.push(product);
+//     btn.classList.add("addedtowishlist");
+//     showToastAdded(
+//       `Product has been added to your wishlist.`,
+//       "text-bg-success"
+//     );
+//   }
 
-  // Update currentUser wishlist
-  currentUsers.wishList = _wishList;
-  localStorage.setItem("currentUser", JSON.stringify(currentUsers));
-}
+// Update currentUser wishlist
+//   currentUsers.wishList = _wishList;
+//   localStorage.setItem("currentUser", JSON.stringify(currentUsers));
+// }
 export function showToastAdded(messg, added) {
   const toastHTML = `
     <div class="" role="alert" aria-live="assertive" aria-atomic="true">
@@ -375,7 +477,7 @@ ${messg}
   // Create a new toast element
   const toastElement = document.createElement("div");
   toastElement.innerHTML = toastHTML;
-  toastElement.className = ` fixed-top p-1 w-25 toast align-items-center mx-auto text-bg-${added} border-0`; // Add fixed-top class to position at top of page
+  toastElement.className = ` fixed-top p-1 w-25 toast align-items-center mx-auto ${added} border-0`; // Add fixed-top class to position at top of page
   toastElement.style.top = "10px"; // Add some margin from top
   toastElement.style.right = "10px"; // Add some margin from right
   toastElement.style.zIndex = "1000"; // Make sure it's on top of other elements
@@ -388,9 +490,47 @@ ${messg}
 
   // Show the toast message
   toast.show();
-  console.log("ssss");
   // Hide the toast message after 3 seconds
   setTimeout(() => {
     toast.hide();
   }, 3000);
+}
+export function updateWishlistButtonStates() {
+  let users = localStorage.getItem("users");
+  let currentUser = localStorage.getItem("currentUser");
+
+  if (!currentUser) {
+    console.error("No currentUser found in local storage.");
+    return;
+  }
+
+  if (!users) {
+    console.error("No users found in local storage.");
+    return;
+  }
+
+  currentUser = JSON.parse(currentUser);
+  users = JSON.parse(users);
+  const user = users.find((user) => user.id === currentUser.id);
+
+  if (!user) {
+    console.error("Current user not found in users.");
+    return;
+  }
+
+  let wish = user.wishList || [];
+  const wishlistButtons = document.querySelectorAll("[data-product-id]");
+
+  wishlistButtons.forEach((btn) => {
+    const productId = btn.dataset.productId;
+    const product = getProduct.find(
+      (product) => product.id === Number(productId)
+    );
+
+    if (wish.find((s) => s.id === product.id)) {
+      btn.classList.add("addedtowishlist");
+    } else {
+      btn.classList.remove("addedtowishlist");
+    }
+  });
 }

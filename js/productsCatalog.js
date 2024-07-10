@@ -231,3 +231,18 @@ document.addEventListener("DOMContentLoaded", function () {
       "<p>Error fetching products. Please try again later.</p>";
   }
 });
+
+
+
+let notLogIn = document.querySelectorAll(".preventIfLogOut");
+
+notLogIn.forEach((ele) => {
+  ele.addEventListener("click", (e) => {
+    let currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      e.preventDefault();
+      window.location.href = "./login.html";
+      return;
+    }
+  });
+});

@@ -1,16 +1,26 @@
+<<<<<<< HEAD
 import {
   showToastUser,
   currentUser,
   redirectToProductDetails,
 } from "./config.js";
+=======
+import {currentUser } from "./config.js";
+>>>>>>> 93648ea726f10c0ffa7276d825fc5a12dd63d301
 import {
   addToCart,
   displayProduct,
   addToWishlist,
+<<<<<<< HEAD
   getCategories,
   wishListUpdated,
 } from "./sharedHome.js";
 let categoriesarr = [];
+=======
+  getCategories,updateWishlistButtonStates
+} from "./sharedHome.js";
+// let categoriesarr = [];
+>>>>>>> 93648ea726f10c0ffa7276d825fc5a12dd63d301
 // productsarr = []; // =>
 
 let selsectSearch = document.querySelector(".selsectSearch");
@@ -28,14 +38,23 @@ let imgrigthero1 = document.querySelectorAll(".imgrigthero")[1];
 let imgright1 = imgrigthero1.children[0];
 let pright1 = imgrigthero1.children[1];
 
-let getProduct = JSON.parse(localStorage.getItem("products"));
+let getProduct = JSON.parse(localStorage.getItem("products")) || [];
 
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     await loadProducts();
   } catch (e) {
     console.log("error when loading data" + e);
   }
+=======
+addEventListener("DOMContentLoaded", async function () {
+  // try {
+  await loadProducts();
+  // } catch (e) {
+  // console.log("error when loading data" + e);
+  // }
+>>>>>>> 93648ea726f10c0ffa7276d825fc5a12dd63d301
 
   getCategories(getProduct).forEach((cat) => {
     let option = document.createElement("option");
@@ -130,6 +149,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   displayBigSales(0, adv); // display the big sales
   onSale(getProduct); //display On sale section
   flashsection(getProduct); //display On flash section
+  updateWishlistButtonStates();
 }); // end loading
 async function loadProducts() {
   try {
@@ -145,10 +165,13 @@ async function loadProducts() {
 
     // console.log(getProduct);
   } catch (error) {
+<<<<<<< HEAD
     console.error("Error fetching Products:", error);
+=======
+    console.log("Error fetching products", error);
+>>>>>>> 93648ea726f10c0ffa7276d825fc5a12dd63d301
   }
 }
-
 // Check if a user is logged in
 currentUser();
 let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];
@@ -351,7 +374,7 @@ function displayBigSales(x, sect) {
       upperProductDis.innerHTML = `<h3 class="">Big Sales</h3>
                   <h5 class="">${bigSale[i].title}</h5>
                   <p class="">${bigSale[i].price}</p>
-                  <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>`;
+                  <a href="productCatalog.html" class="text-decoration-underline text-white ">Discover Now</a>`;
       bigsaleDiv.appendChild(img);
       bigsaleDiv.appendChild(upperProductDis);
       bigsaleDiv.appendChild(forntDiv);
@@ -546,45 +569,71 @@ function onSale(products) {
     addTofavBtn.innerHTML = '<i class="fa-solid fa-heart addTofavIcon "></i>';
     addToCartBtn.classList.add("btn", "btn-outline-warning", "addtocartBtn");
     addTofavBtn.classList.add("btn", "btn-outline-warning", "addtofavBtn");
+    
+    // let currentUser = JSON.parse(localStorage.getItem("currentUser")) || [];
+    // let wish = currentUser.wishList || [];
+    // let users = localStorage.getItem("users");
+    // let currentUser = localStorage.getItem("currentUser");
 
-    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    let wish = currentUser.wishList;
+    // if (!currentUser) {
+    //   console.error("No currentUser found in local storage.");
+    //   return;
+    // }
 
-    // Get all wishlist buttons
-    const wishlistButtons = document.querySelectorAll("[data-product-id]");
+    // if (!users) {
+    //   console.error("No users found in local storage.");
+    //   return;
+    // }
 
-    // Loop through each button and update its state
-    wishlistButtons.forEach((btn) => {
-      const productId = btn.dataset.productId;
-      const product = getProduct.find(
-        (product) => product.id === Number(productId)
-      );
+    // currentUser = JSON.parse(currentUser);
+    // users = JSON.parse(users);
+    // const user = users.find((user) => user.id === currentUser.id);
 
-      if (wish.find((s) => s.id === product.id)) {
-        btn.classList.add("addedtowishlist");
-      } else {
-        btn.classList.remove("addedtowishlist");
-      }
-    });
+    // if (!user) {
+    //   console.error("Current user not found in users.");
+    //   return;
+    // }
+
+    // // let cartItems = user.cart || [];
+    // let wish = user.wishList || [];
+    // // Get all wishlist buttons
+    // const wishlistButtons = document.querySelectorAll("[data-product-id]");
+
+    // // Loop through each button and update its state
+    // wishlistButtons.forEach((btn) => {
+    //   const productId = btn.dataset.productId;
+    //   const product = getProduct.find(
+    //     (product) => product.id === Number(productId)
+    //   );
+
+    //   if (wish.find((s) => s.id === product.id)) {
+    //     btn.classList.add("addedtowishlist");
+    //   } else {
+    //     btn.classList.remove("addedtowishlist");
+    //   }
+    // });
 
     addToCartBtn.addEventListener("click", function (e) {
-      if (currentUsers) {
-        addToCart(product.id);
-      } else {
+      let currentUser = localStorage.getItem("currentUser");
+      if (!currentUser) {
         e.preventDefault();
-        window.location.href = "../login.html";
+        window.location.href = "./login.html";
+        return;
+      } else {
+        addToCart(product.id);
       }
     });
 
     addTofavBtn.addEventListener("click", async function (e) {
-      if (currentUsers) {
-        addToWishlist(product.id, e.target);
-        console.log("Wishlist", currentUsers.wishList);
-      } else {
+      let currentUser = localStorage.getItem("currentUser");
+      if (!currentUser) {
         e.preventDefault();
         window.location.href = "./login.html";
+        return;
+      } else {
+        addToWishlist(product.id, e.target);
       }
-      console.log(currentUsers.wishList);
+      // console.log(currentUsers.wishList);
 
       // console.log(wish[0].id===product.id);
       // if (states) {
@@ -984,12 +1033,52 @@ function scrollFunction() {
     backToTopBtn.style.display = "none";
   }
 }
+// function updateWishlistButtonStates() {
+//   let users = localStorage.getItem("users");
+//   let currentUser = localStorage.getItem("currentUser");
+
+//   if (!currentUser) {
+//     console.error("No currentUser found in local storage.");
+//     return;
+//   }
+
+//   if (!users) {
+//     console.error("No users found in local storage.");
+//     return;
+//   }
+
+//   currentUser = JSON.parse(currentUser);
+//   users = JSON.parse(users);
+//   const user = users.find((user) => user.id === currentUser.id);
+
+//   if (!user) {
+//     console.error("Current user not found in users.");
+//     return;
+//   }
+
+//   let wish = user.wishList || [];
+//   const wishlistButtons = document.querySelectorAll("[data-product-id]");
+
+//   wishlistButtons.forEach((btn) => {
+//     const productId = btn.dataset.productId;
+//     const product = getProduct.find(
+//       (product) => product.id === Number(productId)
+//     );
+
+//     if (wish.find((s) => s.id === product.id)) {
+//       btn.classList.add("addedtowishlist");
+//     } else {
+//       btn.classList.remove("addedtowishlist");
+//     }
+//   });
+// }
 // scroll to top
 backToTopBtn.addEventListener("click", () => {
   document.documentElement.scrollTop = 0; // chrome scroll
   document.body.scrollTop = 0; // firefox scroll
 });
 
+<<<<<<< HEAD
 // function preventIfNotLogin(e) {
 //   e.preventDefault();
 //   window.location.href = "../login.html";
@@ -1011,3 +1100,17 @@ backToTopBtn.addEventListener("click", () => {
 //       redirectToProductDetails(productId);
 //     });
 //   });
+=======
+let notLogIn = document.querySelectorAll(".preventIfLogOut");
+
+notLogIn.forEach((ele) => {
+  ele.addEventListener("click", (e) => {
+    let currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      e.preventDefault();
+      window.location.href = "./login.html";
+      return;
+    }
+  });
+});
+>>>>>>> 93648ea726f10c0ffa7276d825fc5a12dd63d301
