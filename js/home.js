@@ -1,6 +1,11 @@
-import { showToastUser, currentUser } from "./config.js";
-import { addToCart,displayProduct,addToWishlist,getCategories,wishListUpdated} from "./sharedHome.js";
-let categoriesarr = [];
+import { currentUser } from "./config.js";
+import {
+  addToCart,
+  displayProduct,
+  addToWishlist,
+  getCategories,
+} from "./sharedHome.js";
+// let categoriesarr = [];
 // productsarr = []; // =>
 let selsectSearch = document.querySelector(".selsectSearch");
 let searchInput = document.querySelector(".searchInput");
@@ -121,18 +126,20 @@ addEventListener("load", async function () {
   flashsection(getProduct); //display On flash section
 }); // end loading
 async function loadProducts() {
-  getProduct = JSON.parse(localStorage.getItem("products"));
-  if (!getProduct || getProduct.length == 0) {
-    products = await fetch("../data/products.json");
-    getProduct = await products.json();
-    localdata = JSON.stringify(getProduct);
+  try {
+    const products = await fetch("../data/products.json");
+    const getProduct = await products.json();
+    const localdata = JSON.stringify(getProduct);
     localStorage.setItem("products", localdata);
-    // console.log(localdata);
-    location.reload();
-    return getProduct;
-  } else {
+    const localStorgeProducts = JSON.parse(localStorage.getItem("products"));
+
+    if (localStorgeProducts.length == 0) {
+      localStorage.setItem("users", JSON.stringify(localdata));
+    }
+
     // console.log(getProduct);
-    return getProduct;
+  } catch (error) {
+    console.log("Error fetching products", error);
   }
 }
 
@@ -956,7 +963,6 @@ async function filteredProductsByCategory(
 // }
 
 // Show button when user scrolls down
-
 
 const backToTopBtn = document.getElementById("backToTopBtn");
 window.onscroll = function () {
