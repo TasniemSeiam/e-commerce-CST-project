@@ -35,7 +35,7 @@ function getCartItems() {
           <tr>
             <td class="d-none d-md-table-cell d-flex align-items-center">
               <img
-                class="rounded-circle img-fluid"
+                class="rounded-1 img-fluid"
                 style="width: 80px; height: 80px"
                 src=${product.image[0]}
                 alt=""

@@ -1,0 +1,5 @@
+@import "../css/style.css";
+body {
+  background-color: #f5f6f9;
+  height: max-content;
+}

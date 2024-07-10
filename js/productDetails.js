@@ -1,5 +1,5 @@
 import { currentUser } from "./config.js";
-
+import {  getCategories} from "./sharedHome.js";
 document.addEventListener("DOMContentLoaded", function () {
   currentUser();
 
@@ -194,3 +194,32 @@ document.addEventListener("DOMContentLoaded", function () {
       "<p>Error fetching product details. Please try again later.</p>";
   }
 });
+
+
+let selsectSearch = document.querySelector(".selsectSearch");
+let searchInput = document.querySelector(".searchInput");
+let getProduct = JSON.parse(localStorage.getItem("products")) || [];
+getCategories(getProduct).forEach((cat) => {
+  let option = document.createElement("option");
+  option.value = cat;
+  option.textContent = cat;
+  selsectSearch.appendChild(option);
+  searchInput.addEventListener("focus", () => {
+    window.location.href = "../productsSearch.html?";
+  });
+}); // search select option
+
+
+let notLogIn = document.querySelectorAll(".preventIfLogOut");
+
+notLogIn.forEach((ele) => {
+  ele.addEventListener("click", (e) => {
+    let currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      e.preventDefault();
+      window.location.href = "./login.html";
+      return;
+    }
+  });
+});
+

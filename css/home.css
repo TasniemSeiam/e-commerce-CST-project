@@ -51,6 +51,7 @@ body {
   overflow: visible;
   text-align: justify;
   text-justify: inter-word;
+  margin-bottom: -1px;
 }
 .sliderHeader div > img {
   width: 60% !important;
@@ -64,6 +65,15 @@ body {
   color: #fff;
   text-transform: capitalize;
   font-size: 1.1rem;
+}
+.rightHero{
+  height:75vh !important;
+}
+@media all and (max-height:640px){
+  .rightHero div:last-child{
+    display: none !important;
+    /* height:75vh !important; */
+  }
 }
 .discounts .upperProductDis h5 {
   white-space: nowrap;

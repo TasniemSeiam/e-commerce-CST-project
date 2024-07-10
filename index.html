@@ -15,15 +15,6 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="./css/home.css" />
   </head>
-  <!-- <script  >
-       
-    function preventIfNotLogin(event) {
-      if(currentUsers){
-        event.preventDefault();
-        window.location.href = "./login.html";
-      }
-    }
-  </script> -->
   <body>
     <main>
       <div class="container-fluid">
@@ -50,17 +41,14 @@
               <ul class="navbar-nav">
                 <li class="nav-item">
                   <a
-                    class="nav-link preventIfLogOut "
+                    class="nav-link preventIfLogOut"
                     aria-current="page"
                     href="myAccount.html"
-                    
                     >My Account
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a
-                    class="nav-link preventIfLogOut "
-                    href="wishList.html"
+                  <a class="nav-link preventIfLogOut" href="wishList.html"
                     >My Wishlist</a
                   >
                 </li>
@@ -68,9 +56,7 @@
                   <a class="nav-link user__check" href="login.html">Sign In</a>
                 </li>
                 <li class="nav-item">
-                  <a
-                    class="nav-link preventIfLogOut "
-                    href="myOrders.html"
+                  <a class="nav-link preventIfLogOut" href="myOrders.html"
                     >My orders</a
                   >
                 </li>
@@ -138,10 +124,7 @@
             class="col-10 col-md-3 col-xl-2 position-relative my-3 my-md-2 my-lg-0 d-flex"
           >
             <div class="text-center border-secondary preventIfLogOut">
-              <a
-                href="cart.html"
-                
-                class="rounded-circle divofCart px-3 py-3"
+              <a href="cart.html" class="rounded-circle divofCart px-3 py-3"
                 ><i class="fas fa-shopping-bag text-black"></i
               ></a>
               <div
@@ -277,7 +260,7 @@
             <!-- end carsoul -->
 
             <div
-              class="col-2 d-flex d-none d-xl-block flex-column align-items-center overflow-hidden h-100"
+              class="col-2 d-flex d-none d-xl-block flex-column align-items-center overflow-hidden h-100 rightHero"
               style="height: 75vh"
             >
               <div
@@ -1054,35 +1037,31 @@
               <div
                 class="col-12 col-md-6 discounts position-relative h-100 overflow-hidden rounded rounded-3 mb-2"
               >
-                <img src="./images/banner/banner-4.jpg" class="w-100" alt="" />
+                <a href="productCatalog.html">
+                  <img
+                    src="./images/banner/banner-4.jpg"
+                    class="w-100"
+                    alt=""
+                  />
 
-                <!-- <div class="upperProductDis px-4 py-2">
-                <h3 class="">Big Sales</h3>
-                <h5 class="">Product Name</h5>
-                <p class="">price:200$</p>
-                <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>
-  
-              </div> -->
-
-                <div class="forntDiv"></div>
-                <div class="fornthDiv"></div>
+                  <div class="forntDiv"></div>
+                  <div class="fornthDiv"></div>
+                </a>
               </div>
               <!-- 1 -->
               <div
                 class="col-12 col-md-6 discounts position-relative h-100 overflow-hidden rounded rounded-3 mb-2"
               >
-                <img src="./images/banner/banner-5.jpg" class="w-100" alt="" />
+                <a href="productCatalog.html">
+                  <img
+                    src="./images/banner/banner-5.jpg"
+                    class="w-100"
+                    alt=""
+                  />
 
-                <!-- <div class="upperProductDis px-4 py-2">
-                <h3 class="">Big Sales</h3>
-                <h5 class="">Product Name</h5>
-                <p class="">price:200$</p>
-                <a href="product_details.html" class="text-decoration-underline text-white ">Discover Now</a>
-  
-              </div> -->
-
-                <div class="forntDiv"></div>
-                <div class="fornthDiv"></div>
+                  <div class="forntDiv"></div>
+                  <div class="fornthDiv"></div>
+                </a>
               </div>
               <!-- 1 -->
             </div>
@@ -1551,7 +1530,6 @@
                   <a
                     class="text-decoration-none text-light preventIfLogOut"
                     href="myAccount.html"
-                    
                     >My Account
                   </a>
                 </li>
@@ -1559,7 +1537,6 @@
                   <a
                     class="text-decoration-none text-light preventIfLogOut"
                     href=" myWishlist.html"
-                   
                     >My Wishlist</a
                   >
                 </li>

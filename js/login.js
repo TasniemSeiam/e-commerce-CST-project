@@ -96,3 +96,16 @@ document.addEventListener("DOMContentLoaded", function () {
   //   }
   // }
 }); // end of event listener
+
+let notLogIn = document.querySelectorAll("footer .preventIfLogOut");
+
+notLogIn.forEach((ele) => {
+  ele.addEventListener("click", (e) => {
+    let currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      e.preventDefault();
+      window.location.href = "./login.html";
+      return;
+    }
+  });
+});

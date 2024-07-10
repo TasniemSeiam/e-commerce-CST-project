@@ -81,6 +81,7 @@ searchBTN.addEventListener("click", (e) => {
 
 function displayProducts(product, _location) {
   product.forEach((product) => {
+   
     displayProduct(product, _location);
   //   let productDiv = document.createElement("div");
   //   productDiv.className = "col-12 col-sm-6 col-md-3 col-lg  px-2 mb-2";
@@ -224,6 +225,7 @@ function displayProducts(product, _location) {
   //   productCard.appendChild(cardBody);
   //   productDiv.appendChild(productCard);
   //   _location.appendChild(productDiv);
+  
   });
 }
 
@@ -329,3 +331,20 @@ function wishListBtnStates(_wishListBtn, _data) {
   }
 }
 */
+
+
+let notLogIn = document.querySelectorAll(".preventIfLogOut");
+
+notLogIn.forEach((ele) => {
+  ele.addEventListener("click", (e) => {
+    let currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      e.preventDefault();
+      window.location.href = "./login.html";
+      return;
+    }
+  });
+});
+
+
+
