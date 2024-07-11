@@ -153,10 +153,112 @@ function handleCheckoutFormSubmission() {
         pnumber,
       };
 
-      // save data in local storage
-      localStorage.setItem("orderData", JSON.stringify(orderData));
-
-      window.location.href = "../myOrders.html";
+      placeOrder(orderData);
     }
   });
 }
+
+function placeOrder(orderData) {
+  let users = localStorage.getItem("users");
+  let currentUser = localStorage.getItem("currentUser");
+
+  if (!currentUser) {
+    console.error("No currentUser found in local storage.");
+    return;
+  }
+
+  if (!users) {
+    console.error("No users found in local storage.");
+    return;
+  }
+
+  currentUser = JSON.parse(currentUser);
+  users = JSON.parse(users);
+  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+
+  if (userIndex === -1) {
+    console.error("Current user not found in users.");
+    return;
+  }
+
+  let user = users[userIndex];
+  let cartItems = user.cart || [];
+  if (cartItems.length === 0) {
+    console.error("No items in cart to place an order.");
+    return;
+  }
+
+  let subtotal = 0;
+  let orderItems = cartItems
+    .map((cartItem) => {
+      let product = getProductDetailsById(cartItem.id);
+      if (product) {
+        let totalPrice = (product.price * cartItem.quantity).toFixed(2);
+        subtotal += parseFloat(totalPrice);
+        return {
+          id: cartItem.id,
+          name: product.title,
+          quantity: cartItem.quantity,
+          price: parseFloat(totalPrice),
+        };
+      }
+      return null;
+    })
+    .filter((item) => item !== null);
+
+  let deliveryFees = 50;
+  let total = subtotal + deliveryFees;
+
+  const paymentMethod = document.querySelector(
+    'input[name="paymentMethod"]:checked'
+  ).value;
+
+  const newOrder = {
+    orderId: Date.now(),
+    orderItems,
+    total,
+    orderData: {
+      ...orderData,
+      paymentMethod,
+      trackingStatus: "Order Processed",
+    },
+  };
+
+  user.orders.push(newOrder);
+  user.cart = []; // Clear the cart
+
+  users[userIndex] = user;
+  localStorage.setItem("users", JSON.stringify(users));
+
+  console.log("Order placed successfully");
+
+  window.location.href = "../myOrders.html";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const codRadio = document.getElementById("cod");
+  const cardRadio = document.getElementById("card");
+  const creditCardInfo = document.getElementById("creditCardInfo");
+  const creditCardInputs = creditCardInfo.querySelectorAll("input");
+
+  function toggleCreditCardFields(enable) {
+    creditCardInputs.forEach((input) => {
+      input.disabled = !enable;
+    });
+  }
+
+  codRadio.addEventListener("change", function () {
+    if (this.checked) {
+      toggleCreditCardFields(false);
+    }
+  });
+
+  cardRadio.addEventListener("change", function () {
+    if (this.checked) {
+      toggleCreditCardFields(true);
+    }
+  });
+
+  // Initialize the form with COD as the default
+  toggleCreditCardFields(false);
+});

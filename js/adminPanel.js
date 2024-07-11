@@ -63,40 +63,50 @@ document.addEventListener("DOMContentLoaded", function () {
       </table>
       <div id="search-message"></div>
     `,
-    orders: `
+    orders: function () {
+      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+      const orderTable = `
       <h2>All Orders</h2>
-      <table class="table">
-        <thead>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Tracking Status</th>
+          <th>Total Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${allUsers
+          .flatMap((user) =>
+            user.orders.map(
+              (order) => `
           <tr>
-            <th>Order ID</th>
-            <th>Username</th>
-            <th>Mobile number</th>
-            <th>Total</th>
+            <td>${order.orderId}</td>
+            <td>${order.trackingStatus || "Order Processed"}</td>
+            <td>$${order.total.toFixed(2)}</td>
+            <td><button class="details">Order Details</button></td>
           </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1001</td>
-            <td>Mahmoud</td>
-            <td>01234567891</td>
-            <td>$30.00</td>
-          </tr>
-          <tr>
-            <td>1002</td>
-            <td>Ahmed</td>
-            <td>01234567891</td>
-            <td>$50.00</td>
-          </tr>
-        </tbody>
-      </table>
-    `,
+        `
+            )
+          )
+          .join("")}
+      </tbody>
+    </table>
+    `;
+      return orderTable;
+    },
   };
 
   function displayContent(section) {
-    contentDiv.innerHTML = sections[section];
+    if (typeof sections[section] === "function") {
+      contentDiv.innerHTML = sections[section]();
+    } else {
+      contentDiv.innerHTML = sections[section];
+    }
     if (section === "dashboard") {
-      displayUserRolesChart();
       displayProductCategoriesChart();
+      displayUserRolesChart();
     }
   }
 

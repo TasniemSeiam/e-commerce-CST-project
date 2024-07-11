@@ -202,58 +202,83 @@
                 </div>
 
                 <div class="col-12 col-md-6">
-                  <h3>Payment</h3>
-                  <!-- <label for="fname">Accepted Cards</label> -->
-                  <div class="icon-container">
-                    <i class="fa fa-cc-visa" style="color: navy"></i>
-                    <i class="fa fa-cc-amex" style="color: blue"></i>
-                    <i class="fa fa-cc-mastercard" style="color: red"></i>
-                    <i class="fa fa-cc-discover" style="color: orange"></i>
+                  <h3>Choose Your Payment Method</h3>
+                  <div>
+                    <input
+                      type="radio"
+                      id="cod"
+                      name="paymentMethod"
+                      value="cod"
+                      checked
+                    />
+                    <label for="cod">Cash On Delivery</label>
                   </div>
-                  <label for="cname">Name on Card</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="cname"
-                    name="cardname"
-                    placeholder="Your card name"
-                  />
-                  <label for="ccnum">Credit card number</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="ccnum"
-                    name="cardnumber"
-                    placeholder="Enter your 16 digits card number"
-                  />
-                  <label for="expmonth">Exp Month</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="expmonth"
-                    name="expmonth"
-                    placeholder="Sep"
-                  />
-                  <div class="row">
-                    <div class="col-6">
-                      <label for="expyear">Exp Year</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="expyear"
-                        name="expyear"
-                        placeholder="2018"
-                      />
+                  <div>
+                    <input
+                      type="radio"
+                      id="card"
+                      name="paymentMethod"
+                      value="card"
+                    />
+                    <label for="card">Debit / Credit Card</label>
+                  </div>
+                  <div id="creditCardInfo">
+                    <div class="icon-container">
+                      <i class="fa fa-cc-visa" style="color: navy"></i>
+                      <i class="fa fa-cc-amex" style="color: blue"></i>
+                      <i class="fa fa-cc-mastercard" style="color: red"></i>
+                      <i class="fa fa-cc-discover" style="color: orange"></i>
                     </div>
-                    <div class="col-6">
-                      <label for="cvv">CVV</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="cvv"
-                        name="cvv"
-                        placeholder="352"
-                      />
+                    <label for="cname">Name on Card</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cname"
+                      name="cardname"
+                      placeholder="Your card name"
+                      disabled
+                    />
+                    <label for="ccnum">Credit card number</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ccnum"
+                      name="cardnumber"
+                      placeholder="Enter your 16 digits card number"
+                      disabled
+                    />
+                    <label for="expmonth">Exp Month</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="expmonth"
+                      name="expmonth"
+                      placeholder="Sep"
+                      disabled
+                    />
+                    <div class="row">
+                      <div class="col-6">
+                        <label for="expyear">Exp Year</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="expyear"
+                          name="expyear"
+                          placeholder="2018"
+                          disabled
+                        />
+                      </div>
+                      <div class="col-6">
+                        <label for="cvv">CVV</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="cvv"
+                          name="cvv"
+                          placeholder="352"
+                          disabled
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -269,7 +294,8 @@
             <h4>
               Cart
               <span class="price" style="color: black"
-                ><i class="fa fa-shopping-cart"></i> <b id="quantity-of-items">2</b></span
+                ><i class="fa fa-shopping-cart"></i>
+                <b id="quantity-of-items">0</b></span
               >
             </h4>
             <div id="cartItemsContainer"></div>
