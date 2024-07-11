@@ -106,3 +106,20 @@ export async function initializeUsers() {
     console.error("Error fetching users:", error);
   }
 }
+
+export function isItemInWishlist(productId) {
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    return false;
+  }
+  let users = JSON.parse(localStorage.getItem("users"));
+  let user = users.find((user) => user.id === +currentUser.id);
+  if (!user || !Array.isArray(user.wishList)) {
+    return false;
+  }
+  return user.wishList.some((item) => item.id === +productId);
+}
+
+export function redirectToProductDetails(productId) {
+  window.location.href = `productdetalis.html?id=${productId}`;
+} // End OF redirection

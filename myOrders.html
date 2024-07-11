@@ -10,12 +10,23 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <link href="css/font-awesome.css" rel="stylesheet" />
+    <link href="./css/bootstrap.css" rel="stylesheet" />
+    <link href="./css/font-awesome.css" rel="stylesheet" />
     <link href="css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/productdetalis.css" />
+    <link rel="stylesheet" href="./css/productCatalog.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/home.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+
+    <style>
+      .breadcrumb {
+        background-color: #f6f6f6;
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-sm navbar-light border-bottom">
@@ -62,7 +73,30 @@
     </nav>
     <!-- end navbar -->
 
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
+      <section class="bg-light breadcrumb__area">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xxl-12">
+              <div class="breadcrumb_wrraper">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a href="myAccount.html">My Account</a>
+                    </li>
+                    <li
+                      class="breadcrumb-item breadcrumb__item--avtive"
+                      aria-current="page"
+                    >
+                      My Orders
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <h2>My Orders</h2>
       <div class="table-responsive">
         <table class="table table-bordered">

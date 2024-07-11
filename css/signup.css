@@ -39,7 +39,7 @@ body {
 
 .validate {
   display: none;
-  font-size: 0.775rem;
+  font-size: 0.665rem;
   color: red;
   margin-top: 0.25rem; /* Reduce the margin-top */
   position: absolute;
@@ -163,4 +163,23 @@ body {
 .check__anchor:hover {
   background-color: #e0a800; /* Darker shade for hover effect */
   color: var(--dark-color); /* Text color */
+}
+
+.main-conatier {
+  padding-left: 0 !important;
+}
+
+.home-logo i {
+  color: var(--main-color);
+  font-size: 25px;
+}
+
+@media (max-width: 771px) {
+  .image-container {
+    display: none;
+  }
+}
+
+footer {
+  z-index: 88888888;
 }

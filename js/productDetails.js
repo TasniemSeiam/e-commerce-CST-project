@@ -1,5 +1,6 @@
-import { currentUser } from "./config.js";
-import {  getCategories} from "./sharedHome.js";
+import { getCategories } from "./sharedHome.js";
+import { currentUser, isItemInWishlist } from "./config.js";
+import { addToWishlist, addToCart } from "./sharedHome.js";
 document.addEventListener("DOMContentLoaded", function () {
   currentUser();
 
@@ -62,9 +63,12 @@ document.addEventListener("DOMContentLoaded", function () {
       )}${'<i class="fa-regular fa-star"></i>'.repeat(emptyStars)}
     `;
 
+    const isWishlistItem = isItemInWishlist(product.id)
+      ? "addedtowishlist"
+      : "";
     productDetailsContainer.innerHTML = `
     <div class="container-fluid">
-      <div class="row">
+      <div class="row productDetailes" data-id="${product.id}">
         <div class="col-xxl-5 col-xl-5 col-lg-5">
           <div class="product__details-nav ">
             <div class="product__details-thumb">
@@ -143,15 +147,9 @@ document.addEventListener("DOMContentLoaded", function () {
               <div class="product__details-quantity mb-20">
                 <form action="#">
                   <div class="pro-quan-area d-lg-flex align-items-center">
-                    <div class="product-quantity mr-20 mb-25">
-                      <div class="cart-plus-minus p-relative">
-                        <input type="text" value="1" />
-                        <div class="dec qtybutton">-</div>
-                        <div class="inc qtybutton">+</div>
-                      </div>
-                    </div>
+                    
                     <div class="pro-cart-btn mb-25">
-                      <button class="t-y-btn" type="submit">
+                      <button class=" addCartBtn t-y-btn" type="submit">
                         Add to cart
                       </button>
                     </div>
@@ -162,8 +160,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 <ul>
                   <li>
                     <a href="#" title="Add to Wishlist"
-                      ><i class="fa-regular fa-heart"></i
-                    ></a>
+                    <span class=" wishlistBtn add-to-wishlist ${isWishlistItem}">
+                      <i class="fa-solid fa-heart"></i
+                    > </span></a>
                   </li>
                   <li>
                     <a href="#" title="Print"  onClick="window.print()"
@@ -178,6 +177,49 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
     </div>
     `;
+
+    document
+      .querySelector(".addCartBtn")
+      .addEventListener("click", function (e) {
+        e.preventDefault();
+        let currentUser = localStorage.getItem("currentUser");
+        if (!currentUser) {
+          e.preventDefault();
+          window.location.href = "./login.html";
+          return;
+        } else {
+          let products = JSON.parse(localStorage.getItem("products"));
+          let productId =
+            this.closest(".productDetailes").getAttribute("data-id");
+
+          addToCart(productId);
+        }
+      });
+
+    document
+      .querySelector(".wishlistBtn")
+      .addEventListener("click", function (e) {
+        e.stopPropagation(); // Prevent triggering the product click event
+
+        let currentUser = localStorage.getItem("currentUser");
+        if (!currentUser) {
+          e.preventDefault();
+          window.location.href = "./login.html";
+          return;
+        } else {
+          let products = JSON.parse(localStorage.getItem("products"));
+          let productId =
+            this.closest(".productDetailes").getAttribute("data-id");
+
+          addToWishlist(productId, e.target);
+
+          // Update wishlist button appearance based on current state
+          const isWishlistItem = isItemInWishlist(productId)
+            ? "addedtowishlist"
+            : "";
+          wishlistBtn.classList.toggle("addedtowishlist", isWishlistItem);
+        }
+      });
 
     // Add event listeners for sub images
     const mainImage = document.querySelector(".main-image");
@@ -195,7 +237,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-
 let selsectSearch = document.querySelector(".selsectSearch");
 let searchInput = document.querySelector(".searchInput");
 let getProduct = JSON.parse(localStorage.getItem("products")) || [];
@@ -209,7 +250,6 @@ getCategories(getProduct).forEach((cat) => {
   });
 }); // search select option
 
-
 let notLogIn = document.querySelectorAll(".preventIfLogOut");
 
 notLogIn.forEach((ele) => {
@@ -222,4 +262,3 @@ notLogIn.forEach((ele) => {
     }
   });
 });
-

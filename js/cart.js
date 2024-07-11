@@ -17,7 +17,7 @@ function getCartItems() {
 
   currentUser = JSON.parse(currentUser);
   users = JSON.parse(users);
-  const user = users.find((user) => user.id === currentUser.id);
+  const user = users.find((user) => +user.id === +currentUser.id);
 
   if (!user) {
     console.error("Current user not found in users.");
@@ -115,7 +115,7 @@ function incrementQuantity(productId) {
   currentUser = JSON.parse(currentUser);
   users = JSON.parse(users);
 
-  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  const userIndex = users.findIndex((user) => +user.id === +currentUser.id);
   if (userIndex === -1) {
     console.error("Current user not found in users.");
     return;
@@ -123,7 +123,7 @@ function incrementQuantity(productId) {
 
   let user = users[userIndex];
 
-  let cartItem = user.cart.find((item) => item.id === productId);
+  let cartItem = user.cart.find((item) => +item.id === +productId);
   if (!cartItem) {
     console.error("Product not found in user's cart.");
     return;
@@ -157,7 +157,7 @@ function decrementQuantity(productId) {
   currentUser = JSON.parse(currentUser);
   users = JSON.parse(users);
 
-  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  const userIndex = users.findIndex((user) => +user.id === +currentUser.id);
   if (userIndex === -1) {
     console.error("Current user not found in users.");
     return;
@@ -201,7 +201,7 @@ function updateTotalPrice(productId) {
   currentUser = JSON.parse(currentUser);
   users = JSON.parse(users);
 
-  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  const userIndex = users.findIndex((user) => +user.id === +currentUser.id);
   if (userIndex === -1) {
     console.error("Current user not found in users.");
     return;
@@ -209,7 +209,7 @@ function updateTotalPrice(productId) {
 
   let user = users[userIndex];
 
-  let cartItem = user.cart.find((item) => item.id === productId);
+  let cartItem = user.cart.find((item) => +item.id === +productId);
   if (!cartItem) {
     console.error("Product not found in user's cart.");
     return;
@@ -256,7 +256,7 @@ function updateCartTotals() {
   currentUser = JSON.parse(currentUser);
   users = JSON.parse(users);
 
-  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  const userIndex = users.findIndex((user) => +user.id === +currentUser.id);
   if (userIndex === -1) {
     console.error("Current user not found in users.");
     return;
@@ -297,7 +297,7 @@ function getProductDetailsById(productId) {
   }
 
   products = JSON.parse(products);
-  return products.find((product) => product.id === productId);
+  return products.find((product) => +product.id === +productId);
 }
 
 function removeFromCart(productId) {
@@ -317,7 +317,7 @@ function removeFromCart(productId) {
   currentUser = JSON.parse(currentUser);
   users = JSON.parse(users);
 
-  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  const userIndex = users.findIndex((user) => +user.id === +currentUser.id);
   if (userIndex === -1) {
     console.error("Current user not found in users.");
     return;
@@ -325,7 +325,7 @@ function removeFromCart(productId) {
 
   let user = users[userIndex];
 
-  user.cart = user.cart.filter((item) => item.id !== productId);
+  user.cart = user.cart.filter((item) => +item.id !== +productId);
 
   users[userIndex] = user;
   localStorage.setItem("users", JSON.stringify(users));

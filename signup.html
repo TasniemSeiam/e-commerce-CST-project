@@ -21,10 +21,19 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/signup.css" />
     <title>Sign Up</title>
+    <style>
+      .full-height {
+        height: 100vh;
+      }
+      .image-container {
+        background: url("./images/sign.png") no-repeat center center;
+        background-size: cover;
+      }
+    </style>
   </head>
   <body class="bg-light">
     <nav class="navbar navbar-expand-sm navbar-light border-bottom">
-      <div class="container-fluid">
+      <div class="container-fluid main-conatier">
         <button
           class="navbar-toggler"
           type="button"
@@ -37,9 +46,9 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <span class="navbar-text d-none d-md-block">
-          <a href="index.html"
-            ><img src="images/logo-black.png" alt="logo"
-          /></a>
+          <a class="home-logo" href="index.html"
+            ><i class="fa-solid fa-home"></i
+          ></a>
         </span>
         <div
           class="collapse navbar-collapse justify-content-around justify-content-md-end"
@@ -55,99 +64,108 @@
       <!-- end container fluid -->
     </nav>
 
-    <section class="section__form">
-      <div
-        class="form__container p-4 shadow-sm bg-white rounded text-center mx-auto"
-        style="max-width: 400px"
-      >
-        <h2 class="form__title mb-4">Join <strong>Today</strong></h2>
-        <form action="" class="form needs-validation" novalidate>
-          <div class="input-container form-group position-relative mb-4">
-            <i
-              class="fas fa-user position-absolute text-muted"
-              style="left: 1rem; top: 50%; transform: translateY(-50%)"
-            ></i>
-            <input
-              type="text"
-              class="form-control pl-5"
-              placeholder="User Name"
-              required
-            />
-            <div class="validate validate__userName--error"></div>
-            <div class="validate validate__userName--success"></div>
-          </div>
-          <div class="input-container form-group position-relative mb-4">
-            <i
-              class="fas fa-envelope position-absolute text-muted"
-              style="left: 1rem; top: 50%; transform: translateY(-50%)"
-            ></i>
-            <input
-              type="email"
-              class="form-control pl-5"
-              placeholder="Email"
-              required
-            />
-            <div class="validate validate__email--error"></div>
-            <div class="validate validate__email--success"></div>
-          </div>
-          <div class="input-container form-group position-relative mb-4">
-            <i
-              class="fas fa-lock position-absolute text-muted"
-              style="left: 1rem; top: 50%; transform: translateY(-50%)"
-            ></i>
-            <input
-              type="password"
-              class="form-control pl-5"
-              placeholder="Password"
-              required
-            />
-
-            <div class="validate validate__password--error"></div>
-            <div class="validate validate__password--success"></div>
-          </div>
-          <div class="input-container form-group position-relative">
-            <select class="form-control" id="roleSelect" required>
-              <option selected disabled value="">Type of account?</option>
-              <option value="user">Customer</option>
-              <option value="seller">Seller</option>
-            </select>
-            <div class="validate validate__selection"></div>
-          </div>
+    <div class="">
+      <div class="row full-height">
+        <!-- Left Column: Image -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <div class="image-container w-100 h-100"></div>
+        </div>
+        <!-- Right Column: Form -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
           <div
-            class="input-container container-hidden container-tax form-group position-relative mb-4"
+            class="form__container p-4 shadow-sm bg-white rounded text-center mx-auto"
+            style="max-width: 400px"
           >
-            <i
-              class="fa-regular fa-building position-absolute text-muted"
-              style="left: 1rem; top: 50%; transform: translateY(-50%)"
-            ></i>
-            <input
-              type="text"
-              class="tax__input form-control pl-5"
-              placeholder="Tax No."
-              required
-            />
+            <h2 class="form__title mb-4">Join <strong>Today</strong></h2>
+            <form action="" class="form needs-validation" novalidate>
+              <div class="input-container form-group position-relative mb-4">
+                <i
+                  class="fas fa-user position-absolute text-muted"
+                  style="left: 1rem; top: 50%; transform: translateY(-50%)"
+                ></i>
+                <input
+                  type="text"
+                  class="form-control pl-5"
+                  placeholder="User Name"
+                  required
+                />
+                <div class="validate validate__userName--error"></div>
+                <div class="validate validate__userName--success"></div>
+              </div>
+              <div class="input-container form-group position-relative mb-4">
+                <i
+                  class="fas fa-envelope position-absolute text-muted"
+                  style="left: 1rem; top: 50%; transform: translateY(-50%)"
+                ></i>
+                <input
+                  type="email"
+                  class="form-control pl-5"
+                  placeholder="Email"
+                  required
+                />
+                <div class="validate validate__email--error"></div>
+                <div class="validate validate__email--success"></div>
+              </div>
+              <div class="input-container form-group position-relative mb-4">
+                <i
+                  class="fas fa-lock position-absolute text-muted"
+                  style="left: 1rem; top: 50%; transform: translateY(-50%)"
+                ></i>
+                <input
+                  type="password"
+                  class="form-control pl-5"
+                  placeholder="Password"
+                  required
+                />
 
-            <div class="validate validate__tax--error"></div>
-            <div class="validate validate__tax--success"></div>
+                <div class="validate validate__password--error"></div>
+                <div class="validate validate__password--success"></div>
+              </div>
+              <div class="input-container form-group position-relative">
+                <select class="form-control" id="roleSelect" required>
+                  <option selected disabled value="">Type of account?</option>
+                  <option value="user">Customer</option>
+                  <option value="seller">Seller</option>
+                </select>
+                <div class="validate validate__selection"></div>
+              </div>
+              <div
+                class="input-container container-hidden container-tax form-group position-relative mb-4"
+              >
+                <i
+                  class="fa-regular fa-building position-absolute text-muted"
+                  style="left: 1rem; top: 50%; transform: translateY(-50%)"
+                ></i>
+                <input
+                  type="text"
+                  class="tax__input form-control pl-5"
+                  placeholder="Tax No."
+                  required
+                />
+
+                <div class="validate validate__tax--error"></div>
+                <div class="validate validate__tax--success"></div>
+              </div>
+              <button class="form__btn btn btn-block">Sign Up</button>
+            </form>
+            <p class="sign__up--label mt-3">
+              Already have an account?
+              <a href="login.html" class="sign-up__link text-primary">Login</a>
+            </p>
+            <!-- TOAST -->
+            <div
+              id="toast"
+              class="d-none toast text-start text-bg-primary border-0"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
+              <div class="toast-body"></div>
+            </div>
           </div>
-          <button class="form__btn btn btn-block">Sign Up</button>
-        </form>
-        <p class="sign__up--label mt-3">
-          Already have an account?
-          <a href="login.html" class="sign-up__link text-primary">Login</a>
-        </p>
-        <!-- TOAST -->
-        <div
-          id="toast"
-          class="d-none toast text-start text-bg-primary border-0"
-          role="alert"
-          aria-live="assertive"
-          aria-atomic="true"
-        >
-          <div class="toast-body"></div>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Modal -->
     <div
@@ -188,7 +206,7 @@
         </div>
       </div>
     </div>
-     <footer class="container-fluid">
+    <footer class="container-fluid">
       <div class="container">
         <div class="row">
           <div class="col-6">
@@ -255,7 +273,6 @@
         </p>
       </div>
     </footer>
-
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

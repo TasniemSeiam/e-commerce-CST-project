@@ -17,7 +17,6 @@
       rel="stylesheet"
     />
     <!-- Custom CSS -->
-    <!--  -->
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
     <link href="css/all.css" rel="stylesheet" />
@@ -27,6 +26,17 @@
     <link rel="stylesheet" href="css/login.css" />
 
     <title>Login</title>
+
+    <style>
+      .full-height {
+        height: 100vh;
+      }
+      .image-container {
+        background: url("./images/sign.png") no-repeat center center;
+        background-size: auto;
+        padding: 50px;
+      }
+    </style>
   </head>
   <body class="bg-light">
     <nav class="navbar navbar-expand-sm navbar-light border-bottom">
@@ -43,9 +53,9 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <span class="navbar-text d-none d-md-block">
-          <a href="index.html"
-            ><img src="images/logo-black.png" alt="logo"
-          /></a>
+          <a class="home-logo" href="index.html"
+            ><i class="fa-solid fa-home"></i
+          ></a>
         </span>
         <div
           class="collapse navbar-collapse justify-content-around justify-content-md-end"
@@ -58,7 +68,6 @@
           </ul>
         </div>
       </div>
-      <!-- end container fluid -->
     </nav>
 
     <span
@@ -70,61 +79,71 @@
         <!-- This is where the toast will be dynamically added -->
       </span>
     </span>
-    <section class="section__form">
-      <div
-        class="form__container p-4 shadow-sm bg-white rounded text-center mx-auto"
-        style="max-width: 25rem"
-      >
-        <h2 class="form__title mb-4">Welcome Back</h2>
-        <form action="" class="form needs-validation" novalidate>
-          <div class="input-container form-group position-relative mb-4">
-            <i
-              class="fas fa-envelope position-absolute text-muted"
-              style="left: 1rem; top: 50%; transform: translateY(-50%)"
-            ></i>
-            <input
-              type="email"
-              class="form-control pl-5"
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div class="input-container form-group position-relative mb-4">
-            <i
-              class="fas fa-lock position-absolute text-muted"
-              style="left: 1rem; top: 50%; transform: translateY(-50%)"
-            ></i>
-            <input
-              type="password"
-              class="form-control pl-5"
-              placeholder="Password"
-              required
-            />
-          </div>
-          <p class="page__link text-right mb-3">
-            <a href="#" class="page__link--label text-muted"
-              >Forget Password?</a
-            >
-          </p>
-          <button class="form__btn btn btn-block">Login</button>
-        </form>
-        <p class="sign__up--label mt-3">
-          Don't have an account?
-          <a href="signup.html" class="sign-up__link text-primary">Sign up</a>
-        </p>
 
-        <!-- TOAST -->
-        <div
-          id="toast"
-          class="fade d-none toast text-start text-bg-primary border-0"
-          role="alert"
-          aria-live="assertive"
-          aria-atomic="true"
-        >
-          <div class="toast-body"></div>
+    <div class="container-fluid">
+      <div class="row full-height">
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <div
+            class="form__container p-4 shadow-sm bg-white rounded text-center mx-auto"
+            style="max-width: 25rem"
+          >
+            <h2 class="form__title mb-4">Welcome Back</h2>
+            <form action="" class="form needs-validation" novalidate>
+              <div class="input-container form-group position-relative mb-4">
+                <i
+                  class="fas fa-envelope position-absolute text-muted"
+                  style="left: 1rem; top: 50%; transform: translateY(-50%)"
+                ></i>
+                <input
+                  type="email"
+                  class="form-control pl-5"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <div class="input-container form-group position-relative mb-4">
+                <i
+                  class="fas fa-lock position-absolute text-muted"
+                  style="left: 1rem; top: 50%; transform: translateY(-50%)"
+                ></i>
+                <input
+                  type="password"
+                  class="form-control pl-5"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <p class="page__link text-right mb-3">
+                <a
+                  href="resertPasswordRequest.html"
+                  class="page__link--label text-muted"
+                  >Forget Password?</a
+                >
+              </p>
+              <button class="form__btn btn btn-block">Login</button>
+            </form>
+            <p class="sign__up--label mt-3">
+              Don't have an account?
+              <a href="signup.html" class="sign-up__link text-primary"
+                >Sign up</a
+              >
+            </p>
+
+            <!-- TOAST -->
+            <div
+              id="toast"
+              class="fade d-none toast text-start text-bg-primary border-0"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
+              <div class="toast-body"></div>
+            </div>
+          </div>
         </div>
+        <div class="col-md-6 image-container d-none d-md-flex"></div>
       </div>
-    </section>
+    </div>
 
     <footer class="container-fluid">
       <div class="container">
@@ -193,7 +212,6 @@
         </p>
       </div>
     </footer>
-
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

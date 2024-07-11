@@ -373,6 +373,6 @@ body {
   }
 }
 
-.add-to-wishlist.wishlist-added i {
-  color: red;
+.addedtoCartlist > i {
+  background-color: var(--main-color) !important;
 }
