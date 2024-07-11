@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
   const contentDiv = document.getElementById("content");
 
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  if (!currentUser || currentUser.role !== "admin") {
+    window.location.href = "unauthorized.html"; // Redirect to an unauthorized access page
+  }
+
   const sections = {
     dashboard: `
     <h2>Dashboard</h2><p class="text-muted mt-n3 ml-5">powered by canvas</p>

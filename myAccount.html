@@ -9,9 +9,9 @@
     <link href="css/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="./css/productdetalis.css" />
     <link rel="stylesheet" href="./css/productCatalog.css" />
-    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="./css/home.css" />
     <link rel="stylesheet" href="./css/myAccount.css" />
+
     <!-- <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -74,35 +74,39 @@
       <header
         class="border-bottom py-4 bg-white row justify-content-between align-items-center"
       >
-        <a href="index.html" class="col-12 col-md-2">
-          <img src="./images/logo-black.png" alt="" />
+        <a href="index.html" class="col-10 col-md-2">
+          <img src="./images/logo-black.png" alt="storelogo" />
         </a>
+
         <div class="col-12 col-md-6 col-xl-5 my-3 my-md-2 my-lg-0">
           <form class="d-flex">
             <div class="btn-group input-group">
               <div class="w-100">
                 <div class="input-group searchInpt rounded-pill">
                   <!-- <button
-                    class="btn dropdown-toggle border-2 border-end-0 rounded-end rounded-pill  border-warning  btnDropDown"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    All Categories
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">clothes</a></li>
-                    <li><a class="dropdown-item" href="#">phons</a></li>
-                    <li><a class="dropdown-item" href="#">TVS</a></li>
-                  </ul> -->
+                      class="btn dropdown-toggle border-2 border-end-0 rounded-end rounded-pill  border-warning  btnDropDown"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      All Categories
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">clothes</a></li>
+                      <li><a class="dropdown-item" href="#">phons</a></li>
+                      <li><a class="dropdown-item" href="#">TVS</a></li>
+                    </ul> -->
+
                   <select
                     class="form-select text-center border-2 border-end-0 rounded-end rounded-pill border-warning selsectSearch"
                     aria-label="Default select example"
                   >
                     <option selected>All Categories</option>
                     <!--<option value="1">One</option>
+
                   <option value="2">Two</option>
                   <option value="3">Three</option> -->
+
                   </select>
 
                   <input
@@ -126,7 +130,7 @@
         </div>
         <!-- 1 -->
         <div
-          class="col-10 col-md-3 col-xl-2 position-relative my-3 my-md-2 my-lg-0 d-flex"
+          class="container-logo col-10 col-md-3 col-xl-2 position-relative my-3 my-md-2 my-lg-0 d-flex justify-content-end align-items-center gap-4"
         >
           <div class="text-center border-secondary preventIfLogOut">
             <a href="cart.html" class="rounded-circle divofCart px-3 py-3"
@@ -138,7 +142,18 @@
               <span id="cartCount">0</span>
             </div>
           </div>
+
           <p class="ms-3">My carts: <span id="cartTotalPrice">0</span></p>
+
+
+          <a
+            href="feedBack.html"
+            title="Customer service"
+            class="feed-back rounded-circle divofCart px-3 py-3"
+          >
+            <i class="fa-solid fa-headset"></i>
+          </a>
+
         </div>
         <!-- 2 -->
       </header>
@@ -197,32 +212,21 @@
                     <form>
                       <div class="form-group pb-2">
                         <label for="email">Email</label>
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="email"
-                          placeholder="Enter your email"
-                        />
+                        <div class="email-user"></div>
                       </div>
                       <div class="form-group pb-2">
                         <label for="username">Username</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="username"
-                          placeholder="Enter your username"
-                        />
+                        <div class="username-user"></div>
                       </div>
-                      <button type="submit" class="btn btn-primary">
-                        Update
-                      </button>
                     </form>
                   </div>
                 </div>
                 <div class="card mb-4">
                   <div class="card-body">
                     <h4 class="card-title">Orders</h4>
-                    <p>No orders yet.</p>
+                    <ul id="orders-list" class="list-group">
+                      <!-- Orders will be dynamically inserted here -->
+                    </ul>
                   </div>
                 </div>
                 <div class="card mb-4">
@@ -231,6 +235,15 @@
                     <ul id="wishlist-items" class="list-group">
                       <!-- Wishlist items will be dynamically inserted here -->
                     </ul>
+                  </div>
+                </div>
+
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <h4 class="card-title">Feedback</h4>
+                    <div id="feedback-list">
+                      <!-- Feedback with responses will be dynamically inserted here -->
+                    </div>
                   </div>
                 </div>
               </div>
