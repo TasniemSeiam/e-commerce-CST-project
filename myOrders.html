@@ -9,7 +9,26 @@
   <link href="css/font-awesome.css" rel="stylesheet" />
   <link href="css/all.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> -->
+  <style>
+      .empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+      }
+      .empty button {
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: 20px;
+        padding: 10px 20px;
+        transition: 0.3s;
+      }
+      .empty button:hover {
+        background-color: black;
+        color: white;
+      }
+    </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-sm navbar-light border-bottom">
@@ -37,7 +56,6 @@
             <a class="nav-link" href="myOrders.html">My orders</a>
           </li>
         </ul>
-
       </div>
       <!-- end container fluid -->
     </nav>
@@ -50,17 +68,26 @@
           <thead class="thead-light">
             <tr>
               <th class="d-none d-md-table-cell">Order ID</th>
+              <th class="d-none d-md-table-cell">Order Date</th>
               <th>Total Price</th>
-              <!-- <th>Payment method</th> -->
               <th>Tracking Status</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
+
+        <div class="empty">
+          <button id="backHomeBtn">Go Home</button>
+        </div>
       </div>
     </div>
 
-
+    <script>
+      const backHomeBtn = document.getElementById("backHomeBtn");
+      backHomeBtn.addEventListener("click", () => {
+        window.location.href = "../index.html";
+      });
+    </script>
   <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js" integrity="sha384-B4gt1jrGC7Jh4AgEPkEYnDd/9+YkG8X4FwW9OUj1qKxr13Aq0LGhz4+30JwVhnbb" crossorigin="anonymous"></script> -->
   <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgEPkEYnDd/9+YkG8X4FwW9OUj1qKxr13Aq0LGhz4+30JwVhnbb" crossorigin="anonymous"></script> -->
@@ -68,5 +95,6 @@
   <script src="js/bootstrap.bundle.js"></script>
   <script src="./js/myOrders.js"></script>
 </body>
+
 
 </html>

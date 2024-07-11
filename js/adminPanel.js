@@ -63,6 +63,48 @@ document.addEventListener("DOMContentLoaded", function () {
       </table>
       <div id="search-message"></div>
     `,
+    productsReview: function () {
+      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+      const productsTable = `
+      <h2>All Pending Products</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Approve Action</th>
+          <th>Refuse Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${allUsers
+        .flatMap((user) =>
+          user.pendingProducts.map(
+            (pendingProducts) => `
+             <tr data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">
+              <td><img src="${pendingProducts.image[0]}" alt="${pendingProducts.title}" width="50" height="50"></td>
+              <td>${pendingProducts.title}</td>
+              <td>${pendingProducts.discount}</td>
+              
+                 <td>
+                  <button class="approve-order-btn mahmoud" data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">Approve Product</button>
+                </td>
+                <td>
+                  <button class="refuse-order-btn" data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">Refuse Product</button>
+                </td>
+                
+             
+            </tr>
+        `
+          )
+        )
+        .join("")}
+      </tbody>
+    </table>
+    `;
+      return productsTable;
+    },
     orders: function () {
       const allUsers = JSON.parse(localStorage.getItem("users")) || [];
       const orderTable = `
@@ -71,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <thead>
         <tr>
           <th>Order ID</th>
+          <th>Order Date</th>
           <th>Tracking Status</th>
           <th>Total Price</th>
           <th>Action</th>
@@ -81,8 +124,9 @@ document.addEventListener("DOMContentLoaded", function () {
           .flatMap((user) =>
             user.orders.map(
               (order) => `
-          <tr>
+          <tr data-id="${order.orderId}">
             <td>${order.orderId}</td>
+            <td>${order.orderDate}</td>
             <td>${order.trackingStatus || "Order Processed"}</td>
             <td>$${order.total.toFixed(2)}</td>
             <td><button class="details">Order Details</button></td>
@@ -97,6 +141,93 @@ document.addEventListener("DOMContentLoaded", function () {
       return orderTable;
     },
   };
+
+  let products = JSON.parse(localStorage.getItem("products")) || [];
+  console.log(products)
+
+  function getAllPendingProducts() {
+    const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const pendingProducts = allUsers.flatMap((user) => user.pendingProducts);
+    return pendingProducts;
+  }
+
+  // Add a click event listener to each "Approve" button
+
+  const pendingProducts = getAllPendingProducts();
+  pendingProducts.forEach((product) => {
+    const productId = product.id;
+    console.log(productId);
+  });
+
+  //   const approveButtons = document.querySelectorAll(
+  //     ".approve-order-btn.mahmoud"
+  //   );
+
+  //   approveButtons.forEach((button) => {
+  //     button.addEventListener("click", (e) => {
+  //       const productId = button.dataset.productId;
+  //       const sellerId = button.dataset.sellerId;
+  //       approveProduct(productId, sellerId);
+  //     });
+  //   });
+  // });
+
+  // Use event delegation to listen for clicks on dynamically created buttons
+  document.addEventListener("click", (e) => {
+    if (
+      e.target &&
+      e.target.classList.contains("approve-order-btn") &&
+      e.target.classList.contains("mahmoud")
+    ) {
+      const productId = e.target.dataset.productId;
+      const sellerId = e.target.dataset.sellerId;
+      console.log(productId, sellerId);
+      approveProduct(productId, sellerId);
+    }
+  });
+
+  // Populate the table with pending products
+
+  function approveProduct(productId, sellerId) {
+    console.log("Approving product with ID:", productId);
+  
+    const usersData = JSON.parse(localStorage.getItem("users")) || [];
+    const pendingProducts = getAllPendingProducts();
+  
+    // Find the product in the pendingProducts array
+    const productIndex = pendingProducts.findIndex(
+      (product) => product.id === +productId
+    );
+  
+    if (productIndex !== -1) {
+      const product = pendingProducts[productIndex];
+  
+      // Add the product to the products array in local storage
+      let products = JSON.parse(localStorage.getItem("products")) || [];
+      products.push(product);
+      localStorage.setItem("products", JSON.stringify(products)); // Update here
+  
+      // Remove the product from the pendingProducts array in usersData
+      const userIndex = usersData.findIndex((user) => user.id === sellerId);
+      if (userIndex !== -1) {
+        const user = usersData[userIndex];
+        const pendingProductIndex = user.pendingProducts.findIndex(
+          (p) => p.id === +productId
+        );
+        if (pendingProductIndex !== -1) {
+          user.pendingProducts.splice(pendingProductIndex, 1);
+          // Update the usersData in local storage
+          localStorage.setItem("users", JSON.stringify(usersData));
+        }
+      }
+  
+      console.log(
+        "Product approved successfully and added to products in localStorage"
+      );
+    } else {
+      console.log("Product not found in pendingProducts");
+    }
+  }
 
   function displayContent(section) {
     if (typeof sections[section] === "function") {
@@ -119,6 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const usersData = JSON.parse(localStorage.getItem("users"));
+
   function fetchUsers() {
     const usersTbody = document.getElementById("users-tbody");
     usersTbody.innerHTML = "";
@@ -131,13 +263,19 @@ document.addEventListener("DOMContentLoaded", function () {
           <td>${user.username}</td>
           <td>${user.email}</td>
           <td>${user.role}</td>
-          <td>
-            <button class="btn btn-danger btn-sm">Delete</button>
-          </td>
+           <td>
+          ${
+            user.role !== "admin"
+              ? '<button class="btn btn-danger btn-sm">Delete</button>'
+              : ""
+          }
+        </td>
         `;
 
-        const deleteButton = row.querySelector(".btn-danger");
-        deleteButton.addEventListener("click", () => deleteUser(user.id));
+        if (user.role !== "admin") {
+          const deleteButton = row.querySelector(".btn-danger");
+          deleteButton.addEventListener("click", () => deleteUser(user.id));
+        }
 
         usersTbody.appendChild(row);
       });
@@ -216,6 +354,70 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function addApproveOrderEventListeners() {
+    const approveButtons = document.querySelectorAll(".approve-order-btn");
+    approveButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const row = button.closest("tr");
+        const productId = row.getAttribute("data-product-id");
+        const sellerId = row.getAttribute("data-seller-id");
+        approveProduct(productId, sellerId);
+      });
+    });
+  }
+
+  function openOrderDetailsModal(order, orderItems) {
+    $("#orderDetailsModal").modal("show");
+    const orderDetailsBody = document.getElementById("order-details-body");
+    orderDetailsBody.innerHTML = `
+      <h2>Order Data</h2>
+      <p>Order ID: ${order.orderId}</p>
+      <p>Total Price: $${order.total.toFixed(2)}</p>
+      <p>Address: ${order.orderData.address}</p>
+      <p>City: ${order.orderData.city}</p>
+      <p>email: ${order.orderData.email}</p>
+      <p>Name: ${order.orderData.fname}</p>
+      <p>Mobile Number: ${order.orderData.pnumber}</p>
+      <table class="order-items">
+        <thead>
+          <tr>
+            <th style="background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc;">Product Name</th>
+            <th style="background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc;">Quantity</th>
+            <th style="background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc;">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${orderItems
+            .map(
+              (item) => `
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ccc;">${item.name}</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">${item.quantity}</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">$${item.price}</td>
+            </tr>
+          `
+            )
+            .join("")}
+        </tbody>
+      </table>
+    `;
+    const closeButtons = document.querySelectorAll(
+      "#orderDetailsModal .close, #orderDetailsModal .btn-close"
+    );
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        $("#orderDetailsModal").modal("hide");
+      });
+    });
+  }
+
+  document
+    .getElementById("products-review-btn")
+    .addEventListener("click", function () {
+      displayContent("productsReview");
+      setActiveButton("products-review-btn");
+    });
+
   document
     .getElementById("dashboard-btn")
     .addEventListener("click", function () {
@@ -240,6 +442,20 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("orders-btn").addEventListener("click", function () {
     displayContent("orders");
     setActiveButton("orders-btn");
+    const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    document.querySelectorAll(".details").forEach((button) => {
+      button.addEventListener("click", function (e) {
+        const orderId = Number(e.target.closest("tr").dataset.id);
+        const order = allUsers
+          .flatMap((user) => user.orders)
+          .find((order) => order.orderId === orderId);
+        const orderItems = order.orderItems;
+        const orderItemsArray = Object.values(orderItems);
+        console.log(orderItemsArray);
+        openOrderDetailsModal(order, orderItemsArray);
+      });
+    });
   });
 
   displayContent("dashboard");

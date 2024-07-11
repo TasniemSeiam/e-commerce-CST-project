@@ -238,37 +238,29 @@
                       placeholder="Your card name"
                       disabled
                     />
+                    <div id="cardNameError" class="error"></div>
                     <label for="ccnum">Credit card number</label>
                     <input
                       type="number"
                       class="form-control"
-                      id="ccnum"
+                      id="cardNumber"
                       name="cardnumber"
                       placeholder="Enter your 16 digits card number"
                       disabled
                     />
-                    <label for="expmonth">Exp Month</label>
+                    <div id="cardNumberError" class="error"></div>
+                    <label for="expmonth">Exp Date</label>
                     <input
                       type="text"
                       class="form-control"
-                      id="expmonth"
+                      id="expDate"
                       name="expmonth"
-                      placeholder="Sep"
+                      placeholder="MM/YY"
                       disabled
                     />
+                    <div id="expDateError" class="error"></div>
                     <div class="row">
-                      <div class="col-6">
-                        <label for="expyear">Exp Year</label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="expyear"
-                          name="expyear"
-                          placeholder="2018"
-                          disabled
-                        />
-                      </div>
-                      <div class="col-6">
+                      <div class="col-12">
                         <label for="cvv">CVV</label>
                         <input
                           type="number"
@@ -278,6 +270,7 @@
                           placeholder="352"
                           disabled
                         />
+                        <div id="cvvError" class="error"></div>
                       </div>
                     </div>
                   </div>

@@ -39,14 +39,10 @@ function displayOrders() {
     rows += `
       <tr>
         <td class="d-none d-md-table-cell">${order.orderId}</td>
+        <td class="d-none d-md-table-cell">${order.orderDate}</td>
         <td>$${order.total.toFixed(2)}</td>
         <td>
-          <input
-            type="text"
-            class="form-control"
-            value="Order Processed"
-            readonly
-          />
+          ${order.trackingStatus}
         </td>
       </tr>
     `;

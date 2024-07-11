@@ -38,6 +38,38 @@ document.addEventListener("DOMContentLoaded", function () {
       </table>
       <div id="search-message"></div>
     `,
+    productsReview: function () {
+      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+      console.log(allUsers);
+      const productsTable = `
+      <h2>All Pending Products</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Product Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      ${allUsers
+        .flatMap((user) =>
+          user.pendingProducts.map(
+            (pendingProducts) => `
+            <tr>
+              <td><img src="${pendingProducts.image[0]}" alt="${pendingProducts.title}" width="50" height="50"></td>
+              <td>${pendingProducts.title}</td>
+              <td>${pendingProducts.discount}</td>
+            </tr>
+        `
+          )
+        )
+        .join("")}
+      </tbody>
+    </table>
+    `;
+      return productsTable;
+    },
     newProduct: `
     <h2>Add a new Product</h2>
     <div class="col-12 col-md-6">
@@ -123,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <thead>
         <tr>
           <th>Order ID</th>
+          <th>Order Date</th>
           <th>Tracking Status</th>
           <th>Total Price</th>
           <th>Action</th>
@@ -133,12 +166,20 @@ document.addEventListener("DOMContentLoaded", function () {
           .flatMap((user) =>
             user.orders.map(
               (order) => `
-          <tr>
-            <td>${order.orderId}</td>
-            <td>${order.trackingStatus || "Order Processed"}</td>
-            <td>$${order.total.toFixed(2)}</td>
-            <td><button class="details">Order Details</button></td>
-          </tr>
+         <tr data-id="${order.orderId}">
+          <td>${order.orderId}</td>
+          <td>${order.orderDate}</td>
+          <td>
+            <select class="tracking-status">
+              <option value="Order Processed" ${order.trackingStatus === "Order Processed" ? "selected" : ""}>Order Processed</option>
+              <option value="Out for Delivery" ${order.trackingStatus === "Out for Delivery" ? "selected" : ""}>Out for Delivery</option>
+              <option value="Delivered" ${order.trackingStatus === "Delivered" ? "selected" : ""}>Delivered</option>
+            </select>
+            <button class="save-tracking">Save</button>
+          </td>
+          <td>$${order.total.toFixed(2)}</td>
+          <td><button class="details">Order Details</button></td>
+        </tr>
         `
             )
           )
@@ -220,8 +261,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function openEditModal(product) {
     $("#editProductModal").modal("show");
-    document.getElementById("edit-pname").value = product.title;
-    document.getElementById("edit-desc").value = product.description;
+    document.getElementById("edit-pname").value.trim() = product.title;
+    document.getElementById("edit-desc").value.tim() = product.description;
     document.getElementById("edit-price").value = product.price;
     document.getElementById("edit-discPrice").value = product.discount;
     document.getElementById("edit-category").value = product.category;
@@ -297,9 +338,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function addProduct() {
-    const pname = document.getElementById("pname").value;
-    const desc = document.getElementById("desc").value;
+  function addProduct(event) {
+    event.preventDefault();
+    const pname = document.getElementById("pname").value.trim();
+    const desc = document.getElementById("desc").value.trim();
     const price = parseFloat(document.getElementById("price").value);
     const discPrice = parseFloat(document.getElementById("discPrice").value);
     const category = document.getElementById("category").value;
@@ -320,14 +362,14 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("imagesError").textContent = "";
 
     // Validate inputs
-    if (!pname) {
+    if (!pname || !/\S/.test(pname)) {
       document.getElementById("pnameError").textContent =
-        "You must enter a product name.";
+        "You must enter a valid product name.";
       isValid = false;
     }
-    if (!desc) {
+    if (!desc || !/\S/.test(desc)) {
       document.getElementById("descError").textContent =
-        "You must enter a description.";
+        "You must enter a valid description.";
       isValid = false;
     }
     if (!price) {
@@ -410,23 +452,66 @@ document.addEventListener("DOMContentLoaded", function () {
         image: imageUrls,
       };
 
-      productsData.push(newProduct);
-      localStorage.setItem("products", JSON.stringify(productsData));
-      alert("Product added successfully!");
-      displayContent("products");
-      fetchProducts();
-      setActiveButton("products-btn");
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+      const sellerUser = allUsers.find(
+        (user) => user.id === currentUser.id && user.role === "seller"
+      );
+
+      if (sellerUser) {
+        if (!sellerUser.pendingProducts) {
+          sellerUser.pendingProducts = [];
+        }
+        sellerUser.pendingProducts.push(newProduct);
+        localStorage.setItem("users", JSON.stringify(allUsers));
+        alert("Product added for review!");
+        displayContent("products");
+        fetchProducts();
+        setActiveButton("products-btn");
+      } else {
+        console.error("Seller user not found or invalid role.");
+      }
     });
   }
 
-  function openOrderDetailsModal(order) {
+  function openOrderDetailsModal(order, orderItems) {
     $("#orderDetailsModal").modal("show");
     const orderDetailsBody = document.getElementById("order-details-body");
     orderDetailsBody.innerHTML = `
+      <h2>Order Data</h2>
       <p>Order ID: ${order.orderId}</p>
-      <p>Tracking Status: ${order.trackingStatus || "Order Processed"}</p>
       <p>Total Price: $${order.total.toFixed(2)}</p>
+      <p>Address: ${order.orderData.address}</p>
+      <p>City: ${order.orderData.city}</p>
+      <p>email: ${order.orderData.email}</p>
+      <p>Name: ${order.orderData.fname}</p>
+      <p>Mobile Number: ${order.orderData.pnumber}</p>
+      <table class="order-items">
+        <thead>
+          <tr>
+            <th style="background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc;">Product Name</th>
+            <th style="background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc;">Quantity</th>
+            <th style="background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc;">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${orderItems.map(item => `
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ccc;">${item.name}</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">${item.quantity}</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">$${item.price}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
     `;
+    const closeButtons = document.querySelectorAll("#orderDetailsModal .close, #orderDetailsModal .btn-close");
+  closeButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      $("#orderDetailsModal").modal("hide");
+    });
+  });
   }
 
   document
@@ -447,6 +532,13 @@ document.addEventListener("DOMContentLoaded", function () {
           openEditModal(product);
         });
       });
+    });
+
+  document
+    .getElementById("products-review-btn")
+    .addEventListener("click", function () {
+      displayContent("productsReview");
+      setActiveButton("products-review-btn");
     });
 
   document
@@ -475,11 +567,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll(".details").forEach((button) => {
       button.addEventListener("click", function (e) {
-        const orderId = parseInt(e.target.closest("tr").dataset.id);
+        const orderId = Number(e.target.closest("tr").dataset.id);
         const order = allUsers
           .flatMap((user) => user.orders)
           .find((order) => order.orderId === orderId);
-        openOrderDetailsModal(order);
+          const orderItems = order.orderItems;
+          const orderItemsArray = Object.values(orderItems);
+          console.log(orderItemsArray)
+        openOrderDetailsModal(order, orderItemsArray);
+      });
+    });
+    
+    document.querySelectorAll(".save-tracking").forEach((button) => {
+      button.addEventListener("click", function (e) {
+        const row = e.target.closest("tr");
+        const orderId = Number(row.dataset.id);
+        const newStatus = row.querySelector(".tracking-status").value;
+  
+        const userIndex = allUsers.findIndex((user) =>
+          user.orders.some((order) => order.orderId === orderId)
+        );
+        const orderIndex = allUsers[userIndex].orders.findIndex(
+          (order) => order.orderId === orderId
+        );
+  
+        if (userIndex !== -1 && orderIndex !== -1) {
+          allUsers[userIndex].orders[orderIndex].trackingStatus = newStatus;
+          localStorage.setItem("users", JSON.stringify(allUsers));
+          alert("Tracking status updated successfully!");
+        } else {
+          console.error("Order or user not found");
+        }
       });
     });
   });

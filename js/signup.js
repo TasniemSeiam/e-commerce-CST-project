@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
           wishList: [],
           orders: [],
           cart: [],
-          pendingOrders: [],
+          pendingProducts: [],
           feedback: [],
           feedbackResponse: [],
           comments: [],

@@ -87,9 +87,9 @@ function handleCheckoutFormSubmission() {
     event.preventDefault();
     let isValid = true;
 
-    const fname = document.getElementById("fname").value;
+    const fname = document.getElementById("fname").value.trim();
     const fnameError = document.getElementById("fnameError");
-    if (!fname) {
+    if (!fname || !/\S/.test(fname)) {
       fnameError.textContent = "Please enter your name";
       isValid = false;
     } else {
@@ -106,27 +106,27 @@ function handleCheckoutFormSubmission() {
       emailError.textContent = "";
     }
 
-    const address = document.getElementById("address").value;
+    const address = document.getElementById("address").value.trim();
     const addressError = document.getElementById("addressError");
-    if (!address) {
+    if (!address || !/\S/.test(address)) {
       addressError.textContent = "Please enter your address";
       isValid = false;
     } else {
       addressError.textContent = "";
     }
 
-    const city = document.getElementById("city").value;
+    const city = document.getElementById("city").value.trim();
     const cityError = document.getElementById("cityError");
-    if (!city) {
+    if (!city || !/\S/.test(city)) {
       cityError.textContent = "Please enter your city";
       isValid = false;
     } else {
       cityError.textContent = "";
     }
 
-    const country = document.getElementById("country").value;
+    const country = document.getElementById("country").value.trim();
     const countryError = document.getElementById("countryError");
-    if (!country) {
+    if (!country || !/\S/.test(country)) {
       countryError.textContent = "Please enter your country";
       isValid = false;
     } else {
@@ -141,6 +141,52 @@ function handleCheckoutFormSubmission() {
       isValid = false;
     } else {
       pnumberError.textContent = "";
+    }
+
+    // Validate credit card information if "Credit or Debit" is selected
+    const cardRadio = document.getElementById("card");
+    if (cardRadio.checked) {
+      const cardName = document.getElementById("cname").value.trim();
+      const cardNameError = document.getElementById("cardNameError");
+      const cardNamePattern = /^[a-zA-Z\s]+$/;
+      if (!cardName.match(cardNamePattern)) {
+        cardNameError.textContent = "Please enter a valid card name (letters and spaces only)";
+        isValid = false;
+      } else {
+        cardNameError.textContent = "";
+      }
+      
+      const cardNumber = document.getElementById("cardNumber").value.trim();
+      const cardNumberError = document.getElementById("cardNumberError");
+      const cardNumberPattern = /^\d{16}$/;
+      if (!cardNumber.match(cardNumberPattern)) {
+        cardNumberError.textContent =
+          "Please enter a valid 16-digit card number";
+        isValid = false;
+      } else {
+        cardNumberError.textContent = "";
+      }
+
+      const expDate = document.getElementById("expDate").value.trim();
+      const expDateError = document.getElementById("expDateError");
+      const expDatePattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+      if (!expDate.match(expDatePattern)) {
+        expDateError.textContent =
+          "Please enter a valid expiration date (MM/YY)";
+        isValid = false;
+      } else {
+        expDateError.textContent = "";
+      }
+
+      const cvv = document.getElementById("cvv").value.trim();
+      const cvvError = document.getElementById("cvvError");
+      const cvvPattern = /^\d{3}$/;
+      if (!cvv.match(cvvPattern)) {
+        cvvError.textContent = "Please enter a valid 3-digit CVV";
+        isValid = false;
+      } else {
+        cvvError.textContent = "";
+      }
     }
 
     if (isValid) {
@@ -213,9 +259,25 @@ function placeOrder(orderData) {
     'input[name="paymentMethod"]:checked'
   ).value;
 
+  function generateRandomId() {
+    return Math.floor(100000 + Math.random() * 900000);
+  }
+
+  const orderTimestamp = Date.now();
+  const orderDate = new Date(orderTimestamp);
+
+  const day = orderDate.getDate();
+  const month = orderDate.getMonth() + 1;
+  const year = orderDate.getFullYear();
+
+  const formattedOrderDate = `${day}-${month}-${year}`;
+
   const newOrder = {
-    orderId: Date.now(),
-    orderItems,
+    orderId: generateRandomId(),
+    orderDate: formattedOrderDate,
+    orderItems: {
+      ...orderItems,
+    },
     total,
     orderData: {
       ...orderData,
