@@ -1,0 +1,37 @@
+@import "../css/style.css";
+*{
+  padding: 0!important;
+  margin: 0!important;
+  box-sizing: border-box!important;
+}
+#topPage{
+    width: 100%;
+    height: 70vh;
+    background: url("../images/about-bg.jpg") no-repeat center center;
+    background-size: cover;
+    margin-bottom: 20px;
+    position: relative;
+}
+.contantinTop{
+    position: relative;
+    top: -150px;
+    background-color: white;
+    margin-bottom: 10px;
+    font-size: larger;
+}
+.img1>div{
+    width: 95%;
+}
+.img1 img:hover {
+    transform: scale(1.1);
+}
+.img-1{
+    width:300px;
+    height:300px;
+    border-radius: 3%;
+    overflow: hidden;
+    margin: 0 auto 20px !important;
+}
+.img-1 img:hover{
+   transform: scale(1.1);
+}

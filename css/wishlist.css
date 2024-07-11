@@ -75,3 +75,19 @@
 .breadcrumb_wrraper {
   padding-bottom: 0px;
 }
+@media all and (max-width: 568px){
+  .wishlist-table .cart-btn,.wishlist-table .remove-btn{
+    margin-left:0 !important;
+    margin-bottom: 2px !important;
+    padding: 5px!important;
+  }
+  .productNameCol{
+    font-size: 0.5rem !important;
+  }
+  .productTr td>.imgs{
+    width:100%!important;
+  }
+  td{
+    padding: 0!important;
+  }
+}

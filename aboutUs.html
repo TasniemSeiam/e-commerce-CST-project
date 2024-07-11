@@ -15,11 +15,14 @@
     <link rel="stylesheet" href="./css/productdetalis.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/about.css" />
   </head>
   <body>
     <main>
       <div class="container-fluid">
-        <nav class="navbar navbar-expand-sm navbar-light border-bottom">
+        <nav
+          class="navbar navbar-expand-sm navbar-light py-3 px-2 border-bottom"
+        >
           <div class="container-fluid">
             <button
               class="navbar-toggler"
@@ -40,7 +43,7 @@
               id="navbarText"
             >
               <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item pe-2">
                   <a
                     class="nav-link preventIfLogOut"
                     aria-current="page"
@@ -48,12 +51,12 @@
                     >My Account
                   </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pe-2">
                   <a class="nav-link preventIfLogOut" href="wishList.html"
                     >My Wishlist</a
                   >
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pe-2">
                   <a class="nav-link user__check" href="login.html">Sign In</a>
                 </li>
                 <li class="nav-item">
@@ -68,115 +71,244 @@
         </nav>
         <!-- end navbar -->
         <header
-          class="border-bottom py-4 bg-white row justify-content-between align-items-center"
+          class="border-bottom py-4 bg-white row justify-content-center align-items-center"
         >
           <a href="index.html" class="col-10 col-md-2">
             <img src="./images/logo-black.png" alt="" />
           </a>
         </header>
-        <section class="breadcrumb__area box-plr-75">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-xxl-12">
-                  <div class="breadcrumb_wrraper">
-                    <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                          <a href="index.html">Home</a>
-                        </li>
-                        <li
-                          class="breadcrumb-item breadcrumb__item--avtive"
-                          aria-current="page"
-                        >
-                          About Us
-                        </li>
-                      </ol>
-                    </nav>
-                  </div>
+        <section id="secondNav">
+          <div class="pt-2 border-bottom ps-2 ulsecond">
+            <ul
+              class="list-inline col-12 col-sm-10 col-lg-5 col-xl-4 d-flex justify-content-between pt-2 py-2 pb-3"
+            >
+              <li class="list-inline-item">
+                <a class="activeNow" href="index.html">Home </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="" href="productCatalog.html">Products</a>
+              </li>
+              <li class="list-inline-item">
+                <a class="" href="About Us.html">About Us</a>
+              </li>
+              <li class="list-inline-item">
+                <a class="" href="Contact.html">Contacts</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <!-- section1  -->
+
+        <main class="container-fluid d-flex flex-column align-items-center">
+          <div id="topPage"></div>
+          <section class="container contantinTop">
+            <div class="p-5 pb-1">
+              <h4 class="mb-2 fa">About Us</h4>
+              <p class="text-justify pt-2">
+                Topico is a leading online marketplace dedicated to providing
+                high-quality and affordable products. With a strong focus on
+                providing high-quality, eco-friendly, and sustainable products.
+              </p>
+              <div class="border-start border-warning border-4 my-4">
+                <div class="ms-4">
+                  <p
+                    class="text-justify ps-2 py-1 text-black fw-bold fst-italic fa-1x"
+                  >
+                    <span class="text-warning"> Our mission</span> is to create
+                    a vibrant and inclusive marketplace where everyone has the
+                    opportunity to connect, buy, and sell products that are
+                    essential to their lives.
+                  </p>
+                </div>
+              </div>
+              <p>
+                We believe that by fostering a culture of sharing and
+                empowerment, we can create a more sustainable and equitable
+                world for all.
+              </p>
+            </div>
+          </section>
+          <section class="mb-5 container">
+            <div class="row">
+              <div class="col-4 img1">
+                <div class="pb-3 mx-auto overflow-hidden">
+                  <img
+                    src="./images/about-1.jpg"
+                    alt="About Us Image 1"
+                    class="img-fluid w-100"
+                  />
+                </div>
+                <div class="mx-auto " >
+                  <h5 class="pb-3">what we do?</h5>
+                  <p>
+                    Topico is a leading online marketplace dedicated to
+                    providing high-quality and affordable products. With a
+                    strong focus on providing high-quality, eco-friendly, and
+                    sustainable products.
+                  </p>
+                </div>
+              </div>
+              <div class="col-4 img1">
+                <div class="pb-3 mx-auto overflow-hidden">
+                  <img
+                    src="./images/about-2.jpg"
+                    alt="About Us Image 1"
+                    class="img-fluid w-100"
+                  />
+                </div>
+                <div class="mx-auto " >
+                  <h5 class="pb-3">our mission</h5>
+                  <p>
+                    is to create a vibrant and inclusive marketplace where
+                    everyone can connect, buy, and sell products essential to
+                    their lives. We believe that by fostering a culture of
+                    sharing and empowerment, we can create a more sustainable
+                    and equitable world for all
+                  </p>
+                </div>
+              </div>
+              <div class="col-4 img1">
+                <div class="pb-3 mx-auto overflow-hidden">
+                  <img
+                    src="./images/about-3.jpg"
+                    alt="About Us Image 1"
+                    class="img-fluid"
+                  />
+                </div>
+                <div class="mx-auto " >
+                  <h5 class="pb-3">our history</h5>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Pariatur, consectetur?
+                  </p>
                 </div>
               </div>
             </div>
           </section>
-          <!-- breadCrumb End -->
+          <section class="container py-5" >
+            <h3 class="" >Our Team</h3>
+            <div class="bg-warning"style="width:50px;height: 3px;" ></div>
+            <div class="row mt-4">
+              <div class="col-12 col-sm-4 text-center" >
+                <div class="img-1">
+                  <img
+                    src="./images/team2.jpg"
+                    alt="Team Member 1"
+                    class="h-100 img-fluid"
+                  />
+                </div>
+                <h5>Mahmoud EL-Sakaan</h5>
+              </div>
+              <div class="col-12 col-sm-4 text-center" >
+                <div class="img-1">
+                  <img
+                    src="./images/team1.jpg"
+                    alt="Team Member 1"
+                    class="h-100 img-fluid mx-auto"
+                  />
+                </div>
+                <h5>Tasniem Seiam</h5>
+              </div>
+              <div class="col-12 col-sm-4 text-center" >
+                <div class="img-1">
+                  <img
+                    src="./images/team3.jpg"
+                    alt="Team Member 1"
+                    class="h-100 img-fluid"
+                  />
+                </div>
+                <h5>Absallah Shaheen</h5>
+              </div>
+            </div>
+          </section>
+          <section class="w-100  py-4 mb-4" >
+            <h3 class="pb-2 text-center text-capitalize " > sign up to newsletter  </h3>
+            <div class="bg-warning mx-auto"style="width:80px;height: 3px;" ></div>
+            <p class="text-capitalize py-4 text-center"  >if you need any help contact us or visit our main office</p>
 
+          </section>
 
+        </main>
+        <!-- end -->
 
-
-        
         <button id="backToTopBtn">
-          <i class="fa-solid fa-arrow-up"></i>
-        </button>
+          <i class="fa-solid fa-arrow-up"></i></button
+        ><!-- back to top -->
       </div>
+      <!-- containerFluid -->
     </main>
     <!-- end container fluid all page -->
     <footer class="container-fluid">
-        <div class="container">
-          <div class="row">
-            <div class="col-6">
-              <a href="index.html" class="col-12 col-md-2">
-                <img src="./images/logo-white.png" alt="" />
-              </a>
-              <div class="my-3">
-                <p class="text-light" >Add: Walls Street 68, Mahattan, New York, USA</p>
-                <p class="text-light" >Email: info@thebuesky.com</p>
-                <p class="text-light" >phone: (+100) 123 456 7890</p>
-              </div>
+      <div class="container mx-auto text-center py-5">
+        <div class="row p-4">
+          <div class="col-6 text-start">
+            <a href="index.html" class="col-12 col-md-2">
+              <img src="./images/logo-white.png" alt="" />
+            </a>
+            <div class="my-3">
+              <p class="text-light">
+                Add: Walls Street 68, Mahattan, New York, USA
+              </p>
+              <p class="text-light">Email: info@thebuesky.com</p>
+              <p class="text-light">phone: (+100) 123 456 7890</p>
             </div>
-            <!-- 1 -->
-            <div class="col-6 p-2 text-center text-md-start">
-              <div class="row">
-                <ul class="col-12 col-md-6">
-                  <li class="pb-1"></li>
-  
-                  <li class="pb-1">
-                    <a class="text-decoration-none text-light" href="contact.html"
-                      >Contact Us</a
-                    >
-                  </li>
-                  <li class="pb-1">
-                    <a class="text-decoration-none text-light" href="aboutUs.html"
-                      >About Us</a
-                    >
-                  </li>
-                  <li class="pb-1">
-                    <a class="text-decoration-none text-light" href="login.html"
-                      >Sign In</a
-                    >
-                  </li>
-                </ul>
-                <ul class="col-12 col-md-6">
-                  <li class="pb-1">
-                    <a
-                      class="text-decoration-none text-light preventIfLogOut"
-                      href="myAccount.html"
-                      >My Account
-                    </a>
-                  </li>
-                  <li class="pb-1">
-                    <a
-                      class="text-decoration-none text-light preventIfLogOut"
-                      href=" myWishlist.html"
-                      >My Wishlist</a
-                    >
-                  </li>
-                  <li class="pb-1">
-                    <a
-                      class="text-decoration-none text-light preventIfLogOut"
-                      href="myOrders.html"
-                      >My orders</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- 2 -->
           </div>
-          <p class="text-capitalize text-center text-light">
-            Created By ITI Team &copy;2024
-          </p>
-        </div>
-      </footer>
+          <!-- 1 -->
+          <div class="col-6 p-2 text-center text-md-start">
+            <div class="row">
+              <ul class="col-12 col-md-6">
+                <li class="pb-1"></li>
 
+                <li class="pb-1">
+                  <a class="text-decoration-none text-light" href="contact.html"
+                    >Contact Us</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a class="text-decoration-none text-light" href="aboutUs.html"
+                    >About Us</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a class="text-decoration-none text-light" href="login.html"
+                    >Sign In</a
+                  >
+                </li>
+              </ul>
+              <ul class="col-12 col-md-6">
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light preventIfLogOut"
+                    href="myAccount.html"
+                    >My Account
+                  </a>
+                </li>
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light preventIfLogOut"
+                    href=" myWishlist.html"
+                    >My Wishlist</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light preventIfLogOut"
+                    href="myOrders.html"
+                    >My orders</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- 2 -->
+        </div>
+        <p class="text-capitalize text-center text-light">
+          Created By ITI Team &copy;2024
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB90FxtYG_ybAYXGkz0ybkmkboE2nEbezI"></script>
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/toastify-js"
@@ -184,6 +316,6 @@
     <script src="js/JQuery-3.3.1.js"></script>
     <!-- <script src="js/popper.js"></script> -->
     <script src="js/bootstrap.bundle.js"></script>
-    <script type="module" src="js/home.js"></script>
+    <script src="js/contactUs.js"></script>
   </body>
 </html>

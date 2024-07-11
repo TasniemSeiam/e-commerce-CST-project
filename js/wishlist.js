@@ -67,17 +67,17 @@ function getWishlistItems() {
   if (wishlistItemsData && wishlistItemsData.length > 0) {
     wishlistItemsData.forEach((item) => {
       items += `
-        <tr data-trId=${item.id}>
+        <tr data-trId=${item.id} class="productTr">
           <td>
             <div class='imgs'>
               <img src=${item.image[0]} alt=${item.title} class="img-fluid"/>
             </div>
           </td>
-          <td>${item.title}</td>
+          <td class='productTitle productNameCol' >${item.title}</td>
           <td class='fw-bold'>$${item.price}</td>
           <td>
-            <span class="remove-btn p-3 deletProduct fa-solid fa-trash" onClick="removeProductFromWishlist(event)"></span>
-            <span class="cart-btn p-3 fa-solid fa-plus" onClick="addToCart(${item.id})"></span>
+            <span class="remove-btn p-2 p-md-3 mb-1 mb-md-0 deletProduct fa-solid fa-trash" onClick="removeProductFromWishlist(event)"></span>
+            <span class="cart-btn p-2 p-md-3 fa-solid fa-plus" onClick="addToCart(${item.id})"></span>
           </td>
         </tr>
       `;
@@ -94,3 +94,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.removeProductFromWishlist = removeProductFromWishlist;
 window.addToCart = addToCart;
+
+let searchInput = document.querySelector(".searchInput");
+// let getProduct = JSON.parse(localStorage.getItem("products")) || [];
+
+searchInput.addEventListener("keyup", function (e) {
+  let filter = e.target.value.toLowerCase();
+  console.log(filter);
+  let tr = document.querySelectorAll(".productTr");//data-trId
+
+  tr.forEach((item) => {
+    let title = item.querySelector(".productTitle").textContent.toLowerCase();
+    if (title.includes(filter)) {
+      item.style.display = "";
+    } else {
+      item.style.display = "none";
+      
+    }
+  });
+});

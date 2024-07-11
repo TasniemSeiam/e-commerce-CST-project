@@ -1,12 +1,13 @@
 import { currentUser, showToastUser } from "./config.js";
+import {  getCategories} from "./sharedHome.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   // Displaying current user
   currentUser();
   // Fetch user data and wishlist items from localStorage
-  let user = JSON.parse(localStorage.getItem("currentUser"));
+  let user = JSON.parse(localStorage.getItem("currentUser"))||[];
   let userWishList = user.wishList || [];
-  let products = JSON.parse(localStorage.getItem("products"));
+  let products = JSON.parse(localStorage.getItem("products"))||[];
 
   // Function to render wishlist items
   function renderWishlistItems() {
@@ -71,3 +72,18 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initial render of wishlist items
   renderWishlistItems();
 });
+
+
+
+let selsectSearch = document.querySelector(".selsectSearch");
+let searchInput = document.querySelector(".searchInput");
+let getProduct = JSON.parse(localStorage.getItem("products")) || [];
+getCategories(getProduct).forEach((cat) => {
+  let option = document.createElement("option");
+  option.value = cat;
+  option.textContent = cat;
+  selsectSearch.appendChild(option);
+  searchInput.addEventListener("focus", () => {
+    window.location.href = "../productsSearch.html?";
+  });
+}); // search select option
