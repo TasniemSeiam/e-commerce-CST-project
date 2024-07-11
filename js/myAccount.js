@@ -1,4 +1,6 @@
-import { currentUser } from "./config.js"; // Assuming showToastUser is not needed for this specific fix
+import { currentUser, showToastUser } from "./config.js";
+import {  getCategories} from "./sharedHome.js";
+
 
 document.addEventListener("DOMContentLoaded", function () {
   // Displaying current user
@@ -8,9 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const userName = document.querySelector(".username-user");
 
   // Fetch user data and wishlist items from localStorage
-  let user = JSON.parse(localStorage.getItem("currentUser"));
+  let user = JSON.parse(localStorage.getItem("currentUser"))||[];
   let userWishList = user.wishList || [];
-  let products = JSON.parse(localStorage.getItem("products"));
+  let products = JSON.parse(localStorage.getItem("products"))||[];
 
   email.innerHTML = `${user.email}`;
   userName.innerHTML = `${user.username}`;
@@ -135,3 +137,18 @@ document.addEventListener("DOMContentLoaded", function () {
   renderOrders();
   renderFeedbackWithResponses();
 });
+
+
+
+let selsectSearch = document.querySelector(".selsectSearch");
+let searchInput = document.querySelector(".searchInput");
+let getProduct = JSON.parse(localStorage.getItem("products")) || [];
+getCategories(getProduct).forEach((cat) => {
+  let option = document.createElement("option");
+  option.value = cat;
+  option.textContent = cat;
+  selsectSearch.appendChild(option);
+  searchInput.addEventListener("focus", () => {
+    window.location.href = "../productsSearch.html?";
+  });
+}); // search select option

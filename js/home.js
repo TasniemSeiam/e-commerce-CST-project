@@ -1021,46 +1021,6 @@ function scrollFunction() {
     backToTopBtn.style.display = "none";
   }
 }
-// function updateWishlistButtonStates() {
-//   let users = localStorage.getItem("users");
-//   let currentUser = localStorage.getItem("currentUser");
-
-//   if (!currentUser) {
-//     console.error("No currentUser found in local storage.");
-//     return;
-//   }
-
-//   if (!users) {
-//     console.error("No users found in local storage.");
-//     return;
-//   }
-
-//   currentUser = JSON.parse(currentUser);
-//   users = JSON.parse(users);
-//   const user = users.find((user) => user.id === currentUser.id);
-
-//   if (!user) {
-//     console.error("Current user not found in users.");
-//     return;
-//   }
-
-//   let wish = user.wishList || [];
-//   const wishlistButtons = document.querySelectorAll("[data-product-id]");
-
-//   wishlistButtons.forEach((btn) => {
-//     const productId = btn.dataset.productId;
-//     const product = getProduct.find(
-//       (product) => product.id === Number(productId)
-//     );
-
-//     if (wish.find((s) => s.id === product.id)) {
-//       btn.classList.add("addedtowishlist");
-//     } else {
-//       btn.classList.remove("addedtowishlist");
-//     }
-//   });
-// }
-// scroll to top
 backToTopBtn.addEventListener("click", () => {
   document.documentElement.scrollTop = 0; // chrome scroll
   document.body.scrollTop = 0; // firefox scroll

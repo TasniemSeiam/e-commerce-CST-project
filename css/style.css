@@ -3,7 +3,9 @@
   --footerBGcolor: #394150;
 }
 body {
-  min-height: max-content;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 .navbar .nav-link:after {
   content: " |";
@@ -50,6 +52,9 @@ footer {
   background-color: var(--footerBGcolor);
   padding: 50px 0;
   color: #eee !important;
+  margin-top: auto;
+  /* padding: 10px; */
+  /* text-align: center; */
 }
 footer ul > li {
   list-style: none !important;
