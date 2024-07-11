@@ -58,7 +58,7 @@ function getCartItems() {
                   class="form-control mx-2 quantity"
                   id="quantity-${cartItem.id}"
                   value="${cartItem.quantity}"
-                  style="width: 50px"
+                  style="width: 58px"
                   onchange="updateTotalPrice(${cartItem.id})"
                 />
                 <button
@@ -86,10 +86,16 @@ function getCartItems() {
     cartItem.querySelector("tbody").innerHTML = items;
     cartTotals.style.display = "block";
   } else {
-    cartItem.querySelector(
-      "tbody"
-    ).innerHTML = `<tr><td colspan="6" class="text-center">Cart is empty</td></tr>`;
+    cartItem.innerHTML = `<div class="empty">
+     <p>Cart is empty</p>
+     <button id="backHomeBtn">Back home</button>
+    </div>
+    `;
     cartTotals.style.display = "none";
+    const backHomeBtn = document.getElementById("backHomeBtn");
+    backHomeBtn.addEventListener("click", () => {
+      window.location.href = "../index.html";
+    });
   }
   updateCartTotals();
 }
@@ -325,12 +331,13 @@ function removeFromCart(productId) {
 
   let user = users[userIndex];
 
-  user.cart = user.cart.filter((item) => item.id !== productId);
+  if (confirm("Are you sure you want to remove this product from your cart?")) {
+    user.cart = user.cart.filter((item) => item.id !== productId);
 
-  users[userIndex] = user;
-  localStorage.setItem("users", JSON.stringify(users));
+    users[userIndex] = user;
+    localStorage.setItem("users", JSON.stringify(users));
 
-  console.log("Product removed from cart successfully");
-
-  getCartItems();
+    console.log("Product removed from cart successfully");
+    getCartItems();
+  }
 }

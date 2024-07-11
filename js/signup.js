@@ -198,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
           wishList: [],
           orders: [],
           cart: [],
+          pendingProducts: [],
         };
         users.push(newUser);
 
@@ -260,8 +261,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }); // end of submit function
 }); // end of function
-
-
 
 let notLogIn = document.querySelectorAll("footer .preventIfLogOut");
 

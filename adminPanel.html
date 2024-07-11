@@ -123,7 +123,7 @@
         transition: 0.5s ease;
       }
 
-      .details:hover{
+      .details:hover {
         background-color: black;
         color: white;
       }
@@ -133,48 +133,61 @@
     <nav class="navbar navbar-expand-sm navbar-light border-bottom">
       <div class="container-fluid">
         <span class="navbar-text">
-          <a href="index.html" class="col-12 col-md-2 ">
+          <a href="index.html" class="col-12 col-md-2">
             <img src="./images/logo-black.png" class="logo" alt="" />
           </a>
           <p>Admin Panel</p>
         </span>
       </div>
-      <!-- end container fluid -->
     </nav>
-    <!-- end navbar -->
-    <section class="breadcrumb__area box-plr-75">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-xxl-12">
-            <div class="breadcrumb_wrraper">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent ">
-                  <li class="breadcrumb-item">
-                    <a href="index.html">Home</a>
-                  </li>
-                  <li
-                    class="breadcrumb-item breadcrumb__item--avtive"
-                    aria-current="page"
-                  >
-                    Admin Panel
-                  </li>
-                </ol>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- breadCrumb End -->
     <div class="full-container">
       <div class="left">
         <button id="dashboard-btn" class="active">Admin Dashboard</button>
         <button id="users-btn">All Users</button>
         <button id="products-btn">All Products</button>
+        <button id="products-review-btn">Products Under Review</button>
         <button id="orders-btn">All Orders</button>
       </div>
       <hr />
       <div class="right" id="content"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="orderDetailsModal"
+      tabindex="-1"
+      aria-labelledby="orderDetailsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="orderDetailsModalLabel">
+              Order Details
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="order-details-body">
+            <!-- Order details will be dynamically inserted here -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary close"
+              data-dismiss="modal"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script
