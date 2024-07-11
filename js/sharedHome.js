@@ -11,7 +11,9 @@ export function displayProduct(product, _location) {
   productDiv.className = "col-12 col-sm-6 col-md-3 col-lg  px-2 mb-2";
   let productCard = document.createElement("div");
   productCard.className = "card text-center cardProducts";
+  productCard.style.cursor = "pointer";
   productCard.setAttribute("id", `pro${product.id}`);
+  productCard.setAttribute("data-id", `${product.id}`);
   let divHeart = document.createElement("div");
   divHeart.className = "position-relative divheart";
   let imgsDiv = document.createElement("div");
@@ -31,6 +33,19 @@ export function displayProduct(product, _location) {
 
   wishlistBtn.setAttribute("data-product-id", product.id);
   updateWishlistButtonStates();
+
+  // Redirect To Product Detalis Functionality For Best Selling Products and Top Flash Deals
+  document.querySelectorAll(".cardProducts").forEach((product) =>
+    product.addEventListener("click", function (e) {
+      e.preventDefault();
+      const productItemId = product.getAttribute("data-id");
+
+      redirectToProductDetails(+productItemId);
+    })
+  );
+  function redirectToProductDetails(productId) {
+    window.location.href = `productdetalis.html?id=${productId}`;
+  }
   // // let currentUser = JSON.parse(localStorage.getItem("currentUser"));
   // if (currentUsers) {
   //   console.log("loged in as current user");
@@ -193,8 +208,9 @@ export function getCategories(getProduct) {
 //     }
 //   }
 // }
-// let cartCount = document.getElementById("cartCount");
 // let cartdata = JSON.parse(localStorage.getItem("cart")) || [];
+
+let cartCount = document.getElementById("cartCount");
 // let cartdata = currentUsers.cart;
 
 // cartCount.textContent = cartdata ? cartdata.length : 0;
@@ -230,7 +246,7 @@ export function addToCart(productId) {
   products = JSON.parse(products);
 
   // Find the logged in user in the users array
-  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  const userIndex = users.findIndex((user) => +user.id === +currentUser.id);
   if (userIndex === -1) {
     console.error("Current user not found in users.");
     showToastAdded("Current user not found in users.", "text-bg-danger");
@@ -247,14 +263,16 @@ export function addToCart(productId) {
     return;
   }
 
-  const productAlreadyInCart = user.cart.some((item) => item.id === productId);
+  const productAlreadyInCart = user.cart.some(
+    (item) => +item.id === +productId
+  );
   if (productAlreadyInCart) {
     console.error("Product already in cart.");
     showToastAdded("Product already in cart.", "text-bg-warning");
     return;
   }
 
-  const product = products.find((p) => p.id === productId);
+  const product = products.find((p) => +p.id === +productId);
   if (!product) {
     console.error("Product not found.");
     return;
@@ -264,13 +282,44 @@ export function addToCart(productId) {
 
   users[userIndex] = user;
   localStorage.setItem("users", JSON.stringify(users));
+  let cartNum = user.cart.length;
+  cartCount.textContent = user.cart ? cartNum : 0;
 
   console.log("Product added to cart successfully");
   showToastAdded("Product added to cart successfully.", "text-bg-success");
-
+  console.log(user.cart.length);
   // Refresh the cart items
   // getCartItems();
 }
+
+let currentuser =localStorage.getItem("currentUser");
+let users =localStorage.getItem("users");
+
+if (!currentuser) {
+  console.error("You need to login first to add to your cart.");
+  // showToastAdded(
+    // "You need to login first to add to your cart.",
+    // "text-bg-danger"
+  // );
+  // return;
+}
+
+if (!users) {
+  console.error("No users found in local storage.");
+  // showToastAdded("No users found in local storage.", "text-bg-danger");
+  // return;
+}
+
+currentuser = JSON.parse(currentuser);
+users = JSON.parse(users);
+// Find the logged in user in the users array
+const userIndex = users.findIndex((user) => user.id === currentuser.id);
+if (userIndex === -1) {
+  console.log("Current user not found in users.");
+}
+let user = users[userIndex];
+let cartNum = user.cart.length;
+cartCount.textContent = user.cart ? cartNum : 0;
 // add to wishlist
 export async function addToWishlist(productId, btn) {
   let currentUser = localStorage.getItem("currentUser");
@@ -303,7 +352,7 @@ export async function addToWishlist(productId, btn) {
   products = JSON.parse(products);
 
   // Find the logged-in user in the users array
-  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  const userIndex = users.findIndex((user) => +user.id === +currentUser.id);
   if (userIndex === -1) {
     console.error("Current user not found in users.");
     showToastAdded("Current user not found in users.", "text-bg-danger");
@@ -322,18 +371,18 @@ export async function addToWishlist(productId, btn) {
   }
 
   const productAlreadyInWishlist = user.wishList.some(
-    (item) => item.id === productId
+    (item) => item.id === +productId
   );
   if (productAlreadyInWishlist) {
     // Remove product from wishlist
-    user.wishList = user.wishList.filter((item) => item.id !== productId);
+    user.wishList = user.wishList.filter((item) => +item.id !== +productId);
     btn.classList.remove("addedtowishlist");
     showToastAdded(
       "Product has been deleted from your wishlist.",
       "text-bg-danger"
     );
   } else {
-    const product = products.find((p) => p.id === productId);
+    const product = products.find((p) => +p.id === +productId);
     if (!product) {
       console.error("Product not found.");
 
@@ -352,6 +401,11 @@ export async function addToWishlist(productId, btn) {
   // Update user in the users array
   users[userIndex] = user;
   localStorage.setItem("users", JSON.stringify(users));
+
+  // Update currentUser in localStorage if it matches the updated user
+  if (+currentUser.id === +user.id) {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+  }
 }
 
 // add to wishlist  list
@@ -435,8 +489,8 @@ export async function addToWishlist(productId, btn) {
 // }
 export function showToastAdded(messg, added) {
   const toastHTML = `
-    <div class="" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="d-flex ">
+    <div class= role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="${added} d-flex">
    <div class="toast-body">
 ${messg}
    </div>
@@ -471,12 +525,12 @@ export function updateWishlistButtonStates() {
   let currentUser = localStorage.getItem("currentUser");
 
   if (!currentUser) {
-    console.error("No currentUser found in local storage.");
+    console.log("No currentUser found in local storage.");
     return;
   }
 
   if (!users) {
-    console.error("No users found in local storage.");
+    console.log("No users found in local storage.");
     return;
   }
 
@@ -485,7 +539,7 @@ export function updateWishlistButtonStates() {
   const user = users.find((user) => user.id === currentUser.id);
 
   if (!user) {
-    console.error("Current user not found in users.");
+    console.log("Current user not found in users.");
     return;
   }
 

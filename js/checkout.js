@@ -19,7 +19,7 @@ function displayCartItems() {
 
   currentUser = JSON.parse(currentUser);
   users = JSON.parse(users);
-  const user = users.find((user) => user.id === currentUser.id);
+  const user = users.find((user) => +user.id === +currentUser.id);
 
   if (!user) {
     console.error("Current user not found in users.");
@@ -77,7 +77,7 @@ function getProductDetailsById(productId) {
   }
 
   products = JSON.parse(products);
-  return products.find((product) => product.id === productId);
+  return products.find((product) => +product.id === +productId);
 }
 
 function handleCheckoutFormSubmission() {

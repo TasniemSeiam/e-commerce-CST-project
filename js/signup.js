@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
       $("#successModal").modal("hide");
       window.location.href = "login.html";
-    }, 3000);
+    }, 2500);
   }
 
   function showValidationMessage(
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function userNameValidation() {
-    const isValid = usernameInput.value.length > 3;
+    const isValid = usernameInput.value.length > 3 && usernameInput !== "";
     showValidationMessage(
       usernameInput,
       userNameSuccess,
@@ -105,14 +105,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function passwordValidation() {
-    const isValid = passwordInput.value.length > 7;
+    const password = passwordInput.value;
+    const isValid =
+      password.length > 8 &&
+      /[A-Z]/.test(password) && // Checks for at least one capital letter
+      /[0-9]/.test(password); // Checks for at least one number
     showValidationMessage(
       passwordInput,
       passwordSuccess,
       passwordError,
       isValid,
       "",
-      "Password Should be 8 characters or more."
+      "Password must be 8+ chars, 1 uppercase, 1 number."
     );
   }
 
@@ -199,6 +203,9 @@ document.addEventListener("DOMContentLoaded", function () {
           orders: [],
           cart: [],
           pendingProducts: [],
+          feedback: [],
+          feedbackResponse: [],
+          comments: [],
         };
         users.push(newUser);
 

@@ -3,7 +3,9 @@
   --footerBGcolor: #394150;
 }
 body {
-  min-height: max-content;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 .navbar .nav-link:after {
   content: " |";
@@ -24,17 +26,18 @@ footer ul > li > a:hover {
 
 .numoforderCat {
   position: absolute;
-  top: -10px;
-  left: 50px !important;
+  top: -1px;
+  left: 140px !important;
 }
 .divofCart {
   border: #eee 2px solid !important;
+  position: relative !important;
 }
 
-.divofCart {
+/* .divofCart {
   width: 25%;
   height: 25%;
-}
+} */
 .divofCart i {
   font-size: 1.5rem;
 }
@@ -49,12 +52,58 @@ footer {
   background-color: var(--footerBGcolor);
   padding: 50px 0;
   color: #eee !important;
+  margin-top: auto;
+  /* padding: 10px; */
+  /* text-align: center; */
 }
 footer ul > li {
   list-style: none !important;
 }
 .activeNow {
   color: var(--textandhovercolor) !important;
+}
+
+@media all and (max-width: 1232px) {
+  .numoforderCat {
+    position: absolute;
+    top: -1px;
+    left: 90px !important;
+  }
+}
+@media all and (max-width: 1188px) {
+  .numoforderCat {
+    position: absolute;
+    top: -1px;
+    left: 180px !important;
+  }
+}
+@media all and (max-width: 1101px) {
+  .numoforderCat {
+    position: absolute;
+    top: -1px;
+    left: 155px !important;
+  }
+}
+@media all and (max-width: 996px) {
+  .numoforderCat {
+    position: absolute;
+    top: -1px;
+    left: 140px !important;
+  }
+}
+@media all and (max-width: 918px) {
+  .numoforderCat {
+    position: absolute;
+    top: -1px;
+    left: 119px !important;
+  }
+}
+@media all and (max-width: 843px) {
+  .numoforderCat {
+    position: absolute;
+    top: -1px;
+    left: 100px !important;
+  }
 }
 @media all and (max-width: 900px) {
   .searchInpt select {
@@ -66,4 +115,22 @@ footer ul > li {
   .searchInpt button {
     font-size: 70%;
   }
+}
+@media all and (max-width: 765px) {
+  .container-logo {
+    justify-content: start !important;
+  }
+
+  .numoforderCat {
+    display: none;
+  }
+}
+
+.container-logo {
+  margin-right: 7% !important ;
+}
+
+.feed-back {
+  background-color: var(--textandhovercolor);
+  color: var(--footerBGcolor);
 }

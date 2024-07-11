@@ -18,16 +18,11 @@
     <link rel="stylesheet" href="./css/contactUs.css" />
   </head>
   <body>
-    <style>
-        #mapLocation .mapLoc{
-            height: 500px;
-            width: 100%;
-            border-radius: 10px;
-        }
-    </style>
     <main>
       <div class="container-fluid">
-        <nav class="navbar navbar-expand-sm navbar-light border-bottom">
+        <nav
+          class="navbar navbar-expand-sm navbar-light py-3 px-2 border-bottom"
+        >
           <div class="container-fluid">
             <button
               class="navbar-toggler"
@@ -48,7 +43,7 @@
               id="navbarText"
             >
               <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item pe-2">
                   <a
                     class="nav-link preventIfLogOut"
                     aria-current="page"
@@ -56,12 +51,12 @@
                     >My Account
                   </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pe-2">
                   <a class="nav-link preventIfLogOut" href="wishList.html"
                     >My Wishlist</a
                   >
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pe-2">
                   <a class="nav-link user__check" href="login.html">Sign In</a>
                 </li>
                 <li class="nav-item">
@@ -76,14 +71,14 @@
         </nav>
         <!-- end navbar -->
         <header
-          class="border-bottom py-4 bg-white row justify-content-between align-items-center"
+          class="border-bottom py-4 bg-white row justify-content-center align-items-center"
         >
           <a href="index.html" class="col-10 col-md-2">
             <img src="./images/logo-black.png" alt="" />
           </a>
         </header>
         <section id="secondNav">
-          <div class="pt-2 border-bottom ps-1 ulsecond">
+          <div class="pt-2 border-bottom ps-2 ulsecond">
             <ul
               class="list-inline col-12 col-sm-10 col-lg-5 col-xl-4 d-flex justify-content-between pt-2 py-2 pb-3"
             >
@@ -94,7 +89,7 @@
                 <a class="" href="productCatalog.html">Products</a>
               </li>
               <li class="list-inline-item">
-                <a class="" href="About Us.html">About Us</a>
+                <a class="" href="aboutUs.html">About Us</a>
               </li>
               <li class="list-inline-item">
                 <a class="" href="Contact.html">Contacts</a>
@@ -103,23 +98,90 @@
           </div>
         </section>
         <!-- section1  -->
-        <section id="mapLocation" class="mb-3" >
-            <div class="mapLoc container-fluid">
+        <section id="mapLocation" class="mb-3">
+          <div class="mapLoc container-fluid"></div>
+        </section>
+        <!-- map -->
+        <section class="py-5 px-2 px-md-0">
+          <div class="row justify-content-around">
+            <div class="col-12 col-sm-4 leftContatn align-items-center">
+              <h4 class="border-bottom pb-3">Our main office</h4>
+              <div class="bg-warning" style="width: 95px; height: 2.75px"></div>
+              <h6 class="text-secondary py-2 my-2 fw-normal">
+                Topico is a premium Templates theme with advanced admin module.
+                It’s extremely customizable, easy to use and fully responsive
+                and retina ready.
+              </h6>
+              <p class="text-secondary my-1">
+                <span class="fw-bold">Email: </span>info@thebuesky.com
+              </p>
+              <p class="text-secondary">
+                <span class="fw-bold">phone: </span>(+100) 123 456 7890
+              </p>
+              <div class="social my-2">
+                <p class="text-muted me-3 mb-3 fw-bold">Social Share:</p>
+                <a href="https://www.facebook.com/" target="_blank">
+                  <i class="fab fa-facebook-square fa-2x me-2"></i>
+                </a>
+                <a href="https://twitter.com/" target="_blank">
+                  <i class="fab fa-twitter-square fa-2x me-2"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank">
+                  <i class="fab fa-instagram fa-2x"></i>
+                </a>
+              </div>
             </div>
-            
-        </section> <!-- map -->
+            <!-- leftContatn -->
+            <div class="col-12 col-sm-7 rigthContatn">
+              <h4 class="border-bottom pb-3">Leave your comment</h4>
+              <div class="bg-warning" style="width: 95px; height: 2.75px"></div>
+              <div>
+                <div class="border rounded p-2 px-3 displayComment my-3">
+                  <div class="userComment p-3 my-1 border rounded" id="0">
+                    <div class="topOfComment d-flex justify-content-between">
+                      <h6 class="text-dark">John Doe</h6>
+                      <span class="fa fa-trash"></span>
+                    </div>
+                    <p class="text-muted">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                    <p class="text-muted text-end">12/20/2023</p>
+                  </div>
+                </div>
+                <!-- display comment here -->
+                <form id="commentForm">
+                  <div class="form-group">
+                    <label for="comment">Comment</label>
+                    <textarea
+                      class="form-control p-2 my-3"
+                      id="comment"
+                      rows="3"
+                      placeholder="leave your commet here..."
+                      required
+                    ></textarea>
+                  </div>
+                  <button type="button" class="btn btn-warning p-2 px-3">
+                    Comment
+                  </button>
+                </form>
+              </div>
+            </div>
+            <!-- rigthContatn -->
+          </div>
+          <!-- row -->
+        </section>
 
         <button id="backToTopBtn">
-          <i class="fa-solid fa-arrow-up"></i></button
+          <i class="fa-solid fa-arrow-up p-3"></i></button
         ><!-- back to top -->
       </div>
       <!-- containerFluid -->
     </main>
     <!-- end container fluid all page -->
     <footer class="container-fluid">
-      <div class="container">
-        <div class="row">
-          <div class="col-6">
+      <div class="container mx-auto text-center py-5">
+        <div class="row p-4">
+          <div class="col-6 text-start">
             <a href="index.html" class="col-12 col-md-2">
               <img src="./images/logo-white.png" alt="" />
             </a>

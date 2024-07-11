@@ -1,4 +1,5 @@
-import { currentUser, showToastUser } from "./config.js";
+import { currentUser, isItemInWishlist } from "./config.js";
+import { addToWishlist, addToCart } from "./sharedHome.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const productsContainer = document.getElementById("products__container");
@@ -58,15 +59,23 @@ document.addEventListener("DOMContentLoaded", function () {
           ${'<i class="fa-regular fa-star"></i>'.repeat(emptyStars)}
         `;
 
-        // Check if the product is in the wishlist
+        const isWishlistItem = isItemInWishlist(product.id)
+          ? "addedtowishlist"
+          : "";
+
+        const isCartAddedItem = isCartAdded(product.id)
+          ? "addedtoCartlist"
+          : "";
 
         productsContainer.innerHTML += `
           <div class="product" data-id="${product.id}">
             <div class="icons">
-              <span><i class="fa-solid fa-cart-shopping"></i></span>
-              <span class="add-to-wishlist">
+              
+            <span class="cartBtn  cart"><i class=" ${isCartAddedItem} fa-solid fa-cart-shopping"></i></span>
+              <span class=" wishlistBtn add-to-wishlist ${isWishlistItem}">
                 <i class="fa-solid fa-heart"></i>
               </span>
+              
             </div>
             <span class="sale__percent ${
               product.rating.count > 250 ? "hidden" : "show"
@@ -91,72 +100,76 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
       });
 
-      //IMPORTANT
-      // Redirect to Product Details After after clicking on certain one
+      // Redirect to Product Details after clicking on a product
       document.querySelectorAll(".product").forEach((productElement) => {
-        productElement.addEventListener("click", function () {
+        productElement.addEventListener("click", function (e) {
           const productId = this.getAttribute("data-id");
           redirectToProductDetails(productId);
         });
       });
 
-      // Add event listeners to heart icons
+      // To Check if items is wishlisted
+      isItemInWishlist();
+
+      function isCartAdded(productId) {
+        let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        if (!currentUser) {
+          return false;
+        }
+        let users = JSON.parse(localStorage.getItem("users"));
+        let user = users.find((user) => +user.id === +currentUser.id);
+        if (!user || !Array.isArray(user.cart)) {
+          return false;
+        }
+        return user.cart.some((item) => item.id === +productId);
+      }
+
+      // Add To WhishList EventListener
       document.querySelectorAll(".add-to-wishlist").forEach((wishlistIcon) => {
         wishlistIcon.addEventListener("click", function (e) {
+          console.log("hello");
           e.stopPropagation(); // Prevent triggering the product click event
-          const productId = this.closest(".product").getAttribute("data-id");
-          toggleWishlist(productId);
+          let currentUser = localStorage.getItem("currentUser");
+          if (!currentUser) {
+            e.preventDefault();
+            window.location.href = "./login.html";
+            return;
+          } else {
+            let products = JSON.parse(localStorage.getItem("products"));
+            let productId = this.closest(".product").getAttribute("data-id");
+
+            addToWishlist(productId, e.target);
+
+            // Update wishlist button appearance based on current state
+            const isWishlistItem = isItemInWishlist(productId)
+              ? "addedtowishlist"
+              : "";
+            wishlistIcon.classList.toggle("addedtowishlist", isWishlistItem);
+          }
+        });
+      });
+
+      // Add To WhishList EventListener
+      document.querySelectorAll(".cart").forEach((cartIcon) => {
+        cartIcon.addEventListener("click", function (e) {
+          console.log("hello");
+          e.stopPropagation(); // Prevent triggering the product click event
+          let currentUser = localStorage.getItem("currentUser");
+          if (!currentUser) {
+            e.preventDefault();
+            window.location.href = "./login.html";
+            return;
+          } else {
+            let products = JSON.parse(localStorage.getItem("products"));
+            let productId = this.closest(".product").getAttribute("data-id");
+
+            addToCart(productId);
+          }
         });
       });
     }
-
     function redirectToProductDetails(productId) {
       window.location.href = `productdetalis.html?id=${productId}`;
-    } // End OF redirection
-
-    function toggleWishlist(productId) {
-      // Retrieve the current user from localStorage
-      let user = JSON.parse(localStorage.getItem("currentUser"));
-
-      if (!user) {
-        showToastUser("No user logged in.", true, 2000);
-
-        return;
-      }
-
-      // Find the product element
-      const productElement = document.querySelector(
-        `.product[data-id="${productId}"]`
-      );
-      const wishlistIcon = productElement.querySelector(".add-to-wishlist");
-
-      // Check if the product is already in the wishlist
-      const wishlistIndex = user.wishList.indexOf(productId);
-      if (wishlistIndex === -1) {
-        // Product is not in wishlist, add it
-        user.wishList.push(productId);
-
-        showToastUser("Product added to wishlist!", true, 2000);
-
-        wishlistIcon.classList.add("wishlist-added");
-      } else {
-        // Product is in wishlist, remove it
-        user.wishList.splice(wishlistIndex, 1);
-        showToastUser("Product removed from wishlist!", true, 2000);
-
-        wishlistIcon.classList.remove("wishlist-added");
-      }
-
-      // Save updated user to localStorage
-      localStorage.setItem("currentUser", JSON.stringify(user));
-
-      // Update the users array in localStorage
-      let users = JSON.parse(localStorage.getItem("users")) || [];
-      const userIndex = users.findIndex((u) => u.id === user.id);
-      if (userIndex > -1) {
-        users[userIndex] = user;
-        localStorage.setItem("users", JSON.stringify(users));
-      }
     }
 
     // Initial rendering of products
@@ -251,8 +264,6 @@ document.addEventListener("DOMContentLoaded", function () {
       "<p>Error fetching products. Please try again later.</p>";
   }
 });
-
-
 
 let notLogIn = document.querySelectorAll(".preventIfLogOut");
 

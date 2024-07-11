@@ -4,12 +4,8 @@
       "id": 0,
       "email": "Admin@iti.com",
       "username": "Admin",
-      "password": "123",
-      "role": "admin",
-      "wishList": [],
-      "orders": [],
-      "cart": [],
-      "pendingProducts": []
+      "password": "naserKasem@iti",
+      "role": "admin"
     },
     {
       "id": 1,
@@ -21,6 +17,9 @@
       "orders": [],
       "cart": [],
       "pendingProducts": []
+      "feedback": [],
+      "feedbackResponse": [],
+      "comments": []
     },
     {
       "id": 2,
@@ -32,6 +31,9 @@
       "orders": [],
       "cart": [],
       "pendingProducts": []
+      "feedback": [],
+      "feedbackResponse": [],
+      "comments": []
     },
     {
       "id": 3,
@@ -43,6 +45,9 @@
       "orders": [],
       "cart": [],
       "pendingProducts": []
+      "feedback": [],
+      "feedbackResponse": [],
+      "comments": []
     }
   ]
 }

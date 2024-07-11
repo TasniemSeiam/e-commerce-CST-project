@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="./css/home.css" />
   </head>
   <body>
-    <main>
-      <div class="container-fluid">
+    <main >
+      <div class="container-fluid" >
         <nav class="navbar navbar-expand-sm navbar-light border-bottom">
           <div class="container-fluid">
             <button
@@ -32,7 +32,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <span class="navbar-text d-none d-md-block welcoming__message"
-              >Welcome to ITI Marketplace</span
+              >Welcome to Topico</span
             >
             <div
               class="collapse navbar-collapse justify-content-around justify-content-md-end"
@@ -70,8 +70,9 @@
           class="border-bottom py-4 bg-white row justify-content-between align-items-center"
         >
           <a href="index.html" class="col-10 col-md-2">
-            <img src="./images/logo-black.png" alt="" />
+            <img src="./images/logo-black.png" alt="storelogo" />
           </a>
+
           <div class="col-12 col-md-6 col-xl-5 my-3 my-md-2 my-lg-0">
             <form class="d-flex">
               <div class="btn-group input-group">
@@ -90,6 +91,7 @@
                       <li><a class="dropdown-item" href="#">phons</a></li>
                       <li><a class="dropdown-item" href="#">TVS</a></li>
                     </ul> -->
+
                     <select
                       class="form-select text-center border-2 border-end-0 rounded-end rounded-pill border-warning selsectSearch"
                       aria-label="Default select example"
@@ -121,7 +123,7 @@
           </div>
           <!-- 1 -->
           <div
-            class="col-10 col-md-3 col-xl-2 position-relative my-3 my-md-2 my-lg-0 d-flex"
+            class="container-logo col-10 col-md-3 col-xl-2 position-relative my-3 my-md-2 my-lg-0 d-flex justify-content-end align-items-center gap-4"
           >
             <div class="text-center border-secondary preventIfLogOut">
               <a href="cart.html" class="rounded-circle divofCart px-3 py-3"
@@ -133,7 +135,14 @@
                 <span id="cartCount">0</span>
               </div>
             </div>
-            <p class="ms-3">My carts: <span id="cartTotalPrice">0</span></p>
+
+            <a
+              href="feedBack.html"
+              title="Customer service"
+              class="feed-back rounded-circle divofCart px-3 py-3"
+            >
+              <i class="fa-solid fa-headset"></i>
+            </a>
           </div>
           <!-- 2 -->
         </header>
@@ -149,7 +158,7 @@
                 <a class="" href="productCatalog.html">Products</a>
               </li>
               <li class="list-inline-item">
-                <a class="" href="About Us.html">About Us</a>
+                <a class="" href="aboutUs.html">About Us</a>
               </li>
               <li class="list-inline-item">
                 <a class="" href="Contact.html">Contacts</a>
@@ -1458,7 +1467,7 @@
                 ></div>
               </div>
             </div>
-            <div class="row">
+            <div class="row ">
               <!-- <div class="col-6 col-lg-4 cardOnsale">
                <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
@@ -1498,9 +1507,9 @@
               <img src="./images/logo-white.png" alt="" />
             </a>
             <div class="my-3">
-              <p>Add: Walls Street 68, Mahattan, New York, USA</p>
-              <p>Email: info@thebuesky.com</p>
-              <p>phone: (+100) 123 456 7890</p>
+              <p class="text-light">Add: Walls Street 68, Mahattan, New York, USA</p>
+              <p class="text-light">Email: info@thebuesky.com</p>
+              <p class="text-light">phone: (+100) 123 456 7890</p>
             </div>
           </div>
           <!-- 1 -->
@@ -1552,7 +1561,7 @@
           </div>
           <!-- 2 -->
         </div>
-        <p class="text-capitalize text-center">
+        <p class="text-capitalize text-light text-center">
           Created By ITI Team &copy;2024
         </p>
       </div>

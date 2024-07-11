@@ -1,5 +1,37 @@
 @import "../css/style.css";
+*{
+  padding: 0!important;
+  margin: 0!important;
+  box-sizing: border-box!important;
+}
 body {
   background-color: #f5f6f9;
   height: max-content;
+}
+#mapLocation .mapLoc{
+  height: 70vh;
+  width: 100%;
+  /* border-radius: 10px; */
+  margin-bottom: 20px;
+}
+.leftContatn .social a i{
+  color: #c2c1c1;
+}
+.leftContatn .social a i:hover{
+  color: var(--textandhovercolor);
+}
+textarea{
+  resize: none;
+}
+.displayComment{
+  height: 230px;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+.userComment{
+  box-shadow: 0 0 5px #eee;
+}
+.topOfComment span:hover{
+  cursor: pointer;
+  color: var(--textandhovercolor);
 }

@@ -42,3 +42,15 @@ body {
   background-color: #e0a600;
   border-color: #e0a600;
 }
+
+.email-user {
+  margin-bottom: 10px;
+  color: #e0a600;
+  font-weight: bold;
+}
+
+.username-user {
+  margin-bottom: 10px;
+  color: #e0a600;
+  font-weight: bold;
+}

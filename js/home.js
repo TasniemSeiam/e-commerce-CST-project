@@ -1,9 +1,10 @@
-import {currentUser } from "./config.js";
+import { currentUser } from "./config.js";
 import {
   addToCart,
   displayProduct,
   addToWishlist,
-  getCategories,updateWishlistButtonStates
+  getCategories,
+  updateWishlistButtonStates,
 } from "./sharedHome.js";
 // let categoriesarr = [];
 // productsarr = []; // =>
@@ -56,6 +57,7 @@ addEventListener("DOMContentLoaded", async function () {
   for (let i = 0; i < 3; i++) {
     let product = getProduct[i];
     let productDiv = document.createElement("div");
+    productDiv.setAttribute("data-set", `${product.id}`);
     // productDiv.style.background = `url('${product.image[0]}') no-repeat  center center`;
     // productDiv.style.backgroundSize = "cover";
     // productDiv.style.height="100%";
@@ -73,6 +75,7 @@ addEventListener("DOMContentLoaded", async function () {
     let image = document.createElement("img");
     image.className = "d-block w-100 ";
 
+    // idSpan.classList.add("hidden");
     image.src = product.image[0];
     image.alt = product.title;
     productDiv.appendChild(image);
@@ -396,7 +399,7 @@ function sillingProduct() {
 
   // //random product
   let carouselItemRandom1 = document.querySelectorAll(
-    ".divOFRandom .divOFbestsellengrandom .carousel-item .row"
+    `.divOFRandom .divOFbestsellengrandom .carousel-item .row`
   )[0];
   let randomItems = randomproduct(getProduct, getProduct.length);
   silingProductFromstart(0, 5, randomItems, carouselItemRandom1);
@@ -484,6 +487,8 @@ function onSale(products) {
     let cardDiv = document.createElement("div");
     cardDiv.className = "card mb-3 p-2 py-3";
     cardDiv.setAttribute("id", `product${product.id}`);
+    cardDiv.setAttribute("data-id", `${product.id}`);
+
     let rowdiv = document.createElement("div");
     rowdiv.className = "row g-0";
     let divs = document.createElement("div");
@@ -540,7 +545,19 @@ function onSale(products) {
     addTofavBtn.innerHTML = '<i class="fa-solid fa-heart addTofavIcon "></i>';
     addToCartBtn.classList.add("btn", "btn-outline-warning", "addtocartBtn");
     addTofavBtn.classList.add("btn", "btn-outline-warning", "addtofavBtn");
-    
+
+    document.querySelectorAll(".cardOnsale").forEach((card) =>
+      card.addEventListener("click", function (e) {
+        // e.preventDefault();
+        const cardItemId = card.querySelector(".card").getAttribute("data-id");
+        redirectToProductDetails(+cardItemId);
+      })
+    );
+
+    function redirectToProductDetails(productId) {
+      window.location.href = `productdetalis.html?id=${productId}`;
+    }
+
     // let currentUser = JSON.parse(localStorage.getItem("currentUser")) || [];
     // let wish = currentUser.wishList || [];
     // let users = localStorage.getItem("users");
@@ -1004,46 +1021,6 @@ function scrollFunction() {
     backToTopBtn.style.display = "none";
   }
 }
-// function updateWishlistButtonStates() {
-//   let users = localStorage.getItem("users");
-//   let currentUser = localStorage.getItem("currentUser");
-
-//   if (!currentUser) {
-//     console.error("No currentUser found in local storage.");
-//     return;
-//   }
-
-//   if (!users) {
-//     console.error("No users found in local storage.");
-//     return;
-//   }
-
-//   currentUser = JSON.parse(currentUser);
-//   users = JSON.parse(users);
-//   const user = users.find((user) => user.id === currentUser.id);
-
-//   if (!user) {
-//     console.error("Current user not found in users.");
-//     return;
-//   }
-
-//   let wish = user.wishList || [];
-//   const wishlistButtons = document.querySelectorAll("[data-product-id]");
-
-//   wishlistButtons.forEach((btn) => {
-//     const productId = btn.dataset.productId;
-//     const product = getProduct.find(
-//       (product) => product.id === Number(productId)
-//     );
-
-//     if (wish.find((s) => s.id === product.id)) {
-//       btn.classList.add("addedtowishlist");
-//     } else {
-//       btn.classList.remove("addedtowishlist");
-//     }
-//   });
-// }
-// scroll to top
 backToTopBtn.addEventListener("click", () => {
   document.documentElement.scrollTop = 0; // chrome scroll
   document.body.scrollTop = 0; // firefox scroll
