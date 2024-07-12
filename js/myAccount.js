@@ -33,14 +33,20 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       user.orders.forEach((order) => {
         console.log("Order:", order); // Log the order to check its structure
-        if (Array.isArray(order.orderItems)) {
+        if (
+          typeof order.orderItems === "object" &&
+          !Array.isArray(order.orderItems)
+        ) {
           let orderItemsHtml = "";
-          order.orderItems.forEach((item) => {
-            orderItemsHtml += `
-              <li class="list-group-item">
-                Product: ${item.name}, Quantity: ${item.quantity}, Price: ${item.price}
-              </li>`;
-          });
+          for (const key in order.orderItems) {
+            if (order.orderItems.hasOwnProperty(key)) {
+              const item = order.orderItems[key];
+              orderItemsHtml += `
+                <li class="list-group-item">
+                  Product: ${item.name}, Quantity: ${item.quantity}, Price: ${item.price}
+                </li>`;
+            }
+          }
 
           ordersContainer.innerHTML += `
             <div class="order mb-4">
@@ -52,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>`;
         } else {
           console.error(
-            `orderItems is not an array for order ID ${order.orderId}`
+            `orderItems is not an object for order ID ${order.orderId}`
           );
           ordersContainer.innerHTML += `
             <div class="order mb-4">

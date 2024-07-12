@@ -1,3 +1,6 @@
+import { currentUser } from "./config.js";
+currentUser();
+
 document.addEventListener("DOMContentLoaded", () => {
   displayCartItems();
   handleCheckoutFormSubmission();

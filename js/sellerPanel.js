@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("edit-discPrice").value
     );
     const category = document.getElementById("edit-category").value;
-    const rate = parseFloat(document.getElementById("edit-rate").value);
+    const rate = Math.round(document.getElementById("edit-rate").value);
     const count = parseInt(document.getElementById("edit-count").value);
     const images = document.getElementById("edit-images").files;
 

@@ -1,3 +1,6 @@
+// import { currentUser } from "./config.js";
+// currentUser();
+
 let cartItem = document.getElementById("cartItems");
 let cartTotals = document.querySelector(".cart-totals");
 

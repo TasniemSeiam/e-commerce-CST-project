@@ -201,6 +201,14 @@ document.addEventListener("DOMContentLoaded", function () {
     return pendingProducts;
   }
 
+  document.querySelectorAll(".approve-order-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const productId = button.dataset.productId;
+      const sellerId = button.dataset.sellerId;
+      approveProduct(productId, sellerId);
+    });
+  });
+
   // Use event delegation to listen for clicks on dynamically created buttons
   document.addEventListener("click", (e) => {
     if (
@@ -220,9 +228,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function approveProduct(productId, sellerId) {
     console.log("Approving product with ID:", productId);
 
-    const usersData = JSON.parse(localStorage.getItem("users")) || [];
-    const pendingProducts = getAllPendingProducts();
-
+    let usersData = JSON.parse(localStorage.getItem("users")) || [];
+    let pendingProducts = getAllPendingProducts();
+    console.log(pendingProducts);
+    let productNotUndefined = [];
     // Find the product in the pendingProducts array
     pendingProducts.forEach((pendingProduct) => {
       // console.log(pendingProduct);
@@ -236,17 +245,37 @@ document.addEventListener("DOMContentLoaded", function () {
     const productIndex = productNotUndefined.findIndex(
       (product) => product.id === Number(productId)
     );
-
+    console.log(productIndex);
     if (productIndex !== -1) {
-      const product = pendingProducts[productIndex];
+      const product = productNotUndefined[productIndex];
+      console.log(product);
+      // Update the product status in the pendingProducts array
+      //   product.status = "approved";
 
-      // Add the product to the products array in local storage
+      //   // Update the product status in the usersData array
+      //   usersData.forEach((user) => {
+      //     if (user.id === sellerId) {
+      //       const pendingProductIndex = user.pendingProducts.findIndex(
+      //         (p) => p.id === +productId
+      //       );
+      //       if (pendingProductIndex!== -1) {
+      //         user.pendingProducts[pendingProductIndex].status = "approved";
+      //       }
+      //     }
+      //   });
+
+      //   // Update the usersData in local storage
+      //   localStorage.setItem("users", JSON.stringify(usersData));
+
+      //   console.log("Product approved successfully");
+
+      //   // Add the product to the products array in local storage
       let products = JSON.parse(localStorage.getItem("products")) || [];
       products.push(product);
       localStorage.setItem("products", JSON.stringify(products)); // Update here
-
-      // Remove the product from the pendingProducts array in usersData
-      const userIndex = usersData.findIndex((user) => user.id === sellerId);
+      //   // Remove the product from the pendingProducts array in usersData
+      const userIndex = usersData.findIndex((user) => user.id === +sellerId);
+      console.log(userIndex);
       if (userIndex !== -1) {
         const user = usersData[userIndex];
         const pendingProductIndex = user.pendingProducts.findIndex(
@@ -259,7 +288,6 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.setItem("users", JSON.stringify(usersData));
         }
       }
-
       console.log(
         "Product approved successfully and added to products in localStorage"
       );

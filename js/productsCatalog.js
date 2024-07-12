@@ -73,9 +73,9 @@ document.addEventListener("DOMContentLoaded", function () {
           }" data-id="${product.id}">
             <div class="icons">
               
-            <span class="cartBtn  cart"><i class=" ${
+            <span class=" ${
               product.rating.count === 0 ? "hidden" : "displayed"
-            } ${isCartAddedItem} fa-solid fa-cart-shopping"></i></span>
+            } ${isCartAddedItem} cartBtn  cart"><i  fa-solid fa-cart-shopping"></i></span>
               <span class=" ${
                 product.rating.count === 0 ? "hidden" : "displayed"
               } wishlistBtn add-to-wishlist ${isWishlistItem}">

@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
       $("#successModal").modal("hide");
       window.location.href = "login.html";
-    }, 2500);
+    }, 3000);
   }
 
   function showValidationMessage(

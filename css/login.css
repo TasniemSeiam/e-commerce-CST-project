@@ -78,6 +78,30 @@ body {
   box-shadow: 0 0 0 3px #c8dafc;
 }
 
+.home-logo i {
+  color: var(--main-color);
+  font-size: 25px;
+}
+
+/* Sign-up Anchor Styles */
+.check__anchor {
+  display: inline-block; /* Display as inline-block for padding and margins */
+  background-color: #fcb700; /* Main color */
+  border: none;
+  border-radius: 5px;
+  color: var(--dark-color); /* Text color */
+  padding: 5px 25px !important; /* Padding */
+  font-size: 16px; /* Font size */
+  text-decoration: none; /* Remove underline */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.check__anchor:hover {
+  background-color: #e0a800; /* Darker shade for hover effect */
+  color: var(--dark-color); /* Text color */
+}
+
 @media (max-width: 500px) {
   .form__container {
     width: 90%;
