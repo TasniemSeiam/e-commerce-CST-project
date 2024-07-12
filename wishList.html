@@ -86,30 +86,30 @@
                     <li><a class="dropdown-item" href="#">phons</a></li>
                     <li><a class="dropdown-item" href="#">TVS</a></li>
                   </ul> -->
-                  <select
+                  <!-- <select
                     class="form-select text-center border-2 border-end-0 rounded-end rounded-pill border-warning selsectSearch"
                     aria-label="Default select example"
                   >
                     <option selected>All Categories</option>
-                    <option value="1">One</option>
+                    <!-- <option value="1">One</option>
                     <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
+                    <option value="3">Three</option> --
+                  </select> -->
 
                   <input
                     type="search"
-                    class="form-control w-25 border-2 border-end-0 border-start-0 border-warning p-2"
+                    class="form-control w-25 border-2 border-end-0 border-start-1 rounded-end ps-3 rounded-pill border-warning p-2 searchInput "
                     placeholder="search for products..."
                     aria-label="Search"
                     aria-label="Text input with dropdown button"
                   />
 
-                  <button
+                  <span
                     class="btn btn-warning rounded-start border-2 border-warning rounded-pill w-25 p-2"
                     type="submit"
                   >
                     Search
-                  </button>
+                  </span>
                 </div>
               </div>
             </div>
@@ -126,10 +126,9 @@
             <div
               class="rounded-circle numoforderCat bg-warning px-2 text-center"
             >
-              0
+            <span id="cartCount">0</span>
             </div>
           </div>
-          <p class="ms-3">My carts: 0</p>
         </div>
         <!-- 2 -->
       </header>
@@ -168,9 +167,9 @@
             <thead class="thead-light">
               <tr>
                 <th scope="col">Product Image</th>
-                <th scope="col">Product Name</th>
+                <th scope="col ">Product Name</th>
                 <th scope="col">Unit Price</th>
-                <th scope="col">Remove</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody id="wishlistItems">

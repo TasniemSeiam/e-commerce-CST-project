@@ -16,7 +16,7 @@
       "wishList": [],
       "orders": [],
       "cart": [],
-      "pendingOrders": [],
+      "pendingProducts": []
       "feedback": [],
       "feedbackResponse": [],
       "comments": []
@@ -30,7 +30,7 @@
       "wishList": [],
       "orders": [],
       "cart": [],
-      "pendingOrders": [],
+      "pendingProducts": []
       "feedback": [],
       "feedbackResponse": [],
       "comments": []
@@ -44,7 +44,7 @@
       "wishList": [],
       "orders": [],
       "cart": [],
-      "pendingOrders": [],
+      "pendingProducts": []
       "feedback": [],
       "feedbackResponse": [],
       "comments": []

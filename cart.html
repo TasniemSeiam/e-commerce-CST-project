@@ -7,6 +7,8 @@
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
     <link href="css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/productdetalis.css" />
+    <link rel="stylesheet" href="./css/productCatalog.css" />
     <link rel="stylesheet" href="css/style.css" />
     <style>
       .btn.btn-sm.fw-bold i.fa-solid.fa-trash {
@@ -41,6 +43,29 @@
           font-size: 0.9rem;
         }
       }
+
+      .empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+      }
+
+      .empty p{
+        font-size: 30px;
+      }
+
+      .empty button {
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 5px;
+        transition: 0.3s;
+      }
+
+      .empty button:hover {
+        background-color: black;
+        color: white;
+      }
     </style>
   </head>
   <body>
@@ -73,10 +98,10 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="myWishlist.html">My Wishlist</a>
+              <a class="nav-link" href="wishList.html">My Wishlist</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="SignIn.html">Sign In</a>
+              <a class="nav-link" href="login.html">Sign In</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="myOrders.html">My orders</a>
@@ -85,7 +110,29 @@
         </div>
       </div>
     </nav>
-
+    <section class="breadcrumb__area box-plr-75">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xxl-12">
+            <div class="breadcrumb_wrraper">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="index.html">Home</a>
+                  </li>
+                  <li
+                    class="breadcrumb-item breadcrumb__item--avtive"
+                    aria-current="page"
+                  >
+                    cart
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <div class="container">
       <table id="cartItems" class="table align-middle mb-0 bg-white my-3">
         <thead class="bg-white">
@@ -211,6 +258,73 @@
         </div>
       </div>
     </div>
+    <footer class="container-fluid">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <a href="index.html" class="col-12 col-md-2">
+              <img src="./images/logo-white.png" alt="" />
+            </a>
+            <div class="my-3">
+              <p class="text-light">Add: Walls Street 68, Mahattan, New York, USA</p>
+              <p class="text-light">Email: info@thebuesky.com</p>
+              <p class="text-light">phone: (+100) 123 456 7890</p>
+            </div>
+          </div>
+          <!-- 1 -->
+          <div class="col-6 p-2 text-center text-md-start">
+            <div class="row">
+              <ul class="col-12 col-md-6">
+                <li class="pb-1"></li>
+
+                <li class="pb-1">
+                  <a class="text-decoration-none text-light" href="contact.html"
+                    >Contact Us</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a class="text-decoration-none text-light" href="aboutUs.html"
+                    >About Us</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a class="text-decoration-none text-light" href="login.html"
+                    >Sign In</a
+                  >
+                </li>
+              </ul>
+              <ul class="col-12 col-md-6">
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light preventIfLogOut"
+                    href="myAccount.html"
+                    >My Account
+                  </a>
+                </li>
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light preventIfLogOut"
+                    href=" myWishlist.html"
+                    >My Wishlist</a
+                  >
+                </li>
+                <li class="pb-1">
+                  <a
+                    class="text-decoration-none text-light preventIfLogOut"
+                    href="myOrders.html"
+                    >My orders</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- 2 -->
+        </div>
+        <p class="text-capitalize text-light text-center">
+          Created By ITI Team &copy;2024
+        </p>
+      </div>
+    </footer>
     <script src="js/JQuery-3.3.1.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
     <script src="./js/cart.js"></script>

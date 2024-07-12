@@ -169,6 +169,23 @@
           max-width: 100%;
         }
       }
+
+      .order-status {
+        display: flex;
+      }
+      .order-status button {
+        width: 100px;
+        color: black;
+        margin-left: -70px;
+        background-color: white;
+        border-radius: 10px;
+        border: 1px solid black;
+        transition: 0.5s;
+      }
+      .order-status button:hover {
+        background-color: black;
+        color: white;
+      }
     </style>
   </head>
   <body>
@@ -181,38 +198,13 @@
           <p>Seller Panel</p>
         </span>
       </div>
-      <!-- end container fluid -->
     </nav>
-    <!-- end navbar -->
-    <section class="breadcrumb__area box-plr-75">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-xxl-12">
-            <div class="breadcrumb_wrraper">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent">
-                  <li class="breadcrumb-item">
-                    <a href="index.html">Home</a>
-                  </li>
-                  <li
-                    class="breadcrumb-item breadcrumb__item--avtive"
-                    aria-current="page"
-                  >
-                    Seller Panel
-                  </li>
-                </ol>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- breadCrumb End -->
     <div class="full-container">
       <div class="left">
         <button id="dashboard-btn" class="active">Seller Dashboard</button>
         <button id="products-btn">All Products</button>
         <button id="new-product-btn">Add a new Product</button>
+        <button id="products-review-btn">Products Under Review</button>
         <button id="orders-btn">All Orders</button>
       </div>
       <hr />
@@ -286,7 +278,7 @@
                 <label for="edit-category">Category</label>
                 <select class="form-control" id="edit-category" required>
                   <option value="">Select Category</option>
-                  <option value="men's clothing">Men's Clothing</option>
+                  <option value="men clothes">Men Clothes</option>
                   <option value="jewelery">Jewelery</option>
                   <option value="electronics">Electronics</option>
                   <option value="women's clothing">Women's Clothing</option>
@@ -333,7 +325,7 @@
       </div>
     </div>
 
-    <!-- Order details model -->
+    <!-- Order Details Modal -->
     <div
       class="modal fade"
       id="orderDetailsModal"
@@ -341,7 +333,7 @@
       aria-labelledby="orderDetailsModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="orderDetailsModalLabel">
@@ -350,33 +342,24 @@
             <button
               type="button"
               class="close"
-              data-bs-dismiss="modal"
+              data-dismiss="modal"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form id="order-details-form">
-            <div class="form-group d-flex m-2 align-content-center gap-2">
-              <label for="order-details" class="mb-0"
-                >Change order tracking</label
-              >
-              <select
-                class="form-control"
-                style="width: 300px"
-                id="order-details-select"
-                required
-              >
-                <option value="">Change order tracking</option>
-                <option value="Order processed">Order processed</option>
-                <option value="Out for delivery">Out for delivery</option>
-                <option value="Delivered">Delivered</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-          </form>
           <div class="modal-body" id="order-details-body">
-            <!-- Order details will be displayed here -->
+            <!-- Order details will be dynamically inserted here -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary close"
+              data-dismiss="modal"
+              
+            >
+              Ok
+            </button>
           </div>
         </div>
       </div>

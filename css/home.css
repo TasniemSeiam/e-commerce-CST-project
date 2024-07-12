@@ -3,6 +3,11 @@ body {
   background-color: #f5f6f9;
   height: max-content;
 }
+/* *{
+  margin: 0!important;
+  padding: 0!important;
+  box-sizing: border-box!important;
+} */
 .ulsecond > ul > li > a {
   text-decoration: none;
   color: #000;
@@ -319,6 +324,7 @@ body {
 .wishlistHeart:hover {
   background-color: var(--textandhovercolor) !important;
   color: #fff !important;
+  cursor: pointer;
 }
 .addedtowishlist {
   color: #ce0606 !important;

@@ -209,8 +209,9 @@ export function getCategories(getProduct) {
 //     }
 //   }
 // }
-// let cartCount = document.getElementById("cartCount");
 // let cartdata = JSON.parse(localStorage.getItem("cart")) || [];
+
+let cartCount = document.getElementById("cartCount");
 // let cartdata = currentUsers.cart;
 
 // cartCount.textContent = cartdata ? cartdata.length : 0;
@@ -282,13 +283,44 @@ export function addToCart(productId) {
 
   users[userIndex] = user;
   localStorage.setItem("users", JSON.stringify(users));
+  let cartNum = user.cart.length;
+  cartCount.textContent = user.cart ? cartNum : 0;
 
   console.log("Product added to cart successfully");
   showToastAdded("Product added to cart successfully.", "text-bg-success");
-
+  console.log(user.cart.length);
   // Refresh the cart items
   // getCartItems();
 }
+
+let currentuser =localStorage.getItem("currentUser");
+let users =localStorage.getItem("users");
+
+if (!currentuser) {
+  console.error("You need to login first to add to your cart.");
+  // showToastAdded(
+    // "You need to login first to add to your cart.",
+    // "text-bg-danger"
+  // );
+  // return;
+}
+
+if (!users) {
+  console.error("No users found in local storage.");
+  // showToastAdded("No users found in local storage.", "text-bg-danger");
+  // return;
+}
+
+currentuser = JSON.parse(currentuser);
+users = JSON.parse(users);
+// Find the logged in user in the users array
+const userIndex = users.findIndex((user) => user.id === currentuser.id);
+if (userIndex === -1) {
+  console.log("Current user not found in users.");
+}
+let user = users[userIndex];
+let cartNum = user.cart.length;
+cartCount.textContent = user.cart ? cartNum : 0;
 // add to wishlist
 export async function addToWishlist(productId, btn) {
   let currentUser = localStorage.getItem("currentUser");
@@ -494,12 +526,12 @@ export function updateWishlistButtonStates() {
   let currentUser = localStorage.getItem("currentUser");
 
   if (!currentUser) {
-    console.error("No currentUser found in local storage.");
+    console.log("No currentUser found in local storage.");
     return;
   }
 
   if (!users) {
-    console.error("No users found in local storage.");
+    console.log("No users found in local storage.");
     return;
   }
 
@@ -508,7 +540,7 @@ export function updateWishlistButtonStates() {
   const user = users.find((user) => user.id === currentUser.id);
 
   if (!user) {
-    console.error("Current user not found in users.");
+    console.log("Current user not found in users.");
     return;
   }
 
