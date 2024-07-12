@@ -23,14 +23,15 @@ let imgrigthero1 = document.querySelectorAll(".imgrigthero")[1];
 let imgright1 = imgrigthero1.children[0];
 let pright1 = imgrigthero1.children[1];
 
+let data = localStorage.getItem("products");
 let getProduct = JSON.parse(localStorage.getItem("products")) || [];
 
 addEventListener("DOMContentLoaded", async function () {
-  // try {
-  await loadProducts();
-  // } catch (e) {
-  // console.log("error when loading data" + e);
-  // }
+  if (data) {
+    getProduct = JSON.parse(data);
+  } else {
+    await loadProducts();
+  }
 
   getCategories(getProduct).forEach((cat) => {
     let option = document.createElement("option");

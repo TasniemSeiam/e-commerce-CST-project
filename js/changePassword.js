@@ -1,4 +1,4 @@
-import { showToastAdded } from "./sharedHome.js";
+import { showToastUser } from "./config.js";
 
 document
   .getElementById("changePasswordForm")
@@ -17,12 +17,12 @@ document
       userRequests.push({
         email: email,
         requestType: "passwordChange",
-        timestamp: new Date().toISOString(),
+        id: Date.now().toString(),
       });
       localStorage.setItem("userRequests", JSON.stringify(userRequests));
-      showToastAdded("Password change request submitted successfully.", 2500);
+      showToastUser("Password change request submitted successfully.", 2500);
       window.location.href = "index.html";
     } else {
-      showToastAdded("Email not found.", 2500);
+      showToastUser("Email not found.", 2500);
     }
   });

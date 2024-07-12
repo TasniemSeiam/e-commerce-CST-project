@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ${allUsers
           .flatMap((user) =>
             user.orders.map(
-              (order) => `
+              (order) => ` 
           <tr data-id="${order.orderId}">
             <td>${order.orderId}</td>
             <td>${order.orderDate}</td>
@@ -140,6 +140,58 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
       return orderTable;
     },
+
+    feedback: function () {
+      // This function should fetch the feedback data and re-render the table
+      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+      const feedbackTable = `
+      <h2>User Feedback and Customer Service</h2>
+      <div class="search">
+        <input
+          type="search"
+          placeholder="search for feedback..."
+          aria-label="Search"
+          class="form-control w-55 border-1 border-warning p-2"
+          oninput="searchTable('feedback-tbody')"
+        />
+      </div>
+      <table id="feedback-table" class="table">
+        <thead>
+          <tr>
+            <th>User Type</th>
+            <th>Feedback Type</th>
+            <th>Email</th>
+            <th>Feedback</th>
+            <th>Response</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="feedback-tbody" class="feedback-table">
+         ${allUsers
+           .flatMap((user) =>
+             user.feedback.map(
+               (feedbackUser) =>
+                 `
+              
+          <tr data-id="${feedbackUser.feedbackId}">
+            <td>${feedbackUser.name}</td>
+            <td>${feedbackUser.feedbackType}</td>
+            <td>$${feedbackUser.email}</td>
+            <td>$${feedbackUser.feedback}</td>
+            <td>$${feedbackUser.response}</td>
+            <td>$${feedbackUser.action}</td>
+          </tr>
+        `
+             )
+           )
+           .join("")}
+        </tbody>
+      </table>
+      <div id="search-message"></div>
+    `;
+      return feedbackTable;
+    },
   };
 
   let products = JSON.parse(localStorage.getItem("products")) || [];
@@ -150,28 +202,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const pendingProducts = allUsers.flatMap((user) => user.pendingProducts);
     return pendingProducts;
   }
-
-  // Add a click event listener to each "Approve" button
-
-  const pendingProducts = getAllPendingProducts();
-  pendingProducts.forEach((product) => {
-    const productId = product.id;
-    console.log(productId);
-  });
-
-  //   const approveButtons = document.querySelectorAll(
-  //     ".approve-order-btn.mahmoud"
-  //   );
-
-  //   approveButtons.forEach((button) => {
-  //     button.addEventListener("click", (e) => {
-  //       const productId = button.dataset.productId;
-  //       const sellerId = button.dataset.sellerId;
-  //       approveProduct(productId, sellerId);
-  //     });
-  //   });
-  // });
-
   // Use event delegation to listen for clicks on dynamically created buttons
   document.addEventListener("click", (e) => {
     if (
@@ -190,23 +220,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function approveProduct(productId, sellerId) {
     console.log("Approving product with ID:", productId);
-  
+
     const usersData = JSON.parse(localStorage.getItem("users")) || [];
     const pendingProducts = getAllPendingProducts();
-  
+
     // Find the product in the pendingProducts array
     const productIndex = pendingProducts.findIndex(
       (product) => product.id === +productId
     );
-  
+
     if (productIndex !== -1) {
       const product = pendingProducts[productIndex];
-  
+
       // Add the product to the products array in local storage
       let products = JSON.parse(localStorage.getItem("products")) || [];
       products.push(product);
       localStorage.setItem("products", JSON.stringify(products)); // Update here
-  
+
       // Remove the product from the pendingProducts array in usersData
       const userIndex = usersData.findIndex((user) => user.id === sellerId);
       if (userIndex !== -1) {
@@ -220,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.setItem("users", JSON.stringify(usersData));
         }
       }
-  
+
       console.log(
         "Product approved successfully and added to products in localStorage"
       );
@@ -354,6 +384,80 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function fetchFeedback() {
+    const feedbackTbody = document.getElementById("feedback-tbody");
+    feedbackTbody.innerHTML = "";
+    const usersDataFeedBack = JSON.parse(localStorage.getItem("users")) || [];
+    usersDataFeedBack.forEach((user) => {
+      if (user.feedback) {
+        user.feedback.forEach((feedback) => {
+          const row = document.createElement("tr");
+          row.setAttribute("data-id", feedback.id);
+          row.innerHTML = `
+            <td>${user.username ? "customer" : "Visitor"}</td>
+            <td>${feedback.feedbackType}</td>
+            <td>${feedback.email}</td>
+            <td>${
+              feedback.feedbackType === "general"
+                ? feedback.feedback
+                : feedback.feedback.productFeedback
+            }</td>
+            <td>${feedback.response || ""}</td>
+            <td><button class="btn btn-primary btn-sm">Respond</button></td>
+          `;
+          const respondButton = row.querySelector(".btn-primary");
+          respondButton.addEventListener(
+            "click",
+            (e) => console.log(e.target)
+            // respondFeedback(user.id, e.target)
+          );
+          feedbackTbody.appendChild(row);
+        });
+      }
+    });
+  }
+
+  function respondFeedback(userId, feedbackId) {
+    const usersData = JSON.parse(localStorage.getItem("users")) || [];
+    const userIndex = usersData.findIndex((user) => user.id === userId);
+    console.log(userIndex);
+    if (userIndex !== -1) {
+      const feedbackIndex = usersData[userIndex].feedback.findIndex(
+        (fb) => fb.id === feedbackId
+      );
+      console.log(feedbackIndex);
+      if (feedbackIndex !== -1) {
+        // Show the modal
+        $("#responseModal").modal("show");
+
+        // Set up modal fields
+        $("#responseTextarea").val(
+          usersData[userIndex].feedback[feedbackIndex].response || ""
+        );
+
+        // Save response function
+        saveResponse = function () {
+          const response = $("#responseTextarea").val().trim();
+          if (response) {
+            usersData[userIndex].feedback[feedbackIndex].response = response;
+            localStorage.setItem("users", JSON.stringify(usersData));
+            fetchFeedback(); // Refresh the feedback table
+            $("#responseModal").modal("hide");
+          }
+        };
+      }
+    }
+  }
+
+  // Event listeners for navigation buttons
+  // document
+  //   .getElementById("feedback-btn")
+  //   .addEventListener("click", function (e) {
+  //     displayContent("feedback");
+  //     setActiveButton("feedback-btn");
+  //     fetchFeedback();
+  //   });
+
   function addApproveOrderEventListeners() {
     const approveButtons = document.querySelectorAll(".approve-order-btn");
     approveButtons.forEach((button) => {
@@ -457,7 +561,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
-
   displayContent("dashboard");
 });
 

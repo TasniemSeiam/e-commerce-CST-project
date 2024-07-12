@@ -261,8 +261,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function openEditModal(product) {
     $("#editProductModal").modal("show");
-    document.getElementById("edit-pname").value.trim() = product.title;
-    document.getElementById("edit-desc").value.tim() = product.description;
+    document.getElementById("edit-pname").value = product.title;
+    document.getElementById("edit-desc").value = product.description;
     document.getElementById("edit-price").value = product.price;
     document.getElementById("edit-discPrice").value = product.discount;
     document.getElementById("edit-category").value = product.category;
@@ -379,13 +379,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (!discPrice) {
       document.getElementById("discPriceError").textContent =
-        "You must enter a discounted price.";
+        `You must enter a discounted price less than or equal ${price}`;
       isValid = false;
     }
     if (price < discPrice) {
       document.getElementById(
         "discPriceError"
-      ).textContent = `Discounted price must be less than ${price}`;
+      ).textContent = `Discounted price must be less than or equal ${price}`;
       isValid = false;
     }
     if (!category) {

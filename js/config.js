@@ -91,7 +91,7 @@ export function currentUser() {
 export async function initializeUsers() {
   // Fetch users from JSON file
   try {
-    const response = await fetch("users.json");
+    const response = await fetch("../users.json");
     const data = await response.json();
     const jsonUsers = data.users;
 

@@ -43,6 +43,8 @@ function displayCartItems() {
         items += `
           <p><span class="pcs">${cartItem.quantity} pcs of</span>, <span class="text">${product.title}</span> <span class="price">$${totalPrice}</span></p>
         `;
+
+        console.log(product.rating.count);
       }
     });
 
@@ -150,12 +152,13 @@ function handleCheckoutFormSubmission() {
       const cardNameError = document.getElementById("cardNameError");
       const cardNamePattern = /^[a-zA-Z\s]+$/;
       if (!cardName.match(cardNamePattern)) {
-        cardNameError.textContent = "Please enter a valid card name (letters and spaces only)";
+        cardNameError.textContent =
+          "Please enter a valid card name (letters and spaces only)";
         isValid = false;
       } else {
         cardNameError.textContent = "";
       }
-      
+
       const cardNumber = document.getElementById("cardNumber").value.trim();
       const cardNumberError = document.getElementById("cardNumberError");
       const cardNumberPattern = /^\d{16}$/;
@@ -234,13 +237,22 @@ function placeOrder(orderData) {
     return;
   }
 
+  let products = localStorage.getItem("products");
+  if (!products) {
+    console.error("No products found in local storage.");
+    return;
+  }
+  products = JSON.parse(products);
+
   let subtotal = 0;
   let orderItems = cartItems
     .map((cartItem) => {
-      let product = getProductDetailsById(cartItem.id);
+      let product = products.find((product) => +product.id === +cartItem.id);
       if (product) {
         let totalPrice = (product.price * cartItem.quantity).toFixed(2);
         subtotal += parseFloat(totalPrice);
+        product.rating.count -= cartItem.quantity;
+
         return {
           id: cartItem.id,
           name: product.title,
@@ -269,12 +281,15 @@ function placeOrder(orderData) {
   const day = orderDate.getDate();
   const month = orderDate.getMonth() + 1;
   const year = orderDate.getFullYear();
+  const hours = orderDate.getHours().toString().padStart(2, "0"); // Pad with leading zero
+  const minutes = orderDate.getMinutes().toString().padStart(2, "0");
+  const seconds = orderDate.getSeconds().toString().padStart(2, "0");
 
-  const formattedOrderDate = `${day}-${month}-${year}`;
+  const formattedOrderDateTime = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 
   const newOrder = {
     orderId: generateRandomId(),
-    orderDate: formattedOrderDate,
+    orderDate: formattedOrderDateTime,
     orderItems: {
       ...orderItems,
     },
@@ -291,6 +306,7 @@ function placeOrder(orderData) {
 
   users[userIndex] = user;
   localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("products", JSON.stringify(products));
 
   console.log("Order placed successfully");
 

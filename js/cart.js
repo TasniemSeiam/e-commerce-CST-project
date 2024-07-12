@@ -1,6 +1,6 @@
 let cartItem = document.getElementById("cartItems");
 let cartTotals = document.querySelector(".cart-totals");
-//get cart items
+
 function getCartItems() {
   let users = localStorage.getItem("users");
   let currentUser = localStorage.getItem("currentUser");
@@ -30,6 +30,7 @@ function getCartItems() {
   if (cartItems.length > 0) {
     cartItems.forEach((cartItem) => {
       let product = getProductDetailsById(cartItem.id);
+      console.log(product.rating.count);
       if (product) {
         items += `
           <tr>
@@ -56,8 +57,13 @@ function getCartItems() {
                 <input
                   type="number"
                   class="form-control mx-2 quantity"
+                  disabled
                   id="quantity-${cartItem.id}"
                   value="${cartItem.quantity}"
+                  min="1" // Minimum quantity set to 1
+                  max="${
+                    product.rating.count
+                  }" // Maximum quantity set to product.count
                   style="width: 58px"
                   onchange="updateTotalPrice(${cartItem.id})"
                 />
@@ -135,6 +141,18 @@ function incrementQuantity(productId) {
     return;
   }
 
+  let product = getProductDetailsById(productId);
+  if (!product) {
+    console.error("Product details not found.");
+    return;
+  }
+
+  // Check if quantity exceeds product count
+  if (cartItem.quantity >= product.rating.count) {
+    alert("Cannot add more than available product count.");
+    return;
+  }
+
   // Increment quantity
   cartItem.quantity++;
 
@@ -171,7 +189,7 @@ function decrementQuantity(productId) {
 
   let user = users[userIndex];
 
-  let cartItem = user.cart.find((item) => item.id === productId);
+  let cartItem = user.cart.find((item) => +item.id === +productId);
   if (!cartItem) {
     console.error("Product not found in user's cart.");
     return;
@@ -330,16 +348,69 @@ function removeFromCart(productId) {
   }
 
   let user = users[userIndex];
+  const itemToRemove = user.cart.find((item) => +item.id === +productId);
 
+  if (!itemToRemove) {
+    console.error(`Product with ID ${productId} not found in the cart.`);
+    return;
+  }
 
-  if (confirm("Are you sure you want to remove this product from your cart?")) {
+  if (confirm(`Are you sure you want to remove this product from your cart?`)) {
     user.cart = user.cart.filter((item) => +item.id !== +productId);
-
-  users[userIndex] = user;
-  localStorage.setItem("users", JSON.stringify(users));
-
-
-    console.log("Product removed from cart successfully");
+    users[userIndex] = user;
+    localStorage.setItem("users", JSON.stringify(users));
     getCartItems();
   }
 }
+
+function validateCartQuantities() {
+  let users = localStorage.getItem("users");
+  let currentUser = localStorage.getItem("currentUser");
+
+  if (!currentUser) {
+    console.error("No currentUser found in local storage.");
+    return false;
+  }
+
+  if (!users) {
+    console.error("No users found in local storage.");
+    return false;
+  }
+
+  currentUser = JSON.parse(currentUser);
+  users = JSON.parse(users);
+
+  const userIndex = users.findIndex((user) => +user.id === +currentUser.id);
+  if (userIndex === -1) {
+    console.error("Current user not found in users.");
+    return false;
+  }
+
+  let user = users[userIndex];
+
+  for (let cartItem of user.cart) {
+    let product = getProductDetailsById(cartItem.id);
+    if (!product) {
+      console.error("Product details not found.");
+      return false;
+    }
+
+    if (cartItem.quantity <= 0 || cartItem.quantity > product.rating.count) {
+      alert(
+        `Quantity for ${product.title} is invalid. Please adjust your cart.`
+      );
+      return false;
+    }
+  }
+
+  return true;
+}
+
+document.getElementById("checkoutBtn").addEventListener("click", (event) => {
+  if (!validateCartQuantities()) {
+    event.preventDefault();
+  } else {
+    window.location.href = "../checkout.html";
+  }
+});
+

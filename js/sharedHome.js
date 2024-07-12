@@ -1,4 +1,4 @@
-import { showToastUser, currentUser } from "./config.js";
+
 // currentUser();
 
 let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];

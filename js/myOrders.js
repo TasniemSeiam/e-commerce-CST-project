@@ -31,18 +31,18 @@ function displayOrders() {
   let rows = "";
 
   orders.forEach((order) => {
-    let paymentMethodDisplay =
-      order.paymentMethod === "cod"
-        ? "Cash on delivery"
-        : "Credit / Debit Card";
-//   <td>${paymentMethodDisplay}</td>
+    // let paymentMethodDisplay =
+    //   order.paymentMethod === "cod"
+    //     ? "Cash on delivery"
+    //     : "Credit / Debit Card";
+    //   <td>${paymentMethodDisplay}</td>
     rows += `
       <tr>
         <td class="d-none d-md-table-cell">${order.orderId}</td>
         <td class="d-none d-md-table-cell">${order.orderDate}</td>
         <td>$${order.total.toFixed(2)}</td>
         <td>
-          ${order.trackingStatus}
+          ${order.trackingStatus ? order.trackingStatus : "Order Processed"}
         </td>
       </tr>
     `;
