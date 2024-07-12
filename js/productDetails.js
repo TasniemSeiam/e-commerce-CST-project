@@ -131,9 +131,9 @@ document.addEventListener("DOMContentLoaded", function () {
               }">
                 <h3>
                  ${
-                   product.rating.count > 50
-                     ? `<span>Hurry Up!</span> Only ${product.rating.count} products left in stock.`
-                     : `Out Of Stock`
+                   product.rating.count === 0
+                     ? `Out Of Stock`
+                     : `<span>Hurry Up!</span> Only ${product.rating.count} products left in stock.`
                  }  
                   
                 </h3>
