@@ -10,6 +10,14 @@ export function displayProduct(product, _location) {
   let productDiv = document.createElement("div");
   productDiv.className = "col-12 col-sm-6 col-md-3 col-lg  px-2 mb-2";
   let productCard = document.createElement("div");
+
+  let productCount = document.createElement("div");
+  productCount.className ="productCount bg-danger text-center rounded-top text-white";
+  productCount.innerHTML = `<span>out of stock</span>`;
+  if (product.rating.count <1) {
+    productDiv.appendChild(productCount);
+  }
+
   productCard.className = "card text-center cardProducts";
   productCard.style.cursor = "pointer";
   productCard.setAttribute("id", `pro${product.id}`);
@@ -118,27 +126,42 @@ export function displayProduct(product, _location) {
     cardRate.appendChild(li);
   }
   let cardprice = document.createElement("h6");
-  cardprice.textContent = "price: " + product.price + "$";
+  cardprice.textContent = "price: " + product.discount + "$";
   let cartBtndiv = document.createElement("div");
   cartBtndiv.className = "cartBtndiv pt-2 pt-sm-0";
   let cartBtn = document.createElement("button");
   cartBtn.textContent = "Add to Cart";
   cartBtn.className =
-    "btn mx-auto mx-md-0 text-center btn-warning addToCart  rounded-pill";
+    "btn mx-auto mx-md-0 text-center btn-warning addToCart py-lg-1 px-lg-0  p-xxl-2  rounded-pill";
   // wishListBtnStates(wishlistBtn, product, currentUsers.id);
 
   cartBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
     let currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
       e.preventDefault();
       window.location.href = "./login.html";
       return;
     } else {
-      addToCart(product.id);
+      if (currentUsers.role === "user") {
+        if (product.rating.count > 0) { 
+
+          addToCart(product.id);
+        } else {
+          showToastAdded("Product is out of stock", "text-bg-danger");
+          return;
+        }
+      } else {
+        e.preventDefault();
+        // showToastUser("Only users can add products to cart");
+        showToastAdded("Only users can add products to cart", "text-bg-danger");
+        return;
+      }
     }
   });
   wishlistBtn.addEventListener("click", function (e) {
     // wishListBtnStates(e.target, product);
+    e.stopPropagation();
     let currentUser = localStorage.getItem("currentUser");
 
     if (!currentUser) {
@@ -146,8 +169,17 @@ export function displayProduct(product, _location) {
       window.location.href = "./login.html";
       return;
     } else {
-      addToWishlist(product.id, e.target);
-      console.log("Wishlist", currentUsers.wishList);
+      if (currentUsers.role === "user") {
+        addToWishlist(product.id, e.target);
+        console.log("Wishlist", currentUsers.wishList);
+      } else {
+        e.preventDefault();
+        showToastAdded(
+          "Only users can add products to wishlist",
+          "text-bg-danger"
+        );
+        return;
+      }
     }
   });
 
@@ -292,34 +324,44 @@ export function addToCart(productId) {
   // getCartItems();
 }
 
-let currentuser =localStorage.getItem("currentUser");
-let users =localStorage.getItem("users");
+let currentuser = localStorage.getItem("currentUser");
+let users = localStorage.getItem("users");
 
 if (!currentuser) {
-  console.error("You need to login first to add to your cart.");
+  console.log("You need to login first to add to your cart.");
   // showToastAdded(
-    // "You need to login first to add to your cart.",
-    // "text-bg-danger"
+  // "You need to login first to add to your cart.",
+  // "text-bg-danger"
   // );
   // return;
 }
 
 if (!users) {
-  console.error("No users found in local storage.");
+  console.log("No users found in local storage.");
   // showToastAdded("No users found in local storage.", "text-bg-danger");
   // return;
 }
-
-currentuser = JSON.parse(currentuser);
+let currentusers = JSON.parse(currentuser);
 users = JSON.parse(users);
 // Find the logged in user in the users array
-const userIndex = users.findIndex((user) => user.id === currentuser.id);
-if (userIndex === -1) {
-  console.log("Current user not found in users.");
+if (currentuser) {
+  const userIndex = users.findIndex((user) => +user.id === +currentusers.id);
+  if (userIndex === -1) {
+    console.log("Current user not found in users.");
+  }
+  let user = users[userIndex];
+  let cartNum = user.cart.length;
+  cartCount.textContent = user.cart ? cartNum : 0;
+} else {
+  console.log("No current user found.");
 }
-let user = users[userIndex];
-let cartNum = user.cart.length;
-cartCount.textContent = user.cart ? cartNum : 0;
+// const userIndex = users.findIndex((user) => +user.id === +currentusers.id);
+// if (userIndex === -1) {
+//   console.log("Current user not found in users.");
+// }
+// let user = users[userIndex];
+// let cartNum = user.cart.length;
+// cartCount.textContent = user.cart ? cartNum : 0;
 // add to wishlist
 export async function addToWishlist(productId, btn) {
   let currentUser = localStorage.getItem("currentUser");
@@ -487,6 +529,7 @@ export async function addToWishlist(productId, btn) {
 //   currentUsers.wishList = _wishList;
 //   localStorage.setItem("currentUser", JSON.stringify(currentUsers));
 // }
+
 export function showToastAdded(messg, added) {
   const toastHTML = `
     <div class= role="alert" aria-live="assertive" aria-atomic="true">

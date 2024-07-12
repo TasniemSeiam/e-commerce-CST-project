@@ -5,6 +5,7 @@ import {
   addToWishlist,
   getCategories,
   updateWishlistButtonStates,
+  showToastAdded,
 } from "./sharedHome.js";
 // let categoriesarr = [];
 // productsarr = []; // =>
@@ -23,14 +24,15 @@ let imgrigthero1 = document.querySelectorAll(".imgrigthero")[1];
 let imgright1 = imgrigthero1.children[0];
 let pright1 = imgrigthero1.children[1];
 
+let data = localStorage.getItem("products");
 let getProduct = JSON.parse(localStorage.getItem("products")) || [];
 
 addEventListener("DOMContentLoaded", async function () {
-  // try {
-  await loadProducts();
-  // } catch (e) {
-  // console.log("error when loading data" + e);
-  // }
+  if (data) {
+    getProduct = JSON.parse(data);
+  } else {
+    await loadProducts();
+  }
 
   getCategories(getProduct).forEach((cat) => {
     let option = document.createElement("option");
@@ -140,7 +142,7 @@ async function loadProducts() {
     if (localStorgeProducts.length == 0) {
       localStorage.setItem("users", JSON.stringify(localdata));
     }
-
+    location.reload();
     // console.log(getProduct);
   } catch (error) {
     console.log("Error fetching products", error);
@@ -602,34 +604,54 @@ function onSale(products) {
     // });
 
     addToCartBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
       let currentUser = localStorage.getItem("currentUser");
       if (!currentUser) {
         e.preventDefault();
         window.location.href = "./login.html";
         return;
       } else {
-        addToCart(product.id);
+        if (currentUsers.role === "user") {
+          if (product.rating.count > 0) { 
+            addToCart(product.id);
+          } else {
+            showToastAdded("Product is out of stock", "text-bg-danger");
+            return;
+          }
+        } else {
+          e.preventDefault();
+          showToastAdded(
+            "Only users can add products to cart",
+            "text-bg-danger"
+          );
+          return;
+        }
       }
     });
-
-    addTofavBtn.addEventListener("click", async function (e) {
+    addTofavBtn.addEventListener("click", function (e) {
+      // wishListBtnStates(e.target, product);
+      e.stopPropagation();
       let currentUser = localStorage.getItem("currentUser");
+
       if (!currentUser) {
         e.preventDefault();
         window.location.href = "./login.html";
         return;
       } else {
-        addToWishlist(product.id, e.target);
+        if (currentUsers.role === "user") {
+          addToWishlist(product.id, e.target);
+          console.log("Wishlist", currentUsers.wishList);
+        } else {
+          e.preventDefault();
+          showToastAdded(
+            "Only users can add products to wishList",
+            "text-bg-danger"
+          );
+          return;
+        }
       }
-      // console.log(currentUsers.wishList);
-
-      // console.log(wish[0].id===product.id);
-      // if (states) {
-      //   addTofavBtn.classList.add("addedtowishlist");
-      // } else {
-      //   addTofavBtn.classList.remove("addedtowishlist");
-      // }
     });
+
     // if (currentUser && currentUser.wishList.includes(product.id)) {
     //   addTofavBtn.classList.add("addedtowishlist");
     // } else {

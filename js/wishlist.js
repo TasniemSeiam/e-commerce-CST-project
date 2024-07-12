@@ -1,11 +1,14 @@
 import { addToCart } from "./sharedHome.js";
-
+import { currentUser } from "./config.js";
+currentUser();
 let wishlistItems = document.getElementById("wishlistItems");
 
 function removeProductFromWishlist(e) {
   let trId = e.target.parentElement.parentElement.getAttribute("data-trId");
   let tr = e.target.parentElement.parentElement;
-  if (confirm("Are you sure you want to remove this product from the wishlist?")) {
+  if (
+    confirm("Are you sure you want to remove this product from the wishlist?")
+  ) {
     tr.parentNode.removeChild(tr);
     let users = localStorage.getItem("users");
     let currentUser = localStorage.getItem("currentUser");
@@ -31,7 +34,9 @@ function removeProductFromWishlist(e) {
 
     let user = users[userIndex];
     let wishlistItemsData = user.wishList || [];
-    wishlistItemsData = wishlistItemsData.filter((item) => item.id !== Number(trId));
+    wishlistItemsData = wishlistItemsData.filter(
+      (item) => item.id !== Number(trId)
+    );
     user.wishList = wishlistItemsData;
 
     users[userIndex] = user;
@@ -101,7 +106,7 @@ let searchInput = document.querySelector(".searchInput");
 searchInput.addEventListener("keyup", function (e) {
   let filter = e.target.value.toLowerCase();
   console.log(filter);
-  let tr = document.querySelectorAll(".productTr");//data-trId
+  let tr = document.querySelectorAll(".productTr"); //data-trId
 
   tr.forEach((item) => {
     let title = item.querySelector(".productTitle").textContent.toLowerCase();
@@ -109,7 +114,25 @@ searchInput.addEventListener("keyup", function (e) {
       item.style.display = "";
     } else {
       item.style.display = "none";
-      
     }
   });
+});
+
+const backToTopBtn = document.getElementById("backToTopBtn");
+window.onscroll = function () {
+  scrollFunction();
+};
+function scrollFunction() {
+  if (
+    document.body.scrollTop > 150 ||
+    document.documentElement.scrollTop > 150
+  ) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+}
+backToTopBtn.addEventListener("click", () => {
+  document.documentElement.scrollTop = 0; // chrome scroll
+  document.body.scrollTop = 0; // firefox scroll
 });

@@ -79,9 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
       </thead>
       <tbody>
       ${allUsers
-        .flatMap((user) =>
-          user.pendingProducts.map(
-            (pendingProducts) => `
+        .flatMap((user) => {
+          if (user.pendingProducts) {
+            return user.pendingProducts.map(
+              (pendingProducts) => `
              <tr data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">
               <td><img src="${pendingProducts.image[0]}" alt="${pendingProducts.title}" width="50" height="50"></td>
               <td>${pendingProducts.title}</td>
@@ -93,12 +94,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>
                   <button class="refuse-order-btn" data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">Refuse Product</button>
                 </td>
-                
-             
+                    
+                 
             </tr>
         `
-          )
-        )
+            );
+          } else {
+            return [];
+          }
+        })
         .join("")}
       </tbody>
     </table>
@@ -143,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   let products = JSON.parse(localStorage.getItem("products")) || [];
-  console.log(products)
+  console.log(products);
 
   function getAllPendingProducts() {
     const allUsers = JSON.parse(localStorage.getItem("users")) || [];
@@ -153,11 +157,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add a click event listener to each "Approve" button
 
-  const pendingProducts = getAllPendingProducts();
-  pendingProducts.forEach((product) => {
-    const productId = product.id;
-    console.log(productId);
+  // const pendingProducts = getAllPendingProducts();
+  // pendingProducts.forEach((product) => {
+  //   const productId = product.id;
+  //   console.log(productId);
+  // });
+  // document.addEventListener("DOMContentLoaded", () => {
+  // ... (previous code)
+
+  document.querySelectorAll(".approve-order-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const productId = button.dataset.productId;
+      const sellerId = button.dataset.sellerId;
+      approveProduct(productId, sellerId);
+    });
   });
+
+  // // ... (remaining code)
+
+  // function approveProduct(productId, sellerId) {
+  //   // ... (previous code)
+  // }
+
+  // // ... (remaining code)
+  // });
 
   //   const approveButtons = document.querySelectorAll(
   //     ".approve-order-btn.mahmoud"
@@ -168,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //       const productId = button.dataset.productId;
   //       const sellerId = button.dataset.sellerId;
   //       approveProduct(productId, sellerId);
-  //     });
+  // });
   //   });
   // });
 
@@ -190,37 +213,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function approveProduct(productId, sellerId) {
     console.log("Approving product with ID:", productId);
-  
-    const usersData = JSON.parse(localStorage.getItem("users")) || [];
-    const pendingProducts = getAllPendingProducts();
-  
+
+    let usersData = JSON.parse(localStorage.getItem("users")) || [];
+    let pendingProducts = getAllPendingProducts();
+    console.log(pendingProducts);
+    let productNotUndefined = [];
     // Find the product in the pendingProducts array
-    const productIndex = pendingProducts.findIndex(
-      (product) => product.id === +productId
+    pendingProducts.forEach((pendingProduct) => {
+      // console.log(pendingProduct);
+      if (pendingProduct) {
+        productNotUndefined.push(pendingProduct);
+        // const product = pendingProduct.id;
+        console.log(productNotUndefined);
+      }
+    });
+
+    const productIndex = productNotUndefined.findIndex(
+      (product) => product.id === Number(productId)
     );
-  
+    console.log(productIndex);
     if (productIndex !== -1) {
-      const product = pendingProducts[productIndex];
-  
-      // Add the product to the products array in local storage
+      const product = productNotUndefined[productIndex];
+      console.log(product);
+      // Update the product status in the pendingProducts array
+      //   product.status = "approved";
+
+      //   // Update the product status in the usersData array
+      //   usersData.forEach((user) => {
+      //     if (user.id === sellerId) {
+      //       const pendingProductIndex = user.pendingProducts.findIndex(
+      //         (p) => p.id === +productId
+      //       );
+      //       if (pendingProductIndex!== -1) {
+      //         user.pendingProducts[pendingProductIndex].status = "approved";
+      //       }
+      //     }
+      //   });
+
+      //   // Update the usersData in local storage
+      //   localStorage.setItem("users", JSON.stringify(usersData));
+
+      //   console.log("Product approved successfully");
+
+      //   // Add the product to the products array in local storage
       let products = JSON.parse(localStorage.getItem("products")) || [];
       products.push(product);
       localStorage.setItem("products", JSON.stringify(products)); // Update here
-  
-      // Remove the product from the pendingProducts array in usersData
-      const userIndex = usersData.findIndex((user) => user.id === sellerId);
+      //   // Remove the product from the pendingProducts array in usersData
+      const userIndex = usersData.findIndex((user) => user.id === +sellerId);
+      console.log(userIndex);
       if (userIndex !== -1) {
         const user = usersData[userIndex];
         const pendingProductIndex = user.pendingProducts.findIndex(
-          (p) => p.id === +productId
+          (p) => p.id === Number(productId)
         );
+        console.log(pendingProductIndex);
         if (pendingProductIndex !== -1) {
           user.pendingProducts.splice(pendingProductIndex, 1);
           // Update the usersData in local storage
           localStorage.setItem("users", JSON.stringify(usersData));
         }
       }
-  
       console.log(
         "Product approved successfully and added to products in localStorage"
       );

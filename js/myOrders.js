@@ -1,7 +1,9 @@
+import { currentUser } from "./config.js";
+
+currentUser();
 document.addEventListener("DOMContentLoaded", () => {
   displayOrders();
 });
-
 function displayOrders() {
   let users = localStorage.getItem("users");
   let currentUser = localStorage.getItem("currentUser");

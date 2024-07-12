@@ -1,6 +1,8 @@
 import { getCategories } from "./sharedHome.js";
 import { currentUser, isItemInWishlist } from "./config.js";
-import { addToWishlist, addToCart } from "./sharedHome.js";
+import { addToWishlist, addToCart, showToastAdded } from "./sharedHome.js";
+
+let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];
 document.addEventListener("DOMContentLoaded", function () {
   currentUser();
 
@@ -188,11 +190,20 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.href = "./login.html";
           return;
         } else {
-          let products = JSON.parse(localStorage.getItem("products"));
-          let productId =
-            this.closest(".productDetailes").getAttribute("data-id");
+          if (currentUsers.role === "user") {
+            let products = JSON.parse(localStorage.getItem("products"));
+            let productId =
+              this.closest(".productDetailes").getAttribute("data-id");
 
-          addToCart(productId);
+            addToCart(productId);
+          } else {
+            e.preventDefault();
+            showToastAdded(
+              "Only users can add products to cart",
+              "text-bg-danger"
+            );
+            return;
+          }
         }
       });
 
@@ -207,17 +218,27 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.href = "./login.html";
           return;
         } else {
-          let products = JSON.parse(localStorage.getItem("products"));
-          let productId =
-            this.closest(".productDetailes").getAttribute("data-id");
+          if (currentUsers.role === "user") {
+            let products = JSON.parse(localStorage.getItem("products"));
+            let productId =
+              this.closest(".productDetailes").getAttribute("data-id");
 
-          addToWishlist(productId, e.target);
+            addToWishlist(productId, e.target);
 
-          // Update wishlist button appearance based on current state
-          const isWishlistItem = isItemInWishlist(productId)
-            ? "addedtowishlist"
-            : "";
-          wishlistBtn.classList.toggle("addedtowishlist", isWishlistItem);
+            // Update wishlist button appearance based on current state
+            const isWishlistItem = isItemInWishlist(productId)
+              ? "addedtowishlist"
+              : "";
+            wishlistBtn.classList.toggle("addedtowishlist", isWishlistItem);
+          } else {
+            e.preventDefault();
+            // showToastUser("Only users can add products to cart");
+            showToastAdded(
+              "Only users can add products to cart",
+              "text-bg-danger"
+            );
+            return;
+          }
         }
       });
 
