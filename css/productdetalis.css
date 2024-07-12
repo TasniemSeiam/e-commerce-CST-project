@@ -384,3 +384,7 @@ h6 {
 #productDetails {
   margin-bottom: 50px;
 }
+
+.image__outofStock {
+  filter: grayscale(2.5);
+}

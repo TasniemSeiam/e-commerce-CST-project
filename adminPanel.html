@@ -147,6 +147,7 @@
         <button id="products-btn">All Products</button>
         <button id="products-review-btn">Products Under Review</button>
         <button id="orders-btn">All Orders</button>
+        <button id="feedback-btn">Feedback and Customer Service</button>
       </div>
       <hr />
       <div class="right" id="content"></div>
@@ -189,8 +190,6 @@
       </div>
     </div>
 
-    <script
-
     <!-- <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -205,7 +204,54 @@
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
-    ></script> -->
+    ></script>  -->
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="responseModal"
+      tabindex="-1"
+      aria-labelledby="responseModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="responseModalLabel">Enter Response</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <textarea
+              id="responseTextarea"
+              class="form-control"
+              rows="5"
+            ></textarea>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="saveResponse()"
+            >
+              Save Response
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="js/JQuery-3.3.1.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

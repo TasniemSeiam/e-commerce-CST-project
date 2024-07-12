@@ -171,9 +171,15 @@ document.addEventListener("DOMContentLoaded", function () {
           <td>${order.orderDate}</td>
           <td>
             <select class="tracking-status">
-              <option value="Order Processed" ${order.trackingStatus === "Order Processed" ? "selected" : ""}>Order Processed</option>
-              <option value="Out for Delivery" ${order.trackingStatus === "Out for Delivery" ? "selected" : ""}>Out for Delivery</option>
-              <option value="Delivered" ${order.trackingStatus === "Delivered" ? "selected" : ""}>Delivered</option>
+              <option value="Order Processed" ${
+                order.trackingStatus === "Order Processed" ? "selected" : ""
+              }>Order Processed</option>
+              <option value="Out for Delivery" ${
+                order.trackingStatus === "Out for Delivery" ? "selected" : ""
+              }>Out for Delivery</option>
+              <option value="Delivered" ${
+                order.trackingStatus === "Delivered" ? "selected" : ""
+              }>Delivered</option>
             </select>
             <button class="save-tracking">Save</button>
           </td>
@@ -261,8 +267,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function openEditModal(product) {
     $("#editProductModal").modal("show");
-    document.getElementById("edit-pname").value.trim() = product.title;
-    document.getElementById("edit-desc").value.tim() = product.description;
+    document.getElementById("edit-pname").value = product.title;
+    document.getElementById("edit-desc").value = product.description;
     document.getElementById("edit-price").value = product.price;
     document.getElementById("edit-discPrice").value = product.discount;
     document.getElementById("edit-category").value = product.category;
@@ -496,22 +502,28 @@ document.addEventListener("DOMContentLoaded", function () {
           </tr>
         </thead>
         <tbody>
-          ${orderItems.map(item => `
+          ${orderItems
+            .map(
+              (item) => `
             <tr>
               <td style="padding: 10px; border: 1px solid #ccc;">${item.name}</td>
               <td style="padding: 10px; border: 1px solid #ccc;">${item.quantity}</td>
               <td style="padding: 10px; border: 1px solid #ccc;">$${item.price}</td>
             </tr>
-          `).join('')}
+          `
+            )
+            .join("")}
         </tbody>
       </table>
     `;
-    const closeButtons = document.querySelectorAll("#orderDetailsModal .close, #orderDetailsModal .btn-close");
-  closeButtons.forEach(button => {
-    button.addEventListener("click", () => {
-      $("#orderDetailsModal").modal("hide");
+    const closeButtons = document.querySelectorAll(
+      "#orderDetailsModal .close, #orderDetailsModal .btn-close"
+    );
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        $("#orderDetailsModal").modal("hide");
+      });
     });
-  });
   }
 
   document
@@ -571,26 +583,26 @@ document.addEventListener("DOMContentLoaded", function () {
         const order = allUsers
           .flatMap((user) => user.orders)
           .find((order) => order.orderId === orderId);
-          const orderItems = order.orderItems;
-          const orderItemsArray = Object.values(orderItems);
-          console.log(orderItemsArray)
+        const orderItems = order.orderItems;
+        const orderItemsArray = Object.values(orderItems);
+        console.log(orderItemsArray);
         openOrderDetailsModal(order, orderItemsArray);
       });
     });
-    
+
     document.querySelectorAll(".save-tracking").forEach((button) => {
       button.addEventListener("click", function (e) {
         const row = e.target.closest("tr");
         const orderId = Number(row.dataset.id);
         const newStatus = row.querySelector(".tracking-status").value;
-  
+
         const userIndex = allUsers.findIndex((user) =>
           user.orders.some((order) => order.orderId === orderId)
         );
         const orderIndex = allUsers[userIndex].orders.findIndex(
           (order) => order.orderId === orderId
         );
-  
+
         if (userIndex !== -1 && orderIndex !== -1) {
           allUsers[userIndex].orders[orderIndex].trackingStatus = newStatus;
           localStorage.setItem("users", JSON.stringify(allUsers));

@@ -293,14 +293,14 @@ export function addToCart(productId) {
   // getCartItems();
 }
 
-let currentuser =localStorage.getItem("currentUser");
-let users =localStorage.getItem("users");
+let currentuser = localStorage.getItem("currentUser");
+let users = localStorage.getItem("users");
 
 if (!currentuser) {
   console.error("You need to login first to add to your cart.");
   // showToastAdded(
-    // "You need to login first to add to your cart.",
-    // "text-bg-danger"
+  // "You need to login first to add to your cart.",
+  // "text-bg-danger"
   // );
   // return;
 }
@@ -314,7 +314,7 @@ if (!users) {
 currentuser = JSON.parse(currentuser);
 users = JSON.parse(users);
 // Find the logged in user in the users array
-const userIndex = users.findIndex((user) => user.id === currentuser.id);
+const userIndex = users.findIndex((user) => +user.id === +currentuser.id);
 if (userIndex === -1) {
   console.log("Current user not found in users.");
 }
