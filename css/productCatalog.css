@@ -222,6 +222,10 @@ body {
   display: none;
 }
 
+.displayed {
+  display: block;
+}
+
 .show {
   display: block;
 }
@@ -375,4 +379,8 @@ body {
 
 .addedtoCartlist > i {
   background-color: var(--main-color) !important;
+}
+
+.image__outofStock {
+  filter: grayscale(2.5);
 }

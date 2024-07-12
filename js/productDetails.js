@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="product__details-thumb">
               <div class="img__item">
                 <div class="img__item--main">
-                  <img class="main-image" src="${
+                  <img class="main-image " src="${
                     product.image[0]
                   }" alt="main image" />
                 </div>
@@ -127,12 +127,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 </p>
               </div>
               <div class="product__details-stock ${
-                product.rating.count > 100 ? "hidden" : "displayed"
+                product.rating.count > 50 ? "hidden" : "displayed"
               }">
                 <h3>
-                  <span>Hurry Up!</span> Only ${
-                    product.rating.count
-                  } products left in stock.
+                 ${
+                   product.rating.count > 50
+                     ? `<span>Hurry Up!</span> Only ${product.rating.count} products left in stock.`
+                     : `Out Of Stock`
+                 }  
+                  
                 </h3>
                 <div class="progress">
                   <div
@@ -151,7 +154,9 @@ document.addEventListener("DOMContentLoaded", function () {
                   <div class="pro-quan-area d-lg-flex align-items-center">
                     
                     <div class="pro-cart-btn mb-25">
-                      <button class=" addCartBtn t-y-btn" type="submit">
+                      <button class=" ${
+                        product.rating.count === 0 ? "hidden" : "displayed"
+                      } addCartBtn t-y-btn" type="submit">
                         Add to cart
                       </button>
                     </div>

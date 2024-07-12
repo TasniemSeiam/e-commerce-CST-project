@@ -21,6 +21,15 @@
   </head>
 
   <body class="bg-light">
+    <input
+      type="number"
+      id="inputCart"
+      min="1"
+      max="20"
+      onChange="{(e)=>
+    this.onChangeQty(e)}"
+      onKeyUp="{e => e.preventDefault()}"
+    />
     <div class="container-fluid">
       <nav class="navbar navbar-expand-sm navbar-light border-bottom">
         <div class="container-fluid">
@@ -188,7 +197,9 @@
               <img src="./images/logo-white.png" alt="" />
             </a>
             <div class="my-3">
-              <p class="text-light">Add: Walls Street 68, Mahattan, New York, USA</p>
+              <p class="text-light">
+                Add: Walls Street 68, Mahattan, New York, USA
+              </p>
               <p class="text-light">Email: info@thebuesky.com</p>
               <p class="text-light">phone: (+100) 123 456 7890</p>
             </div>

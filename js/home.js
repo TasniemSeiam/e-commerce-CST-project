@@ -605,6 +605,7 @@ function onSale(products) {
 
     addToCartBtn.addEventListener("click", function (e) {
       e.stopPropagation();
+      e.stopPropagation();
       let currentUser = localStorage.getItem("currentUser");
       if (!currentUser) {
         e.preventDefault();

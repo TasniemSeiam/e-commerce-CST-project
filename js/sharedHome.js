@@ -47,7 +47,6 @@ export function displayProduct(product, _location) {
     product.addEventListener("click", function (e) {
       e.preventDefault();
       const productItemId = product.getAttribute("data-id");
-
       redirectToProductDetails(+productItemId);
     })
   );
@@ -330,6 +329,7 @@ let users = localStorage.getItem("users");
 if (!currentuser) {
   console.log("You need to login first to add to your cart.");
   // showToastAdded(
+
   // "You need to login first to add to your cart.",
   // "text-bg-danger"
   // );

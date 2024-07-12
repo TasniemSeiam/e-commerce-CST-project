@@ -91,9 +91,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       localStorage.setItem("users", JSON.stringify(updatedUsers));
-      showToastUser("Feedback submitted successfully!", 2000);
+      showToastAdded("Feedback submitted successfully!", 2000);
     } else {
-      showToastUser(
+      showToastAdded(
         "User data not found. Please ensure you are logged in.",
         2000
       );

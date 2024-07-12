@@ -150,12 +150,13 @@ function handleCheckoutFormSubmission() {
       const cardNameError = document.getElementById("cardNameError");
       const cardNamePattern = /^[a-zA-Z\s]+$/;
       if (!cardName.match(cardNamePattern)) {
-        cardNameError.textContent = "Please enter a valid card name (letters and spaces only)";
+        cardNameError.textContent =
+          "Please enter a valid card name (letters and spaces only)";
         isValid = false;
       } else {
         cardNameError.textContent = "";
       }
-      
+
       const cardNumber = document.getElementById("cardNumber").value.trim();
       const cardNumberError = document.getElementById("cardNumberError");
       const cardNumberPattern = /^\d{16}$/;
@@ -272,12 +273,11 @@ function placeOrder(orderData) {
 
   const formattedOrderDate = `${day}-${month}-${year}`;
 
+  // Assuming orderItems is already an array of objects
   const newOrder = {
     orderId: generateRandomId(),
     orderDate: formattedOrderDate,
-    orderItems: {
-      ...orderItems,
-    },
+    orderItems: [...orderItems], // Spread the existing array
     total,
     orderData: {
       ...orderData,
