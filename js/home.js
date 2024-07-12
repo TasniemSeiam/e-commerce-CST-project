@@ -602,6 +602,7 @@ function onSale(products) {
     // });
 
     addToCartBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
       let currentUser = localStorage.getItem("currentUser");
       if (!currentUser) {
         e.preventDefault();
@@ -613,6 +614,7 @@ function onSale(products) {
     });
 
     addTofavBtn.addEventListener("click", async function (e) {
+      e.stopPropagation();
       let currentUser = localStorage.getItem("currentUser");
       if (!currentUser) {
         e.preventDefault();

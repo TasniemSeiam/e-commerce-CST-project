@@ -39,7 +39,6 @@ export function displayProduct(product, _location) {
     product.addEventListener("click", function (e) {
       e.preventDefault();
       const productItemId = product.getAttribute("data-id");
-
       redirectToProductDetails(+productItemId);
     })
   );
@@ -128,6 +127,7 @@ export function displayProduct(product, _location) {
   // wishListBtnStates(wishlistBtn, product, currentUsers.id);
 
   cartBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
     let currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
       e.preventDefault();
@@ -139,6 +139,7 @@ export function displayProduct(product, _location) {
   });
   wishlistBtn.addEventListener("click", function (e) {
     // wishListBtnStates(e.target, product);
+    e.stopPropagation();
     let currentUser = localStorage.getItem("currentUser");
 
     if (!currentUser) {
