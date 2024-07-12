@@ -287,6 +287,7 @@ function placeOrder(orderData) {
 
   const formattedOrderDateTime = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 
+  // Assuming orderItems is already an array of objects
   const newOrder = {
     orderId: generateRandomId(),
     orderDate: formattedOrderDateTime,

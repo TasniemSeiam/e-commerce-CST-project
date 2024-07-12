@@ -93,6 +93,10 @@ function displayProducts(product, _location) {
   //   productCount.className =
   //     "productCount bg-danger text-center rounded-top text-white";
   //   productCount.innerHTML = `<span>out of stock</span>`;
+  //   let productCount = document.createElement("div");
+  //   productCount.className =
+  //     "productCount bg-danger text-center rounded-top text-white";
+  //   productCount.innerHTML = `<span>out of stock</span>`;
   //   if (product.rating.count == 0) {
   //     productDiv.appendChild(productCount);
   //   }
@@ -332,6 +336,25 @@ function wishListBtnStates(_wishListBtn, _data) {
 }
 */
 
+
+const backToTopBtn = document.getElementById("backToTopBtn");
+  window.onscroll = function () {
+    scrollFunction();
+  };
+  function scrollFunction() {
+    if (
+      document.body.scrollTop > 150 ||
+      document.documentElement.scrollTop > 150
+    ) {
+      backToTopBtn.style.display = "block";
+    } else {
+      backToTopBtn.style.display = "none";
+    }
+  }
+  backToTopBtn.addEventListener("click", () => {
+    document.documentElement.scrollTop = 0; // chrome scroll
+    document.body.scrollTop = 0; // firefox scroll
+  });
 
 let notLogIn = document.querySelectorAll(".preventIfLogOut");
 

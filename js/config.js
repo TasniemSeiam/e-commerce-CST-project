@@ -123,3 +123,37 @@ export function isItemInWishlist(productId) {
 export function redirectToProductDetails(productId) {
   window.location.href = `productdetalis.html?id=${productId}`;
 } // End OF redirection
+
+export function toastMessage(messg, added) {
+  const toastHTML = `
+    <div class= role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="${added} d-flex">
+   <div class="toast-body">
+${messg}
+   </div>
+   
+  </div>
+  </div>
+  `;
+
+  // Create a new toast element
+  const toastElement = document.createElement("div");
+  toastElement.innerHTML = toastHTML;
+  toastElement.className = ` fixed-top p-1 w-25 toast align-items-center mx-auto ${added} border-0`; // Add fixed-top class to position at top of page
+  toastElement.style.top = "10px"; // Add some margin from top
+  toastElement.style.right = "10px"; // Add some margin from right
+  toastElement.style.zIndex = "1000"; // Make sure it's on top of other elements
+
+  // Add the toast element to the body
+  document.body.appendChild(toastElement);
+
+  // Create a new Bootstrap Toast instance
+  const toast = new bootstrap.Toast(toastElement);
+
+  // Show the toast message
+  toast.show();
+  // Hide the toast message after 3 seconds
+  setTimeout(() => {
+    toast.hide();
+  }, 3000);
+}

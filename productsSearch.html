@@ -120,12 +120,13 @@
             ><i class="fas fa-shopping-bag text-black"></i
           ></a>
           <div
-            class="rounded-circle numoforderCat bg-warning px-2 text-center"
+            class="rounded-circle numoforderCat bg-warning px-2 text-center" style="position: absolute;
+            top: -10px;
+            left: 50px !important;"
           >
             <span id="cartCount">0</span>
           </div>
         </div>
-        <p class="ms-3">My carts: <span id="cartTotalPrice">0</span></p>
         </div>
         <!-- 2 -->
       </header>
@@ -141,7 +142,7 @@
               <a class="activeNow" href=" productsSearch.html">Products</a>
             </li>
             <li class="list-inline-item">
-              <a class="" href="About Us.html">About Us</a>
+              <a class="" href="aboutUs.html">About Us</a>
             </li>
             <li class="list-inline-item">
               <a class="" href="Contact.html">Contacts</a>
@@ -158,6 +159,9 @@
           ></div>
         </div>
       </section>
+      <button id="backToTopBtn">
+        <i class="fa-solid fa-arrow-up"></i>
+      </button>
     </div>
     <footer class="container-fluid">
       <div class="container">
@@ -167,9 +171,11 @@
               <img src="./images/logo-white.png" alt="" />
             </a>
             <div class="my-3">
-              <p>Add: Walls Street 68, Mahattan, New York, USA</p>
-              <p>Email: info@thebuesky.com</p>
-              <p>phone: (+100) 123 456 7890</p>
+              <p class="text-light">
+                Add: Walls Street 68, Mahattan, New York, USA
+              </p>
+              <p class="text-light">Email: info@thebuesky.com</p>
+              <p class="text-light">phone: (+100) 123 456 7890</p>
             </div>
           </div>
           <!-- 1 -->
@@ -221,7 +227,7 @@
           </div>
           <!-- 2 -->
         </div>
-        <p class="text-capitalize text-center">
+        <p class="text-capitalize text-light text-center">
           Created By ITI Team &copy;2024
         </p>
       </div>

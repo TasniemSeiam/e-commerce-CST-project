@@ -45,8 +45,18 @@
       .btn-primary:hover {
         background-color: #d69d00;
       }
+
+      .btn-primary:active,
+      .btn-primary:focus {
+        background-color: #ba8901 !important;
+      }
+
       .breadcrumb {
         background-color: #fdfcfc;
+      }
+
+      .feedback {
+        resize: none;
       }
     </style>
   </head>
@@ -116,6 +126,11 @@
             <a href="cart.html" class="rounded-circle divofCart px-3 py-3"
               ><i class="fas fa-shopping-bag text-black"></i
             ></a>
+            <div
+              class="rounded-circle numoforderCat bg-warning px-2 text-center"
+            >
+              <span id="cartCount">0</span>
+            </div>
           </div>
 
           <a
@@ -132,9 +147,9 @@
     <section class="bg-light breadcrumb__area box-plr-75">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-xxl-12">
+          <div class="col-xxl-12 ">
             <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
+              <ol class="breadcrumb bg-light">
                 <li class="breadcrumb-item">
                   <a href="index.html">Home</a>
                 </li>
@@ -150,7 +165,7 @@
         </div>
       </div>
     </section>
-    <div class="container-fluid full-height d-flex align-items-center">
+    <div class="container-fluid full-height mb-4 d-flex align-items-center">
       <div class="feedback-container bg-white p-4 shadow-sm rounded">
         <h2 class="text-center mb-4">Share Your Feedback with Us</h2>
         <form
@@ -196,7 +211,7 @@
           >
             <label for="generalFeedback">Feedback</label>
             <textarea
-              class="form-control"
+              class="form-control feedback"
               id="generalFeedback"
               rows="3"
               placeholder="Enter your feedback"
@@ -219,7 +234,7 @@
             <div class="form-group">
               <label for="productFeedback">Feedback</label>
               <textarea
-                class="form-control"
+                class="form-control feedback"
                 id="productFeedback"
                 rows="3"
                 placeholder="Enter your feedback"
@@ -233,12 +248,6 @@
       </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="module" src="./js/feedback.js"></script>
-
     <footer class="container-fluid">
       <div class="container">
         <div class="row">
@@ -247,9 +256,11 @@
               <img src="./images/logo-white.png" alt="" />
             </a>
             <div class="my-3">
-              <p>Add: Walls Street 68, Mahattan, New York, USA</p>
-              <p>Email: info@thebuesky.com</p>
-              <p>phone: (+100) 123 456 7890</p>
+              <p class="text-light">
+                Add: Walls Street 68, Mahattan, New York, USA
+              </p>
+              <p class="text-light">Email: info@thebuesky.com</p>
+              <p class="text-light">phone: (+100) 123 456 7890</p>
             </div>
           </div>
           <!-- 1 -->
@@ -301,10 +312,15 @@
           </div>
           <!-- 2 -->
         </div>
-        <p class="text-capitalize text-center">
+        <p class="text-capitalize text-light text-center">
           Created By ITI Team &copy;2024
         </p>
       </div>
     </footer>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" src="./js/feedback.js"></script>
   </body>
 </html>

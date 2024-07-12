@@ -79,9 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
       </thead>
       <tbody>
       ${allUsers
-        .flatMap((user) =>
-          user.pendingProducts.map(
-            (pendingProducts) => `
+        .flatMap((user) => {
+          if (user.pendingProducts) {
+            return user.pendingProducts.map(
+              (pendingProducts) => `
              <tr data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">
               <td><img src="${pendingProducts.image[0]}" alt="${pendingProducts.title}" width="50" height="50"></td>
               <td>${pendingProducts.title}</td>
@@ -93,12 +94,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>
                   <button class="refuse-order-btn" data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">Refuse Product</button>
                 </td>
-                
-             
+                    
+                 
             </tr>
         `
-          )
-        )
+            );
+          } else {
+            return [];
+          }
+        })
         .join("")}
       </tbody>
     </table>
@@ -123,7 +127,9 @@ document.addEventListener("DOMContentLoaded", function () {
         ${allUsers
           .flatMap((user) =>
             user.orders.map(
-              (order) => ` 
+              (order) =>
+                `
+              
           <tr data-id="${order.orderId}">
             <td>${order.orderId}</td>
             <td>${order.orderDate}</td>
@@ -147,15 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const feedbackTable = `
       <h2>User Feedback and Customer Service</h2>
-      <div class="search">
-        <input
-          type="search"
-          placeholder="search for feedback..."
-          aria-label="Search"
-          class="form-control w-55 border-1 border-warning p-2"
-          oninput="searchTable('feedback-tbody')"
-        />
-      </div>
+      
       <table id="feedback-table" class="table">
         <thead>
           <tr>
@@ -195,13 +193,14 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   let products = JSON.parse(localStorage.getItem("products")) || [];
-  console.log(products)
+  console.log(products);
 
   function getAllPendingProducts() {
     const allUsers = JSON.parse(localStorage.getItem("users")) || [];
     const pendingProducts = allUsers.flatMap((user) => user.pendingProducts);
     return pendingProducts;
   }
+
   // Use event delegation to listen for clicks on dynamically created buttons
   document.addEventListener("click", (e) => {
     if (
@@ -225,8 +224,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const pendingProducts = getAllPendingProducts();
 
     // Find the product in the pendingProducts array
-    const productIndex = pendingProducts.findIndex(
-      (product) => product.id === +productId
+    pendingProducts.forEach((pendingProduct) => {
+      // console.log(pendingProduct);
+      if (pendingProduct) {
+        productNotUndefined.push(pendingProduct);
+        // const product = pendingProduct.id;
+        console.log(productNotUndefined);
+      }
+    });
+
+    const productIndex = productNotUndefined.findIndex(
+      (product) => product.id === Number(productId)
     );
 
     if (productIndex !== -1) {
@@ -242,8 +250,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (userIndex !== -1) {
         const user = usersData[userIndex];
         const pendingProductIndex = user.pendingProducts.findIndex(
-          (p) => p.id === +productId
+          (p) => p.id === Number(productId)
         );
+        console.log(pendingProductIndex);
         if (pendingProductIndex !== -1) {
           user.pendingProducts.splice(pendingProductIndex, 1);
           // Update the usersData in local storage
@@ -388,28 +397,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const feedbackTbody = document.getElementById("feedback-tbody");
     feedbackTbody.innerHTML = "";
     const usersDataFeedBack = JSON.parse(localStorage.getItem("users")) || [];
-    usersDataFeedBack.forEach((user) => {
+    usersDataFeedBack.forEach((user, userIndex) => {
       if (user.feedback) {
-        user.feedback.forEach((feedback) => {
+        user.feedback.forEach((feedback, feedbackIndex) => {
           const row = document.createElement("tr");
-          row.setAttribute("data-id", feedback.id);
           row.innerHTML = `
-            <td>${user.username ? "customer" : "Visitor"}</td>
-            <td>${feedback.feedbackType}</td>
-            <td>${feedback.email}</td>
-            <td>${
-              feedback.feedbackType === "general"
-                ? feedback.feedback
-                : feedback.feedback.productFeedback
-            }</td>
-            <td>${feedback.response || ""}</td>
-            <td><button class="btn btn-primary btn-sm">Respond</button></td>
-          `;
+                    <td>${user.username ? "customer" : "Visitor"}</td>
+                    <td>${feedback.feedbackType}</td>
+                    <td>${feedback.email}</td>
+                    <td>${
+                      feedback.feedbackType === "general"
+                        ? feedback.feedback
+                        : feedback.feedback.productFeedback
+                    }</td>
+                    <td>${feedback.response || ""}</td>
+                    <td><button class="btn btn-primary btn-sm">Respond</button></td>
+                `;
           const respondButton = row.querySelector(".btn-primary");
-          respondButton.addEventListener(
-            "click",
-            (e) => console.log(e.target)
-            // respondFeedback(user.id, e.target)
+          respondButton.addEventListener("click", () =>
+            respondFeedback(userIndex, feedbackIndex)
           );
           feedbackTbody.appendChild(row);
         });
@@ -417,15 +423,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function respondFeedback(userId, feedbackId) {
+  function respondFeedback(userIndex, feedbackIndex) {
     const usersData = JSON.parse(localStorage.getItem("users")) || [];
-    const userIndex = usersData.findIndex((user) => user.id === userId);
-    console.log(userIndex);
     if (userIndex !== -1) {
-      const feedbackIndex = usersData[userIndex].feedback.findIndex(
-        (fb) => fb.id === feedbackId
-      );
-      console.log(feedbackIndex);
       if (feedbackIndex !== -1) {
         // Show the modal
         $("#responseModal").modal("show");
@@ -450,13 +450,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Event listeners for navigation buttons
-  // document
-  //   .getElementById("feedback-btn")
-  //   .addEventListener("click", function (e) {
-  //     displayContent("feedback");
-  //     setActiveButton("feedback-btn");
-  //     fetchFeedback();
-  //   });
+  document
+    .getElementById("feedback-btn")
+    .addEventListener("click", function () {
+      displayContent("feedback");
+      setActiveButton("feedback-btn");
+      fetchFeedback();
+    });
 
   function addApproveOrderEventListeners() {
     const approveButtons = document.querySelectorAll(".approve-order-btn");

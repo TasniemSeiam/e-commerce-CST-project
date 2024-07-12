@@ -1,6 +1,8 @@
 import { getCategories } from "./sharedHome.js";
 import { currentUser, isItemInWishlist } from "./config.js";
-import { addToWishlist, addToCart } from "./sharedHome.js";
+import { addToWishlist, addToCart, showToastAdded } from "./sharedHome.js";
+
+let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];
 document.addEventListener("DOMContentLoaded", function () {
   currentUser();
 
@@ -74,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="product__details-thumb">
               <div class="img__item">
                 <div class="img__item--main">
-                  <img class="main-image" src="${
+                  <img class="main-image " src="${
                     product.image[0]
                   }" alt="main image" />
                 </div>
@@ -125,12 +127,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 </p>
               </div>
               <div class="product__details-stock ${
-                product.rating.count > 100 ? "hidden" : "displayed"
+                product.rating.count > 50 ? "hidden" : "displayed"
               }">
                 <h3>
-                  <span>Hurry Up!</span> Only ${
-                    product.rating.count
-                  } products left in stock.
+                 ${
+                   product.rating.count > 50
+                     ? `<span>Hurry Up!</span> Only ${product.rating.count} products left in stock.`
+                     : `Out Of Stock`
+                 }  
+                  
                 </h3>
                 <div class="progress">
                   <div
@@ -149,7 +154,9 @@ document.addEventListener("DOMContentLoaded", function () {
                   <div class="pro-quan-area d-lg-flex align-items-center">
                     
                     <div class="pro-cart-btn mb-25">
-                      <button class=" addCartBtn t-y-btn" type="submit">
+                      <button class=" ${
+                        product.rating.count === 0 ? "hidden" : "displayed"
+                      } addCartBtn t-y-btn" type="submit">
                         Add to cart
                       </button>
                     </div>
@@ -188,11 +195,20 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.href = "./login.html";
           return;
         } else {
-          let products = JSON.parse(localStorage.getItem("products"));
-          let productId =
-            this.closest(".productDetailes").getAttribute("data-id");
+          if (currentUsers.role === "user") {
+            let products = JSON.parse(localStorage.getItem("products"));
+            let productId =
+              this.closest(".productDetailes").getAttribute("data-id");
 
-          addToCart(productId);
+            addToCart(productId);
+          } else {
+            e.preventDefault();
+            showToastAdded(
+              "Only users can add products to cart",
+              "text-bg-danger"
+            );
+            return;
+          }
         }
       });
 
@@ -207,17 +223,27 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.href = "./login.html";
           return;
         } else {
-          let products = JSON.parse(localStorage.getItem("products"));
-          let productId =
-            this.closest(".productDetailes").getAttribute("data-id");
+          if (currentUsers.role === "user") {
+            let products = JSON.parse(localStorage.getItem("products"));
+            let productId =
+              this.closest(".productDetailes").getAttribute("data-id");
 
-          addToWishlist(productId, e.target);
+            addToWishlist(productId, e.target);
 
-          // Update wishlist button appearance based on current state
-          const isWishlistItem = isItemInWishlist(productId)
-            ? "addedtowishlist"
-            : "";
-          wishlistBtn.classList.toggle("addedtowishlist", isWishlistItem);
+            // Update wishlist button appearance based on current state
+            const isWishlistItem = isItemInWishlist(productId)
+              ? "addedtowishlist"
+              : "";
+            wishlistBtn.classList.toggle("addedtowishlist", isWishlistItem);
+          } else {
+            e.preventDefault();
+            // showToastUser("Only users can add products to cart");
+            showToastAdded(
+              "Only users can add products to cart",
+              "text-bg-danger"
+            );
+            return;
+          }
         }
       });
 

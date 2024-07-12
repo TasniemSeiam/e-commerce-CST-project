@@ -68,11 +68,17 @@ document.addEventListener("DOMContentLoaded", function () {
           : "";
 
         productsContainer.innerHTML += `
-          <div class="product" data-id="${product.id}">
+          <div class="product ${
+            product.rating.count === 0 ? "image__outofStock" : ""
+          }" data-id="${product.id}">
             <div class="icons">
               
-            <span class="cartBtn  cart"><i class=" ${isCartAddedItem} fa-solid fa-cart-shopping"></i></span>
-              <span class=" wishlistBtn add-to-wishlist ${isWishlistItem}">
+            <span class="cartBtn  cart"><i class=" ${
+              product.rating.count === 0 ? "hidden" : "displayed"
+            } ${isCartAddedItem} fa-solid fa-cart-shopping"></i></span>
+              <span class=" ${
+                product.rating.count === 0 ? "hidden" : "displayed"
+              } wishlistBtn add-to-wishlist ${isWishlistItem}">
                 <i class="fa-solid fa-heart"></i>
               </span>
               
