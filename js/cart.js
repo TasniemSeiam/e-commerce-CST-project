@@ -46,7 +46,7 @@ function getCartItems() {
               />
             </td>
             <td class="fw-bold mb-1">${product.title}</td>
-            <td class="fw-bold mb-1 unit-price">$${product.price.toFixed(
+            <td class="fw-bold mb-1 unit-price">$${product.discount.toFixed(
               2
             )}</td>
             <td>
@@ -79,7 +79,7 @@ function getCartItems() {
               </div>
             </td>
             <td class="fw-bold mb-1 total-price">$${(
-              product.price * cartItem.quantity
+              product.discount * cartItem.quantity
             ).toFixed(2)}</td>
             <td class="">
               <button type="button" class="btn btn-sm fw-bold remove-item" onclick="removeFromCart(${
@@ -295,7 +295,7 @@ function updateCartTotals() {
   user.cart.forEach((cartItem) => {
     let product = getProductDetailsById(cartItem.id);
     if (product) {
-      subtotal += cartItem.quantity * product.price;
+      subtotal += cartItem.quantity * product.discount;
     }
   });
 
