@@ -13,7 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="chart-container">
         <canvas id="userRolesChart" width="450" height="450"></canvas>
         <canvas id="productCategoriesChart" width="450" height="450"></canvas>
-    </div>
+        </div>
+        <div>
+        <canvas id="ordersSummaryChart" width="700" height="700"></canvas>
+        </div>
     `,
     users: `
       <h2>All Users</h2>
@@ -190,10 +193,92 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
       return feedbackTable;
     },
+
+    resetPass: function () {
+      const allUsers = JSON.parse(localStorage.getItem("userRequests")) || [];
+      const resetPassTable = `
+      <h2>Reset All Users Passwords</h2>
+      <table id="resetPass-table" class="table">
+        <thead>
+          <tr>
+            <th>User Mail</th>
+            <th>Action</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody id="resetPass-tbody" class="feedback-table">
+        ${allUsers
+          .map((user) => {
+            return `
+              <tr>
+                <td>${user.email}</td>
+                <td><button class="send-otp-btn" data-email="${user.email}">Send OTP</button></td>
+                <td><button class="delete-btn" data-id="${user.id}">Delete</button></td>
+              </tr>
+            `;
+          })
+          .join("")}
+      </tbody>
+    </table>
+  `;
+      return resetPassTable;
+    },
   };
 
+  // Add event listener to the refuse buttons
+
+  const refuseButtons = document.querySelectorAll('[id^="refuse-btn-"]');
+  refuseButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const userId = button.id.split("-")[2];
+      refuseRequest(userId);
+    });
+  });
+
+  document.addEventListener("click", function (e) {
+    if (e.target && e.target.classList.contains("send-otp-btn")) {
+      const email = e.target.dataset.email;
+      sendOTP(email);
+    }
+
+    if (e.target && e.target.classList.contains("delete-btn")) {
+      const userId = e.target.dataset.id;
+      deleteRequest(userId);
+    }
+  });
+
+  function deleteRequest(id) {
+    const allUsers = JSON.parse(localStorage.getItem("userRequests")) || [];
+    const filteredUsers = allUsers.filter((user) => user.id !== id);
+    localStorage.setItem("userRequests", JSON.stringify(filteredUsers));
+    location.reload();
+  }
+
+  function sendOTP(email) {
+    const OTP = Math.floor(100000 + Math.random() * 900000);
+
+    const allUsers = JSON.parse(localStorage.getItem("userRequests")) || [];
+    const updatedUsers = allUsers.map((user) => {
+      if (user.email === email) {
+        user.otp = OTP;
+      }
+      return user;
+    });
+    localStorage.setItem("userRequests", JSON.stringify(updatedUsers));
+
+    // Find the button and update its text and disable it
+    const sendOTPButtons = document.querySelectorAll(".send-otp-btn");
+    sendOTPButtons.forEach((button) => {
+      if (button.dataset.email === email) {
+        button.textContent = "Sent";
+        button.disabled = true;
+      }
+    });
+
+    alert(`OTP sent to ${email}: ${OTP}`);
+  }
+
   let products = JSON.parse(localStorage.getItem("products")) || [];
-  console.log(products);
 
   function getAllPendingProducts() {
     const allUsers = JSON.parse(localStorage.getItem("users")) || [];
@@ -589,6 +674,14 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
+
+  document
+    .getElementById("resetPass-btn")
+    .addEventListener("click", function () {
+      displayContent("resetPass");
+      setActiveButton("resetPass-btn");
+    });
+
   displayContent("dashboard");
 });
 
@@ -700,3 +793,84 @@ function displayProductCategoriesChart() {
     },
   });
 }
+
+function displayOrdersSummaryChart() {
+  const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+  const allOrders = allUsers.flatMap((user) => user.orders || []);
+
+  // Debugging: Output to console to check data
+  console.log(allOrders);
+
+  const totalOrders = allOrders.length;
+  console.log("Total Orders:", totalOrders);
+
+  const deliveredOrders = allOrders.filter(order => order.trackingStatus === "Delivered").length;
+  console.log("Delivered Orders:", deliveredOrders);
+
+  const pendingOrders = totalOrders - deliveredOrders;
+  console.log("Pending Orders:", pendingOrders);
+
+  const totalRevenue = allOrders.reduce((acc, order) => {
+    if (order.trackingStatus === "Delivered") {
+      return acc + order.total;
+    }
+    return acc;
+  }, 0);
+  console.log("Total Revenue:", totalRevenue);
+
+  const netProfit = totalRevenue * 0.2; // Assuming net profit is 20% of total revenue
+  console.log("Net Profit:", netProfit);
+
+  // Ensure DOM is fully loaded before accessing canvas element
+  document.addEventListener('DOMContentLoaded', function() {
+    // Create a new chart
+    var ctx = document.getElementById("ordersSummaryChart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: [
+          "Total Orders",
+          "Delivered Orders",
+          "Pending Orders",
+          "Total Revenue",
+          "Net Profit",
+        ],
+        datasets: [
+          {
+            label: "Orders Summary",
+            backgroundColor: [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#4BC0C0",
+              "#9966FF",
+            ],
+            data: [
+              totalOrders,
+              deliveredOrders,
+              pendingOrders,
+              totalRevenue,
+              netProfit,
+            ],
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        },
+        title: {
+          display: true,
+          text: "Orders Summary",
+        },
+      },
+    });
+  });
+}
+
+// Call the function when the DOM is ready
+displayOrdersSummaryChart();

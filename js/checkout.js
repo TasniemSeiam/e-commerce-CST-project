@@ -173,16 +173,35 @@ function handleCheckoutFormSubmission() {
         cardNumberError.textContent = "";
       }
 
-      const expDate = document.getElementById("expDate").value.trim();
+      const expDateInput = document.getElementById("expDate");
       const expDateError = document.getElementById("expDateError");
       const expDatePattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
-      if (!expDate.match(expDatePattern)) {
-        expDateError.textContent =
-          "Please enter a valid expiration date (MM/YY)";
-        isValid = false;
-      } else {
-        expDateError.textContent = "";
-      }
+
+      expDateInput.addEventListener("blur", function () {
+        const expDate = expDateInput.value.trim();
+
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1; 
+        const currentYear = currentDate.getFullYear() % 100;  
+
+        // Parse entered expiry date
+        const [enteredMonth, enteredYear] = expDate.split("/");
+        const expMonth = parseInt(enteredMonth, 10);
+        const expYear = parseInt(enteredYear, 10);
+
+        if (!expDate.match(expDatePattern)) {
+          expDateError.textContent =
+            "Please enter a valid expiration date (MM/YY)";
+        } else if (
+          expYear < currentYear ||
+          (expYear === currentYear && expMonth < currentMonth)
+        ) {
+          expDateError.textContent =
+            "Expiration date must be later than the current date";
+        } else {
+          expDateError.textContent = "";
+        }
+      });
 
       const cvv = document.getElementById("cvv").value.trim();
       const cvvError = document.getElementById("cvvError");
@@ -284,7 +303,7 @@ function placeOrder(orderData) {
   const day = orderDate.getDate();
   const month = orderDate.getMonth() + 1;
   const year = orderDate.getFullYear();
-  const hours = orderDate.getHours().toString().padStart(2, "0"); // Pad with leading zero
+  const hours = orderDate.getHours().toString().padStart(2, "0");
   const minutes = orderDate.getMinutes().toString().padStart(2, "0");
   const seconds = orderDate.getSeconds().toString().padStart(2, "0");
 

@@ -277,7 +277,7 @@
               </div>
               <div class="form-group">
                 <label for="edit-category">Category</label>
-                <select class="form-control" id="edit-category" required>
+                <select class="form-control" id="category" required>
                   <option value="">Select Category</option>
                   <option value="men clothes">Men Clothes</option>
                   <option value="jewelery">Jewelery</option>
@@ -286,7 +286,18 @@
                   <option value="mobile phones">Mobile Phones</option>
                   <option value="furniture">Furniture</option>
                   <option value="cosmetics">Cosmetics</option>
+                  <option value="add new">Add New</option>
                 </select>
+                <div id="categoryError" class="error"></div>
+                <div id="otherCategoryContainer" style="display: none">
+                  <label for="otherCategory">Enter New Category:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="otherCategory"
+                    name="otherCategory"
+                  />
+                </div>
               </div>
               <div class="form-group">
                 <label for="edit-rate">Rating</label>
@@ -357,7 +368,6 @@
               type="button"
               class="btn btn-secondary close"
               data-dismiss="modal"
-              
             >
               Ok
             </button>

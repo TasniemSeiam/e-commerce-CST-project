@@ -11,7 +11,42 @@ document.addEventListener("DOMContentLoaded", function () {
     dashboard: `<h2>Dashboard</h2><p class="text-muted mt-n3 ml-5">powered by canvas</p>
     <div class="chart-container">
         <canvas id="productCategoriesChart" width="450" height="450"></canvas>
+        <canvas id="ordersOverviewChart" width="400" height="400"></canvas>
     </div>`,
+    ordersSummary: function () {
+      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+      let totalRevenue = 0;
+      let netProfit = 0;
+      let deliveredOrdersCount = 0;
+      let totalOrdersCount = 0;
+
+      allUsers.forEach((user) => {
+        user.orders.forEach((order) => {
+          totalOrdersCount++;
+          if (order.trackingStatus === "Delivered") {
+            totalRevenue += order.total;
+            deliveredOrdersCount++;
+          }
+        });
+      });
+
+      netProfit = totalRevenue * 0.2;
+
+      const pendingOrdersCount = totalOrdersCount - deliveredOrdersCount;
+
+      const summaryHTML = `
+        <h2>Orders Summary</h2>
+        <div class="summary">
+          <p>Total Revenue from Delivered Orders: $${totalRevenue.toFixed(
+            2
+          )}</p>
+          <p>Net Profit (20% of Revenue): $${netProfit.toFixed(2)}</p>
+          <p>Pending Orders: ${pendingOrdersCount}</p>
+        </div>
+      `;
+      return summaryHTML;
+    },
     products: `
       <h2>All Products</h2>
        <div class="search">
@@ -384,8 +419,9 @@ document.addEventListener("DOMContentLoaded", function () {
       isValid = false;
     }
     if (!discPrice) {
-      document.getElementById("discPriceError").textContent =
-        `You must enter a discounted price less than or equal ${price}`;
+      document.getElementById(
+        "discPriceError"
+      ).textContent = `You must enter a discounted price less than or equal ${price}`;
       isValid = false;
     }
     if (price < discPrice) {
@@ -446,9 +482,13 @@ document.addEventListener("DOMContentLoaded", function () {
         reader.onerror = (error) => reject(error);
       });
 
+    function generateRandomId() {
+      return Math.floor(100000 + Math.random() * 900000);
+    }
+
     readImagesAsBase64().then((imageUrls) => {
       const newProduct = {
-        id: Date.now(),
+        id: generateRandomId(),
         title: pname,
         description: desc,
         price: price,
@@ -690,6 +730,36 @@ function displayProductCategoriesChart() {
       title: {
         display: true,
         text: "Products by Category",
+      },
+    },
+  });
+}
+
+function displayUserRolesChart() {
+  const usersData = JSON.parse(localStorage.getItem("users"));
+  const rolesCount = usersData.reduce((acc, user) => {
+    acc[user.role] = (acc[user.role] || 0) + 1;
+    return acc;
+  }, {});
+
+  const roleLabels = Object.keys(rolesCount);
+  const roleValues = Object.values(rolesCount);
+
+  new Chart(document.getElementById("userRolesChart"), {
+    type: "pie",
+    data: {
+      labels: roleLabels,
+      datasets: [
+        {
+          backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+          data: roleValues,
+        },
+      ],
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Users by Role",
       },
     },
   });
