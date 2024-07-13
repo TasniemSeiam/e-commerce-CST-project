@@ -285,6 +285,12 @@ export function addToCart(productId) {
     return;
   }
 
+  if (currentUser.role === "admin" || currentUser.role === "seller") {
+    console.error("Only users can add products to cart");
+    showToastAdded("Only users can add products to cart", "text-bg-danger");
+    return;
+  }
+
   let user = users[userIndex];
 
   if (!Array.isArray(user.cart)) {
@@ -398,6 +404,14 @@ export async function addToWishlist(productId, btn) {
   if (userIndex === -1) {
     console.error("Current user not found in users.");
     showToastAdded("Current user not found in users.", "text-bg-danger");
+    return;
+  }
+
+  if (currentUser.role === "admin" || currentUser.role === "seller") {
+    showToastAdded(
+      "Only users can add products to Whish list",
+      "text-bg-danger"
+    );
     return;
   }
 

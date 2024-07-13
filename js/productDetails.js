@@ -154,9 +154,9 @@ document.addEventListener("DOMContentLoaded", function () {
                   <div class="pro-quan-area d-lg-flex align-items-center">
                     
                     <div class="pro-cart-btn mb-25">
-                      <button class=" ${
+                      <button class=" addCartBtn ${
                         product.rating.count === 0 ? "hidden" : "displayed"
-                      } addCartBtn t-y-btn" type="submit">
+                      }  t-y-btn" type="submit">
                         Add to cart
                       </button>
                     </div>
@@ -189,19 +189,26 @@ document.addEventListener("DOMContentLoaded", function () {
       .querySelector(".addCartBtn")
       .addEventListener("click", function (e) {
         e.preventDefault();
-        let currentUser = localStorage.getItem("currentUser");
+
+        let currentUser = JSON.parse(localStorage.getItem("currentUser")); // Parse currentUser from localStorage
+        console.log(currentUser.role);
         if (!currentUser) {
           e.preventDefault();
           window.location.href = "./login.html";
           return;
         } else {
-          if (currentUsers.role === "user") {
-            let products = JSON.parse(localStorage.getItem("products"));
-            let productId =
-              this.closest(".productDetailes").getAttribute("data-id");
-
-            addToCart(productId);
-          } else {
+          if (currentUser.role === "user") {
+            // Fixed the variable name to currentUser
+            if (product.rating.count > 0) {
+              addToCart(product.id);
+            } else {
+              showToastAdded("Product is out of stock", "text-bg-danger");
+              return;
+            }
+          } else if (
+            currentUser.role === "admin" ||
+            currentUser.role === "seller"
+          ) {
             e.preventDefault();
             showToastAdded(
               "Only users can add products to cart",
@@ -211,19 +218,22 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
       });
-
     document
       .querySelector(".wishlistBtn")
       .addEventListener("click", function (e) {
         e.stopPropagation(); // Prevent triggering the product click event
 
-        let currentUser = localStorage.getItem("currentUser");
+        let currentUser = JSON.parse(localStorage.getItem("currentUser")); // Parse currentUser from localStorage
+        console.log("Current User:", currentUser);
+
         if (!currentUser) {
           e.preventDefault();
           window.location.href = "./login.html";
           return;
         } else {
-          if (currentUsers.role === "user") {
+          console.log("Current User Role:", currentUser.role);
+
+          if (currentUser.role === "user") {
             let products = JSON.parse(localStorage.getItem("products"));
             let productId =
               this.closest(".productDetailes").getAttribute("data-id");
@@ -231,15 +241,16 @@ document.addEventListener("DOMContentLoaded", function () {
             addToWishlist(productId, e.target);
 
             // Update wishlist button appearance based on current state
-            const isWishlistItem = isItemInWishlist(productId)
-              ? "addedtowishlist"
-              : "";
-            wishlistBtn.classList.toggle("addedtowishlist", isWishlistItem);
-          } else {
+            const isWishlistItem = isItemInWishlist(productId);
+            this.classList.toggle("addedtowishlist", isWishlistItem);
+          } else if (
+            currentUser.role === "admin" ||
+            currentUser.role === "seller"
+          ) {
             e.preventDefault();
-            // showToastUser("Only users can add products to cart");
+            console.log("Admin or seller cannot add products to wishlist");
             showToastAdded(
-              "Only users can add products to cart",
+              "Only users can add products to wishlist",
               "text-bg-danger"
             );
             return;

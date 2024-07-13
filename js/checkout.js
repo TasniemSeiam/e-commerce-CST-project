@@ -41,7 +41,7 @@ function displayCartItems() {
     cartItems.forEach((cartItem) => {
       let product = getProductDetailsById(cartItem.id);
       if (product) {
-        let totalPrice = (product.price * cartItem.quantity).toFixed(2);
+        let totalPrice = (product.discount * cartItem.quantity).toFixed(2);
         subtotal += parseFloat(totalPrice);
         items += `
           <p><span class="pcs">${cartItem.quantity} pcs of</span>, <span class="text">${product.title}</span> <span class="price">$${totalPrice}</span></p>
@@ -271,7 +271,7 @@ function placeOrder(orderData) {
     .map((cartItem) => {
       let product = products.find((product) => +product.id === +cartItem.id);
       if (product) {
-        let totalPrice = (product.price * cartItem.quantity).toFixed(2);
+        let totalPrice = (product.discount * cartItem.quantity).toFixed(2);
         subtotal += parseFloat(totalPrice);
         product.rating.count -= cartItem.quantity;
 

@@ -33,15 +33,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   if (!currentUser || currentUser.role !== "seller") {
-    window.location.href = "unauthorized.html"; // Redirect to an unauthorized access page
+    window.location.href = "unauthorized.html";
   }
 
   const sections = {
     dashboard: `<h2>Dashboard</h2><p class="text-muted mt-n3 ml-5">powered by canvas</p>
     <div class="chart-container">
         <canvas id="productCategoriesChart" width="450" height="450"></canvas>
-        <canvas id="ordersOverviewChart" width="400" height="400"></canvas>
-    </div>`,
+    </div>
+    <div>
+        <canvas id="ordersSummaryChart" width="700" height="700"></canvas>
+        </div>
+    `,
     ordersSummary: function () {
       const allUsers = JSON.parse(localStorage.getItem("users")) || [];
 
@@ -178,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <label for="category">Category: </label>
         <select name="category" id="category" class="category" required>
             <option value="">Select Your Category</option>
-            <option value="men's clothing">men's clothing</option>
+            <option value="men's clothing">men clothes</option>
             <option value="jewelery">jewelery</option>
             <option value="electronics">electronics</option>
             <option value="women's clothing">women's clothing</option>
@@ -274,6 +277,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (section === "dashboard") {
       displayProductCategoriesChart();
+      displayOrdersSummaryChart();
     }
   }
 
@@ -410,6 +414,10 @@ document.addEventListener("DOMContentLoaded", function () {
         fetchProducts();
         $("#editProductModal").modal("hide");
       }
+      alert("Product updated successfully");
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     }
   }
 
@@ -421,7 +429,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const discPrice = parseFloat(document.getElementById("discPrice").value);
     const category = document.getElementById("category").value;
     const rate = parseFloat(document.getElementById("rate").value);
-    const count = parseInt(document.getElementById("count").value);
+    const count = document.getElementById("count").value;
     const images = document.getElementById("images").files;
 
     let isValid = true;
@@ -477,6 +485,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!count) {
       document.getElementById("countError").textContent =
         "Your product quantity must be greater than zero.";
+      isValid = false;
+    }
+    if (count.includes(".")) {
+      document.getElementById("countError").textContent =
+        "Your product quantity must be Int value.";
       isValid = false;
     }
     if (images.length < 2) {
@@ -553,6 +566,9 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Seller user not found or invalid role.");
       }
     });
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
   }
 
   function openOrderDetailsModal(order, orderItems) {
@@ -798,3 +814,88 @@ function displayUserRolesChart() {
     },
   });
 }
+
+function displayOrdersSummaryChart() {
+  const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+  const allOrders = allUsers.flatMap((user) => user.orders || []);
+
+  // Debugging: Output to console to check data
+  console.log(allOrders);
+
+  const totalOrders = allOrders.length;
+  console.log("Total Orders:", totalOrders);
+
+  const deliveredOrders = allOrders.filter(
+    (order) => order.trackingStatus === "Delivered"
+  ).length;
+  console.log("Delivered Orders:", deliveredOrders);
+
+  const pendingOrders = totalOrders - deliveredOrders;
+  console.log("Pending Orders:", pendingOrders);
+
+  const totalRevenue = allOrders.reduce((acc, order) => {
+    if (order.trackingStatus === "Delivered") {
+      return acc + order.total;
+    }
+    return acc;
+  }, 0);
+  console.log("Total Revenue:", totalRevenue);
+
+  const netProfit = totalRevenue * 0.2; // Assuming net profit is 20% of total revenue
+  console.log("Net Profit:", netProfit);
+
+  // Ensure DOM is fully loaded before accessing canvas element
+  document.addEventListener("DOMContentLoaded", function () {
+    // Create a new chart
+    var ctx = document.getElementById("ordersSummaryChart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: [
+          "Total Orders",
+          "Delivered Orders",
+          "Pending Orders",
+          "Total Revenue",
+          "Net Profit",
+        ],
+        datasets: [
+          {
+            label: "Orders Summary",
+            backgroundColor: [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#4BC0C0",
+              "#9966FF",
+            ],
+            data: [
+              totalOrders,
+              deliveredOrders,
+              pendingOrders,
+              totalRevenue,
+              netProfit,
+            ],
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+        title: {
+          display: true,
+          text: "Orders Summary",
+        },
+      },
+    });
+  });
+}
+
+// Call the function when the DOM is ready
+displayOrdersSummaryChart();

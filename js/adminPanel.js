@@ -318,76 +318,135 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  document.addEventListener("click", (e) => {
+    if (e.target && e.target.classList.contains("refuse-order-btn")) {
+      const productId = e.target.dataset.productId;
+      const sellerId = e.target.dataset.sellerId;
+      console.log(productId, sellerId);
+      refuseProduct(productId, sellerId);
+    }
+  });
+
   // Populate the table with pending products
 
   function approveProduct(productId, sellerId) {
     console.log("Approving product with ID:", productId);
 
+    // Get users data from localStorage
     let usersData = JSON.parse(localStorage.getItem("users")) || [];
-    let pendingProducts = getAllPendingProducts();
-    console.log(pendingProducts);
-    let productNotUndefined = [];
-    // Find the product in the pendingProducts array
-    pendingProducts.forEach((pendingProduct) => {
-      // console.log(pendingProduct);
-      if (pendingProduct) {
-        productNotUndefined.push(pendingProduct);
-        // const product = pendingProduct.id;
-        console.log(productNotUndefined);
-      }
-    });
 
-    const productIndex = productNotUndefined.findIndex(
+    // Get all pending products
+    let pendingProducts = getAllPendingProducts();
+
+    // Find the product in the pendingProducts array
+    let productIndex = pendingProducts.findIndex(
       (product) => product.id === Number(productId)
     );
-    console.log(productIndex);
+
     if (productIndex !== -1) {
-      const product = productNotUndefined[productIndex];
-      console.log(product);
-      // Update the product status in the pendingProducts array
-      //   product.status = "approved";
+      // Get the product to be approved
+      const productToApprove = pendingProducts[productIndex];
 
-      //   // Update the product status in the usersData array
-      //   usersData.forEach((user) => {
-      //     if (user.id === sellerId) {
-      //       const pendingProductIndex = user.pendingProducts.findIndex(
-      //         (p) => p.id === +productId
-      //       );
-      //       if (pendingProductIndex!== -1) {
-      //         user.pendingProducts[pendingProductIndex].status = "approved";
-      //       }
-      //     }
-      //   });
-
-      //   // Update the usersData in local storage
-      //   localStorage.setItem("users", JSON.stringify(usersData));
-
-      //   console.log("Product approved successfully");
-
-      //   // Add the product to the products array in local storage
+      // Add approved product to the products list in localStorage
       let products = JSON.parse(localStorage.getItem("products")) || [];
-      products.push(product);
-      localStorage.setItem("products", JSON.stringify(products)); // Update here
-      //   // Remove the product from the pendingProducts array in usersData
+      products.push(productToApprove);
+      localStorage.setItem("products", JSON.stringify(products));
+
       const userIndex = usersData.findIndex((user) => user.id === +sellerId);
-      console.log(userIndex);
       if (userIndex !== -1) {
         const user = usersData[userIndex];
         const pendingProductIndex = user.pendingProducts.findIndex(
           (p) => p.id === Number(productId)
         );
-        console.log(pendingProductIndex);
         if (pendingProductIndex !== -1) {
           user.pendingProducts.splice(pendingProductIndex, 1);
-          // Update the usersData in local storage
+
           localStorage.setItem("users", JSON.stringify(usersData));
+
+          alert("Product approved successfully!");
+
+          removeUIRow(productId); 
+
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+
+          console.log("Product approved successfully and removed from UI");
+          return; 
         }
       }
-      console.log(
-        "Product approved successfully and added to products in localStorage"
+    }
+    console.log(
+      "Product approval failed or product not found in pendingProducts"
+    );
+    alert("Failed to approve product. Please try again.");
+  }
+
+  function refuseProduct(productId, sellerId) {
+    console.log("Refusing product with ID:", productId);
+
+    // Retrieve usersData from localStorage
+    let usersData = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Find the user in usersData array
+    const userIndex = usersData.findIndex(
+      (user) => user.id === Number(sellerId)
+    );
+
+    if (userIndex !== -1) {
+      const user = usersData[userIndex];
+      console.log(user);
+
+      // Find the product in the user's pendingProducts array
+      const pendingProductIndex = user.pendingProducts.findIndex(
+        (p) => p.id === Number(productId)
       );
+
+      if (pendingProductIndex !== -1) {
+        const product = user.pendingProducts[pendingProductIndex];
+        console.log(product);
+
+        // Ask for confirmation before refusing
+        const confirmRefusal = confirm(
+          `Are you sure you want to refuse product ${productId}?`
+        );
+
+        if (confirmRefusal) {
+          // Update the product status to "refused"
+          product.status = "refused";
+
+          // Remove the product from user's pendingProducts array
+          user.pendingProducts.splice(pendingProductIndex, 1);
+
+          // Update the usersData in local storage
+          localStorage.setItem("users", JSON.stringify(usersData));
+          removeRowFromUI(productId);
+
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+
+          console.log(
+            "Product refused successfully and removed from pending products"
+          );
+        } else {
+          console.log("Refusal cancelled by user.");
+        }
+      } else {
+        console.log("Product not found in user's pendingProducts");
+      }
     } else {
-      console.log("Product not found in pendingProducts");
+      console.log("User not found in usersData");
+    }
+  }
+
+  function removeRowFromUI(productId) {
+    // Example function assuming a table with rows identified by productId
+    const rowToRemove = document.querySelector(
+      `tr[data-product-id="${productId}"]`
+    );
+    if (rowToRemove) {
+      rowToRemove.remove();
     }
   }
   let dashboardBtn = document.getElementById("dashboard-btn");
@@ -833,7 +892,7 @@ function displayOrdersSummaryChart() {
   }, 0);
   console.log("Total Revenue:", totalRevenue);
 
-  const netProfit = totalRevenue * 0.2; // Assuming net profit is 20% of total revenue
+  const netProfit = totalRevenue * 0.05; // Assuming net profit is 20% of total revenue
   console.log("Net Profit:", netProfit);
 
   // Ensure DOM is fully loaded before accessing canvas element
