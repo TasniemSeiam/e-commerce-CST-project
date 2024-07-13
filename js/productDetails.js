@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document
       .querySelector(".addCartBtn")
       .addEventListener("click", function (e) {
-        e.stopPropagation();
+        e.preventDefault();
 
         let currentUser = JSON.parse(localStorage.getItem("currentUser")); // Parse currentUser from localStorage
         console.log(currentUser.role);
