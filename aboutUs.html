@@ -21,62 +21,68 @@
     <main>
       <div class="container-fluid">
         <nav
-          class="navbar navbar-expand-sm navbar-light py-3 px-2 border-bottom"
-        >
-          <div class="container-fluid">
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarText"
-              aria-controls="navbarText"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <span class="navbar-text d-none d-md-block welcoming__message"
-              >Welcome to Topico</span
-            >
-            <div
-              class="collapse navbar-collapse justify-content-around justify-content-md-end"
-              id="navbarText"
-            >
-              <ul class="navbar-nav">
-                <li class="nav-item pe-2">
-                  <a
-                    class="nav-link preventIfLogOut"
-                    aria-current="page"
-                    href="myAccount.html"
-                    >My Account
-                  </a>
-                </li>
-                <li class="nav-item pe-2">
-                  <a class="nav-link preventIfLogOut" href="wishList.html"
-                    >My Wishlist</a
-                  >
-                </li>
-                <li class="nav-item pe-2">
-                  <a class="nav-link user__check" href="login.html">Sign In</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link preventIfLogOut" href="myOrders.html"
-                    >My orders</a
-                  >
-                </li>
-              </ul>
-            </div>
+        class="navbar navbar-expand-sm navbar-light py-3 px-2 border-bottom"
+      >
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarText"
+            aria-controls="navbarText"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <span class="navbar-text d-none d-md-block welcoming__message"
+            >Welcome to Topico</span
+          >
+          <div
+            class="collapse navbar-collapse justify-content-around justify-content-md-end navRightSide"
+            id="navbarText"
+          >
+            <ul class="navbar-nav">
+              <!-- <li class="nav-item pe-2">
+                <a
+                  class="nav-link preventIfLogOut"
+                  aria-current="page"
+                  href="myAccount.html"
+                  >My Account
+                </a>
+              </li> -->
+              <!-- <li class="nav-item pe-2">
+                <a class="nav-link preventIfLogOut" href="wishList.html"
+                  >My Wishlist</a
+                >
+              </li> -->
+              <li class="nav-item pe-2">
+                <a class="nav-link user__check" href="login.html">Sign In</a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link preventIfLogOut" href="myOrders.html"
+                  >My orders</a
+                >
+              </li> -->
+            </ul>
           </div>
-          <!-- end container fluid -->
-        </nav>
-        <!-- end navbar -->
-        <header
-          class="border-bottom py-4 bg-white row justify-content-center align-items-center"
-        >
-          <a href="index.html" class="col-10 col-md-2">
-            <img src="./images/logo-black.png" alt="" />
-          </a>
-        </header>
+        </div>
+        <!-- end container fluid -->
+      </nav>
+      <!-- end navbar -->
+      <header
+        class="border-bottom py-4 bg-white row justify-content-center align-items-center"
+      >
+        <a href="index.html" class="col-10 col-md-2">
+          <img src="./images/logo-black.png" alt="" />
+        </a>
+        <div
+            class="rounded-circle d-none numoforderCat bg-warning px-2 text-center"
+            style="position: absolute; top: -10px; left: 50px !important"
+          >
+            <span id="cartCount">0</span>
+          </div>
+      </header>
         <section id="secondNav">
           <div class="pt-2 border-bottom ps-2 ulsecond">
             <ul
@@ -244,9 +250,9 @@
     </main>
     <!-- end container fluid all page -->
     <footer class="container-fluid">
-      <div class="container mx-auto text-center py-5">
-        <div class="row p-4">
-          <div class="col-6 text-start">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
             <a href="index.html" class="col-12 col-md-2">
               <img src="./images/logo-white.png" alt="" />
             </a>
@@ -280,7 +286,7 @@
                   >
                 </li>
               </ul>
-              <ul class="col-12 col-md-6">
+              <ul class="col-12 col-md-6 rightFooter">
                 <li class="pb-1">
                   <a
                     class="text-decoration-none text-light preventIfLogOut"
@@ -307,7 +313,7 @@
           </div>
           <!-- 2 -->
         </div>
-        <p class="text-capitalize text-center text-light">
+        <p class="text-capitalize text-light text-center">
           Created By ITI Team &copy;2024
         </p>
       </div>
@@ -321,6 +327,6 @@
     <script src="js/JQuery-3.3.1.js"></script>
     <!-- <script src="js/popper.js"></script> -->
     <script src="js/bootstrap.bundle.js"></script>
-    <script src="js/contactUs.js"></script>
+    <script type="module" src="js/aboutUs.js"></script>
   </body>
 </html>

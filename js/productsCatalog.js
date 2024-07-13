@@ -1,5 +1,5 @@
 import { currentUser, isItemInWishlist } from "./config.js";
-import { addToWishlist, addToCart } from "./sharedHome.js";
+import { addToWishlist, addToCart,navBarCurrentUserRole} from "./sharedHome.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const productsContainer = document.getElementById("products__container");
@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const pagination = document.querySelector(".pagination");
   const filter = document.querySelector(".filter");
   const filterBtn = document.querySelector(".button__filter");
+  navBarCurrentUserRole();
 
   let currentPage = 1;
   const productsPerPage = 12; // Number of products per page

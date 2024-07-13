@@ -19,6 +19,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <style>
+      td{
+        vertical-align: middle !important;
+      }
       .container-fluid p {
         color: #fcb700;
         margin: 0px 90px;
@@ -112,6 +115,9 @@
         .logo {
           width: 130px;
         }
+        .tableApproved,.tableOrder,#feedback-table,#resetPass-table{
+          font-size: xx-small !important;
+        }
       }
       .details {
         width: 100px;
@@ -127,6 +133,9 @@
         background-color: black;
         color: white;
       }
+      #users-tbody td,#products-table td,#feedback-table td,#resetPass-table td{
+        padding-left: 20px;
+      }
     </style>
   </head>
   <body>
@@ -138,17 +147,32 @@
           </a>
           <p>Admin Panel</p>
         </span>
+        <span class="navbar-text d-none welcoming__message">Welcome to Topico</span>
+        <div
+          class=" navbar-collapse justify-content-around justify-content-md-end"
+          id="navbarText"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="btn btn-warning logoutdmin user__check" href="login.html">Logout</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
     <div class="full-container">
       <div class="left">
-        <button id="dashboard-btn" class="active">Admin Dashboard</button>
-        <button id="users-btn">All Users</button>
-        <button id="products-btn">All Products</button>
-        <button id="products-review-btn">Products Under Review</button>
-        <button id="orders-btn">All Orders</button>
-        <button id="feedback-btn">Feedback and Customer Service</button>
-        <button id="resetPass-btn">Reset Users Password</button>
+        <button id="dashboard-btn" class="active ps-3">Admin Dashboard</button>
+        <button id="users-btn" class="ps-3">All Users</button>
+        <button id="products-btn" class="ps-3">All Products</button>
+        <button id="products-review-btn" class="ps-3">
+          Products Under Review
+        </button>
+        <button id="orders-btn" class="ps-3">All Orders</button>
+        <button id="feedback-btn" class="ps-3">
+          Feedback and Customer Service
+        </button>
+        <button id="resetPass-btn" class="ps-3">Reset Users Password</button>
       </div>
       <hr />
       <div class="right" id="content"></div>
@@ -191,8 +215,6 @@
         </div>
       </div>
     </div>
-
-   
 
     <!-- Modal -->
     <div
@@ -243,6 +265,6 @@
     <script src="js/JQuery-3.3.1.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="./js/adminPanel.js"></script>
+    <script type="module" src="./js/adminPanel.js"></script>
   </body>
 </html>

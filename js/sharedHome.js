@@ -1,4 +1,4 @@
-
+// import { currentUser } from "./config.js";
 // currentUser();
 
 let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];
@@ -12,9 +12,10 @@ export function displayProduct(product, _location) {
   let productCard = document.createElement("div");
 
   let productCount = document.createElement("div");
-  productCount.className ="productCount bg-danger text-center rounded-top text-white";
+  productCount.className =
+    "productCount bg-danger text-center rounded-top text-white";
   productCount.innerHTML = `<span>out of stock</span>`;
-  if (product.rating.count <1) {
+  if (product.rating.count < 1) {
     productDiv.appendChild(productCount);
   }
 
@@ -143,8 +144,7 @@ export function displayProduct(product, _location) {
       return;
     } else {
       if (currentUsers.role === "user") {
-        if (product.rating.count > 0) { 
-
+        if (product.rating.count > 0) {
           addToCart(product.id);
         } else {
           showToastAdded("Product is out of stock", "text-bg-danger");
@@ -601,4 +601,45 @@ export function updateWishlistButtonStates() {
       btn.classList.remove("addedtowishlist");
     }
   });
+}
+
+// add to nav bar rigth side
+let navs = document.querySelector(".navRightSide ul");
+let cartAndFeedback = document.querySelector(".cartAndFeedback");
+let rightFooter = document.querySelector(".rightFooter");
+export function navBarCurrentUserRole() {
+  // navs.innerHTML += currentUsers.role;
+  if (currentUsers.role === "user") {
+    rightFooter.className += " d-block";
+    cartAndFeedback.className += " d-block";
+    navs.innerHTML += `
+                <li class="nav-item">
+                  <a
+                    class="nav-link preventIfLogOut"
+                    aria-current="page"
+                    href="myAccount.html"
+                    >My Account
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link preventIfLogOut" href="wishList.html"
+                    >My Wishlist</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link preventIfLogOut" href="myOrders.html"
+                    >My orders</a
+                  >
+                </li> `;
+  } else {
+    rightFooter.className += " d-none";
+    cartAndFeedback.className += " d-none";
+
+    navs.innerHTML += `
+                <li class="nav-item">
+                  <a class="nav-link preventIfLogOut" href="${currentUsers.role}Panel.html"
+                    >${currentUsers.role}</a
+                  >
+                </li> `;
+  }
 }

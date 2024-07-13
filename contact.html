@@ -39,31 +39,31 @@
               >Welcome to Topico</span
             >
             <div
-              class="collapse navbar-collapse justify-content-around justify-content-md-end"
+              class="collapse navbar-collapse justify-content-around justify-content-md-end navRightSide"
               id="navbarText"
             >
               <ul class="navbar-nav">
-                <li class="nav-item pe-2">
+                <!-- <li class="nav-item pe-2">
                   <a
                     class="nav-link preventIfLogOut"
                     aria-current="page"
                     href="myAccount.html"
                     >My Account
                   </a>
-                </li>
-                <li class="nav-item pe-2">
+                </li> -->
+                <!-- <li class="nav-item pe-2">
                   <a class="nav-link preventIfLogOut" href="wishList.html"
                     >My Wishlist</a
                   >
-                </li>
+                </li> -->
                 <li class="nav-item pe-2">
                   <a class="nav-link user__check" href="login.html">Sign In</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a class="nav-link preventIfLogOut" href="myOrders.html"
                     >My orders</a
                   >
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -76,6 +76,12 @@
           <a href="index.html" class="col-10 col-md-2">
             <img src="./images/logo-black.png" alt="" />
           </a>
+          <div
+              class="rounded-circle d-none numoforderCat bg-warning px-2 text-center"
+              style="position: absolute; top: -10px; left: 50px !important"
+            >
+              <span id="cartCount">0</span>
+            </div>
         </header>
         <section id="secondNav">
           <div class="pt-2 border-bottom ps-2 ulsecond">
@@ -179,9 +185,9 @@
     </main>
     <!-- end container fluid all page -->
     <footer class="container-fluid">
-      <div class="container mx-auto text-center py-5">
-        <div class="row p-4">
-          <div class="col-6 text-start">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
             <a href="index.html" class="col-12 col-md-2">
               <img src="./images/logo-white.png" alt="" />
             </a>
@@ -215,7 +221,7 @@
                   >
                 </li>
               </ul>
-              <ul class="col-12 col-md-6">
+              <ul class="col-12 col-md-6 rightFooter">
                 <li class="pb-1">
                   <a
                     class="text-decoration-none text-light preventIfLogOut"
@@ -242,7 +248,7 @@
           </div>
           <!-- 2 -->
         </div>
-        <p class="text-capitalize text-center text-light">
+        <p class="text-capitalize text-light text-center">
           Created By ITI Team &copy;2024
         </p>
       </div>
@@ -256,6 +262,6 @@
     <script src="js/JQuery-3.3.1.js"></script>
     <!-- <script src="js/popper.js"></script> -->
     <script src="js/bootstrap.bundle.js"></script>
-    <script src="js/contactUs.js"></script>
+    <script type="module" src="js/contactUs.js"></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
-// import {currentUser } from "./config.js";
-// currentUser();
-import { displayProduct,getCategories} from "./sharedHome.js";
+import {currentUser } from "./config.js";
+currentUser();
+import { displayProduct,getCategories,navBarCurrentUserRole} from "./sharedHome.js";
 
 // Check if a user is logged in
 // currentUser();
@@ -368,6 +368,6 @@ notLogIn.forEach((ele) => {
     }
   });
 });
-
+navBarCurrentUserRole();
 
 
