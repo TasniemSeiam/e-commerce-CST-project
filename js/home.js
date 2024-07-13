@@ -6,6 +6,7 @@ import {
   getCategories,
   updateWishlistButtonStates,
   showToastAdded,
+  navBarCurrentUserRole,
 } from "./sharedHome.js";
 // let categoriesarr = [];
 // productsarr = []; // =>
@@ -123,7 +124,7 @@ addEventListener("DOMContentLoaded", async function () {
       }
     });
   }); // end every slider has its own id
-
+  navBarCurrentUserRole();
   displayBigSales(0, bigSaleSection); // display the big sales
   sillingProduct(); // display the sales section
   displayBigSales(0, adv); // display the big sales
@@ -151,167 +152,12 @@ async function loadProducts() {
 // Check if a user is logged in
 currentUser();
 let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];
-// function getCategories(getProduct) {
-//   let keys = Object.keys(getProduct);
-//   keys.forEach((key) => {
-//     console.log(getProduct[key].category); //categories
-//     if (categoriesarr.includes(getProduct[key].category)) {
-//       console.log(getProduct[key].category); //products
-//     } else {
-//       categoriesarr.push(getProduct[key].category);
-//     }
-//   });
-//   console.log(categoriesarr);
-//   return categoriesarr;
-// }
-
-// function displayProduct(product, _location) {
-//   // product.forEach((product) => {
-//   let productDiv = document.createElement("div");
-//   productDiv.className = "col-12 col-sm-6 col-md-3 col-lg  px-2 mb-2";
-//   let productCard = document.createElement("div");
-//   productCard.className = "card text-center cardProducts";
-//   productCard.setAttribute("id", `pro${product.id}`);
-//   let divHeart = document.createElement("div");
-//   divHeart.className = "position-relative divheart";
-//   let imgsDiv = document.createElement("div");
-//   imgsDiv.className = "imgsDiv position-relative p-1";
-//   let imgs = document.createElement("img");
-//   imgs.className = " imgs  mx-auto card-img-top";
-//   imgs.src = product.image[0];
-//   imgs.alt = product.title;
-//   let imgs2 = document.createElement("img");
-//   imgs2.className = " imgs2  mx-auto card-img-top ";
-//   imgs2.src = product.image[1];
-//   imgs2.alt = product.title;
-//   let wishlistBtn = document.createElement("span");
-//   wishlistBtn.title = "add to wishlist";
-//   wishlistBtn.className =
-//     "mx-auto mx-md-0  wishlistHeart btn-white  rounded-circle fas fa-heart wishlistHearti";
-
-//   wishlistBtn.setAttribute("data-product-id", product.id);
-
-//   // let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-//   if (currentUsers) {
-//     console.log("loged in as current user");
-//   }
-//   let wish = currentUsers.wishList;
-
-//   // Get all wishlist buttons
-//   const wishlistButtons = document.querySelectorAll("[data-product-id]");
-
-//   // Loop through each button and update its state
-//   wishlistButtons.forEach((btn) => {
-//     const productId = btn.dataset.productId;
-//     const product = getProduct.find(
-//       (product) => product.id === Number(productId)
-//     );
-
-//     if (wish.find((s) => s.id === product.id)) {
-//       btn.classList.add("addedtowishlist");
-//     } else {
-//       btn.classList.remove("addedtowishlist");
-//     }
-//   });
-
-//   // const wishlistBtnState = localStorage.getItem("wishlist-btn-state") || [];
-//   // let btnStateObj = {};
-
-//   // if (wishlistBtnState) {
-//   //   btnStateObj = JSON.parse(wishlistBtnState);
-//   // }
-//   // if (wishlistBtnState.indexOf(product.id) !== -1) {
-//   //   if (btnStateObj[product.id]) {
-//   //     wishlistBtn.classList.add = "addedtowishlist ";
-
-//   //     // addTofavBtn.className = "addtofav addedtowishlist "
-//   //   } else {
-//   //     // addTofavBtn.className = "addtofav"
-//   //     wishlistBtn.classList.remove = "addedtowishlist";
-//   //   }
-//   // }
-
-//   // wishListBtnStates(wishlistBtn, product);
-
-//   imgsDiv.appendChild(imgs);
-//   imgsDiv.appendChild(imgs2);
-//   divHeart.appendChild(imgsDiv);
-//   divHeart.appendChild(wishlistBtn);
-//   let cardBody = document.createElement("div");
-//   cardBody.className = "card-body";
-//   let cardTitle = document.createElement("p");
-//   cardTitle.className = "card-title text-primary";
-//   cardTitle.textContent = product.title;
-//   let cardRate = document.createElement("ul");
-//   cardRate.className = "list-inline mb-1";
-//   for (let s = 0; s < 4; s++) {
-//     let li = document.createElement("li");
-//     li.className = "list-inline-item mr-1 ";
-//     let star = document.createElement("i");
-//     star.className = "fa-regular fa-star";
-//     // star.style.color = s < Math.floor(product.rating.rate) ? "gold" : "gray";
-//     if (s < Math.floor(product.rating.rate)) {
-//       star.style.color = "gold";
-//       star.removeClassName = "fa-regular";
-//       star.classList.add("fa-solid");
-//     } else {
-//       star.style.color = "gray";
-//       star.removeClassName = "fa-solid";
-//       star.classList.add("fa-regular");
-//     }
-//     li.appendChild(star);
-//     cardRate.appendChild(li);
-//   }
-//   let cardprice = document.createElement("h6");
-//   cardprice.textContent = "price: " + product.price + "$";
-//   let cartBtndiv = document.createElement("div");
-//   cartBtndiv.className = "cartBtndiv pt-2 pt-sm-0";
-//   let cartBtn = document.createElement("button");
-//   cartBtn.textContent = "Add to Cart";
-//   cartBtn.className =
-//     "btn mx-auto mx-md-0 text-center btn-warning addToCart  rounded-pill";
-//   // wishListBtnStates(wishlistBtn, product, currentUsers.id);
-
-//   cartBtn.addEventListener("click", function (e) {
-//     if (currentUsers) {
-//       addToCart(product.id);
-//     } else {
-//       e.preventDefault();
-//       window.location.href = "../login.html";
-//     }
-//   });
-//   wishlistBtn.addEventListener("click", function (e) {
-//     // wishListBtnStates(e.target, product);
-
-//     if (currentUsers) {
-//       addToWishlist(product.id, e.target);
-//       console.log("Wishlist", currentUsers.wishList);
-//     } else {
-//       e.preventDefault();
-//       window.location.href = "./login.html";
-//     }
-//     console.log(currentUsers.wishList);
-//   });
-
-//   cardBody.appendChild(cardTitle);
-//   cardBody.appendChild(cardRate);
-//   cardBody.appendChild(cardprice);
-//   cartBtndiv.appendChild(cartBtn);
-//   cardBody.appendChild(cartBtndiv);
-//   productCard.appendChild(divHeart);
-//   productCard.appendChild(cardBody);
-//   productDiv.appendChild(productCard);
-//   _location.appendChild(productDiv);
-//   // });
-// }
-
 function getBigSales(products) {
   let bigSales = products.filter((product) => {
     return product.rating.count < 150;
   });
   return bigSales;
 } //return array of product's count < 150
-
 function randomproduct(getproduct, num) {
   let numRandomProducts = num; // number of random products to select
 
@@ -560,49 +406,6 @@ function onSale(products) {
       window.location.href = `productdetalis.html?id=${productId}`;
     }
 
-    // let currentUser = JSON.parse(localStorage.getItem("currentUser")) || [];
-    // let wish = currentUser.wishList || [];
-    // let users = localStorage.getItem("users");
-    // let currentUser = localStorage.getItem("currentUser");
-
-    // if (!currentUser) {
-    //   console.error("No currentUser found in local storage.");
-    //   return;
-    // }
-
-    // if (!users) {
-    //   console.error("No users found in local storage.");
-    //   return;
-    // }
-
-    // currentUser = JSON.parse(currentUser);
-    // users = JSON.parse(users);
-    // const user = users.find((user) => user.id === currentUser.id);
-
-    // if (!user) {
-    //   console.error("Current user not found in users.");
-    //   return;
-    // }
-
-    // // let cartItems = user.cart || [];
-    // let wish = user.wishList || [];
-    // // Get all wishlist buttons
-    // const wishlistButtons = document.querySelectorAll("[data-product-id]");
-
-    // // Loop through each button and update its state
-    // wishlistButtons.forEach((btn) => {
-    //   const productId = btn.dataset.productId;
-    //   const product = getProduct.find(
-    //     (product) => product.id === Number(productId)
-    //   );
-
-    //   if (wish.find((s) => s.id === product.id)) {
-    //     btn.classList.add("addedtowishlist");
-    //   } else {
-    //     btn.classList.remove("addedtowishlist");
-    //   }
-    // });
-
     addToCartBtn.addEventListener("click", function (e) {
       e.stopPropagation();
       e.stopPropagation();
@@ -613,7 +416,7 @@ function onSale(products) {
         return;
       } else {
         if (currentUsers.role === "user") {
-          if (product.rating.count > 0) { 
+          if (product.rating.count > 0) {
             addToCart(product.id);
           } else {
             showToastAdded("Product is out of stock", "text-bg-danger");
@@ -652,72 +455,6 @@ function onSale(products) {
         }
       }
     });
-
-    // if (currentUser && currentUser.wishList.includes(product.id)) {
-    //   addTofavBtn.classList.add("addedtowishlist");
-    // } else {
-    //   addTofavBtn.classList.remove("addedtowishlist");
-    // }
-    // addTofavBtn.addEventListener("click", async function (e) {
-    //   console.log("userWishlist", userWishlist);
-    //   // Add event listeners to the favorite buttons
-
-    //   const productId = addTofavBtn.dataset.productId;
-    //   let product = getProduct.find(
-    //     (product) => product.id === Number(productId)
-    //   );
-    //   console.log(product.id, Number(productId));
-    //   // Toggle the 'added-to-wishlist' class on the button
-    //   addTofavBtn.classList.toggle("addedtowishlist");
-    //   // Update the user's wishlist in local storage
-    //   if (addTofavBtn.classList.contains("addedtowishlist")) {
-    //     userWishlist.push(product);
-    //   } else {
-    //     const index = userWishlist.indexOf(productId);
-    //     if (index !== -1) {
-    //       userWishlist.splice(index, 1);
-    //     }
-    //   }
-    //   currentUsers.wishList = userWishlist;
-    //   // localStorage.setItem('currentUser', JSON.stringify(currentUsers));
-    //   localStorage.setItem("currentUser", JSON.stringify(currentUsers));
-
-    //   // if (currentUsers) {
-    //   //   addToWishlist(product.id, e.target);
-    //   //   // wishListBtnStates(e.target, product);
-    //   // } else {
-    //   //   e.preventDefault();
-    //   //   window.location.href = "../login.html";
-    //   // }
-
-    //   // wishListBtnStates(addTofavBtn, product, currentUsers.id);
-
-    //   // const currentState = e.target.classList.contains("addedtowishlist");
-
-    //   // // Toggle the class
-    //   // e.target.classList.toggle("addedtowishlist");
-
-    //   // // Update local storage
-    //   // const wishlistBtnState = localStorage.getItem("wishlist-btn-state");
-    //   // let btnStateObj = {};
-
-    //   // if (wishlistBtnState) {
-    //   //   btnStateObj = await JSON.parse(wishlistBtnState);
-    //   // }
-
-    //   // btnStateObj[product.id] = !currentState;
-    //   // console.log(currentState);
-
-    //   // const updatedBtnState = JSON.stringify(btnStateObj);
-    //   // localStorage.setItem("wishlist-btn-state", updatedBtnState);
-    //   // console.log(wishlistBtnState.indexOf(product.id) !== -1);
-    //   // console.log(btnStateObj[product.id]);
-
-    //   // } else {
-    //   // e.preventDefault();
-    //   //  alert("Please login to add to cart");
-    //   // }
-    // });
 
     cardBtns.appendChild(addToCartBtn);
     cardBtns.appendChild(addTofavBtn);
@@ -758,278 +495,6 @@ async function filteredProductsByCategory(
   });
 }
 
-// add to cart
-// function addToCart(productId) {
-//   let users = localStorage.getItem("users");
-//   let products = localStorage.getItem("products");
-//   let currentUser = localStorage.getItem("currentUser");
-
-//   if (!currentUser) {
-//     console.error("You need to login first to add to your cart.");
-//     return;
-//   }
-
-//   if (!users) {
-//     console.error("No users found in local storage.");
-//     return;
-//   }
-
-//   if (!products) {
-//     console.error("No products found in local storage.");
-//     return;
-//   }
-
-//   currentUser = JSON.parse(currentUser);
-//   users = JSON.parse(users);
-//   products = JSON.parse(products);
-
-//   // Find the logged in user in the users array
-//   const userIndex = users.findIndex(user => user.id === currentUser.id);
-//   if (userIndex === -1) {
-//     console.error("Current user not found in users.");
-//     return;
-//   }
-
-//   let user = users[userIndex];
-
-//   if (!Array.isArray(user.cart)) {
-//     console.error("Invalid cart structure in currentUser.");
-//     return;
-//   }
-
-//   const productAlreadyInCart = user.cart.some(item => item.id === productId);
-//   if (productAlreadyInCart) {
-//     console.error("Product already in cart.");
-//     return;
-//   }
-
-//   const product = products.find(p => p.id === productId);
-//   if (!product) {
-//     console.error("Product not found.");
-//     return;
-//   }
-
-//   user.cart.push({ id: productId, price: product.price, quantity: 1 });
-
-//   users[userIndex] = user;
-//   localStorage.setItem("users", JSON.stringify(users));
-
-//   console.log("Product added to cart successfully");
-
-//   // Refresh the cart items
-//   getCartItems();
-// }
-
-// add to wishlist  list
-
-// let wishList = [];
-// let wishlistdata = JSON.parse(localStorage.getItem("wishlist")) || [];
-// async function addToWishlist(productId, btn) {
-//   let wishlistdata = (await JSON.parse(localStorage.getItem("wishlist"))) || [];
-//   if (wishlistdata && wishlistdata.length > 0) {
-//     wishListUpdated(wishlistdata, productId, btn);
-//   } else {
-//     wishListUpdated(wishList, productId, btn);
-//   }
-// }
-
-// function wishListUpdated(_wishList, _productId) {
-//   let product = getProduct.find((product) => product.id === _productId);
-//   // if (_wishList.includes(_productId))  {
-//   if (_wishList.some((item) => item.id === _productId)) {
-//     updatedWishlist = _wishList.filter((item) => item.id !== _productId);
-//     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-
-//     // btn.classList.remove("addedtowishlist");
-//     alert("This product has been deleted from your wishlist");
-//   } else {
-//     // if ((product.rating.count) > 0) {}
-//     // btn.classList.add("addedtowishlist")
-//     _wishList.push(product);
-//     alert(`Product "${product.title}" has been added to your wishlist.`);
-//     // displayWishlistList();
-//     localStorage.setItem("wishlist", JSON.stringify(_wishList));
-//     console.log("Wishlist", _wishList);
-//   }
-// }
-
-// function wishListUpdated(_wishList, _productId, btn) {
-//     let product = getProduct.find(product => product.id === _productId);
-//     // if (_wishList.includes(_productId))  {
-//     if (_wishList.some(item => item.id === _productId)) {
-//         updatedWishlist = _wishList.filter((item) => item.id !== _productId);
-//         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-
-//         // btn.classList.remove("addedtowishlist");
-//         alert('This product has been deleted from your wishlist');
-//     } else {
-//       alert("This product: " + product.title + " is out of stock.");
-//     }
-//   }
-// }
-
-// // add to wishlist  list
-
-// // let wishList = [];
-// // let wishlistdata = JSON.parse(localStorage.getItem("wishlist")) || [];
-// // let wishlistdata =currentUser.wishList;
-// // let wishlistdata =[...currentUsers.wishList];
-// // async function addToWishlist(productId, btn) {
-// //   let wishlistdata = await JSON.parse(localStorage.getItem("currentUser")) || [];
-// //   // wishlistdata =currentUsers.wishList ;
-// //   wishlistdata = wishlistdata.wishList;
-// //   if (wishlistdata && wishlistdata.length > 0) {
-// //     wishListUpdated(wishlistdata, productId, btn);
-// //   } else {
-// //     // wishListUpdated(wishList, productId, btn);
-// //     wishListUpdated(wishlistdata, productId, btn);
-// //   }
-// // }
-
-// // async function wishListUpdated(_wishList, _productId) {
-// //   let product = await getProduct.find((product) => product.id === _productId);
-// //   // if (_wishList.includes(_productId))  {
-// //   if (_wishList.some((item) => item.id === _productId)) {
-// //     let updatedWishlist = _wishList.filter((item) => item.id !== _productId);
-// //     // localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-// //     wishlistdata = updatedWishlist;
-// //     localStorage.setItem("currentUser", JSON.stringify(wishlistdata));
-
-// //     // btn.classList.remove("addedtowishlist");
-// //     alert("This product has been deleted from your wishlist");
-// //   } else {
-// //     // if ((product.rating.count) > 0) {}
-// //     // btn.classList.add("addedtowishlist")
-// //     _wishList.push(product);
-// //     alert(`Product "${product.title}" has been added to your wishlist.`);
-// //     // displayWishlistList();
-// //     // localStorage.setItem("wishlist", JSON.stringify(_wishList));
-// //     localStorage.setItem("currentUser", JSON.stringify(_wishList));
-// //     console.log("Wishlist", _wishList);
-// //   }
-// // }
-
-// async function addToWishlist(productId, btn) {
-//   const currentUser =
-//     (await JSON.parse(localStorage.getItem("currentUser"))) || {};
-//   const wishlist = currentUser.wishList || [];
-
-//   if (wishlist.some((item) => item.id === productId)) {
-//     wishListUpdated(wishlist, productId, btn);
-//   } else {
-//     wishListUpdated(wishlist, productId, btn);
-//   }
-// }
-
-// async function wishListUpdated(_wishList, _productId, btn) {
-//   let product = await getProduct.find((product) => product.id === _productId);
-//   const currentUsers = JSON.parse(localStorage.getItem("currentUser"));
-
-//   if (_wishList.some((item) => item.id === _productId)) {
-//     // Remove product from wishlist
-//     _wishList = _wishList.filter((item) => item.id !== _productId);
-//     btn.classList.remove("addedtowishlist");
-//     alert("This product has been deleted from your wishlist");
-//   } else {
-//     // Add product to wishlist
-//     _wishList.push(product);
-//     btn.classList.add("addedtowishlist");
-//     alert(`Product "${product.title}" has been added to your wishlist.`);
-//   }
-
-//   // Update currentUser wishlist
-//   currentUsers.wishList = _wishList;
-//   localStorage.setItem("currentUser", JSON.stringify(currentUsers));
-// }
-
-// async function wishListBtnStates(_wishListBtn, _data, userId) {
-//   const wishlistBtnStateKey = `wishlist-btn-state-${userId}`;
-//   let btnStateObj = {};
-
-//   const storedState = localStorage.getItem(wishlistBtnStateKey);
-//   if (storedState) {
-//     btnStateObj = JSON.parse(storedState);
-//   }
-//   if (storedState.indexOf(_data.id) !== -1) {
-//     if (btnStateObj[_data.id]) {
-//       _wishListBtn.classList.add = "addedtowishlist ";
-
-//       // addTofavBtn.className = "addtofav addedtowishlist "
-//     } else {
-//       // addTofavBtn.className = "addtofav"
-//       _wishListBtn.classList.remove = "addedtowishlist";
-//     }
-//   }
-
-// const currentState = _wishListBtn.classList.contains("addedtowishlist");
-
-// Toggle the class
-// _wishListBtn.classList.toggle("addedtowishlist");
-
-// Update local storage
-// btnStateObj[_data.id] = !currentState;
-
-// const updatedBtnState = JSON.stringify(btnStateObj);
-// localStorage.setItem(wishlistBtnStateKey, updatedBtnState);
-// }
-
-// function wishListBtnStates(_wishListBtn, _data, userId) {
-//   const wishlistBtnStateKey = `wishlist-btn-state-${userId}`;
-//   let btnStateObj = {};
-
-//   const storedState = localStorage.getItem(wishlistBtnStateKey);
-//   if (storedState) {
-//     btnStateObj = JSON.parse(storedState);
-//   }
-
-//   const currentState = _wishListBtn.classList.contains("addedtowishlist");
-
-//   // Toggle the class
-//   _wishListBtn.classList.toggle("addedtowishlist");
-
-//   // Update local storage
-//   btnStateObj[_data.id] =!currentState;
-
-//   const updatedBtnState = JSON.stringify(btnStateObj);
-//   localStorage.setItem(wishlistBtnStateKey, updatedBtnState);
-// }
-
-// async function wishListBtnStates(_wishListBtn, _data) {
-//   const wishlistBtnState = localStorage.getItem("wishlist-btn-state") || [];
-//   let btnStateObj = {};
-
-//   // if (wishlistBtnState) {
-//   //   btnStateObj = await JSON.parse(wishlistBtnState);
-//   // }
-//   // if (wishlistBtnState.indexOf(_data.id) !== -1) {
-//   //   if (btnStateObj[_data.id]) {
-//   //     _wishListBtn.classList.add = "addedtowishlist ";
-
-//   //     // addTofavBtn.className = "addtofav addedtowishlist "
-//   //   } else {
-//   //     // addTofavBtn.className = "addtofav"
-//   //     _wishListBtn.classList.remove = "addedtowishlist";
-//   //   }
-//   // }
-//   const currentState = _wishListBtn.classList.contains("addedtowishlist");
-
-//   // Toggle the class
-//   _wishListBtn.classList.toggle("addedtowishlist");
-
-//   // Update local storage
-//   if (wishlistBtnState) {
-//     btnStateObj = await JSON.parse(wishlistBtnState);
-//   }
-
-//   btnStateObj[_data.id] = !currentState;
-//   console.log(currentState);
-
-//   const updatedBtnState = JSON.stringify(btnStateObj);
-//   localStorage.setItem("wishlist-btn-state", updatedBtnState);
-// }
-
-// Show button when user scrolls down
-
 const backToTopBtn = document.getElementById("backToTopBtn");
 window.onscroll = function () {
   scrollFunction();
@@ -1061,3 +526,6 @@ notLogIn.forEach((ele) => {
     }
   });
 });
+
+
+

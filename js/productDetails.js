@@ -1,6 +1,6 @@
 import { getCategories } from "./sharedHome.js";
 import { currentUser, isItemInWishlist } from "./config.js";
-import { addToWishlist, addToCart, showToastAdded } from "./sharedHome.js";
+import { addToWishlist, addToCart, showToastAdded,navBarCurrentUserRole } from "./sharedHome.js";
 
 let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];
 document.addEventListener("DOMContentLoaded", function () {
@@ -299,3 +299,4 @@ notLogIn.forEach((ele) => {
     }
   });
 });
+navBarCurrentUserRole();

@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <canvas id="userRolesChart" width="450" height="450"></canvas>
         <canvas id="productCategoriesChart" width="450" height="450"></canvas>
         </div>
-        <div>
+        <div class="mt-4" >
         <canvas id="ordersSummaryChart" width="700" height="700"></canvas>
         </div>
     `,
@@ -29,17 +29,19 @@ document.addEventListener("DOMContentLoaded", function () {
           oninput="searchTable('users-tbody')"
         />
       </div>
+      <div class="table-responsive align-middle mt-3" >
       <table id="users-table" class="table">
         <thead>
           <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Action</th>
+            <th scope="col" class="ps-4">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody id="users-tbody" class="all-users-table"></tbody>
       </table>
+      </div>
       <div id="search-message"></div>
     `,
     products: `
@@ -53,62 +55,65 @@ document.addEventListener("DOMContentLoaded", function () {
           oninput="searchTable('product-tbody')"
         />
       </div>
+      <div class="table-responsive align-middle mt-3" >
       <table id="products-table" class="table">
         <thead>
           <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Action</th>
+            <th scope="col"class="ps-4" >Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody id="product-tbody" class="all-products-table"></tbody>
       </table>
+      </div>
       <div id="search-message"></div>
     `,
     productsReview: function () {
       const allUsers = JSON.parse(localStorage.getItem("users")) || [];
       const productsTable = `
       <h2>All Pending Products</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Image</th>
-          <th>Product Name</th>
-          <th>Price</th>
-          <th>Approve Action</th>
-          <th>Refuse Action</th>
-        </tr>
-      </thead>
-      <tbody>
-      ${allUsers
-        .flatMap((user) => {
-          if (user.pendingProducts) {
-            return user.pendingProducts.map(
-              (pendingProducts) => `
-             <tr data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">
-              <td><img src="${pendingProducts.image[0]}" alt="${pendingProducts.title}" width="50" height="50"></td>
-              <td>${pendingProducts.title}</td>
-              <td>${pendingProducts.discount}</td>
-              
-                 <td>
-                  <button class="approve-order-btn mahmoud" data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">Approve Product</button>
-                </td>
-                <td>
-                  <button class="refuse-order-btn" data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">Refuse Product</button>
-                </td>
-                    
-                 
-            </tr>
-        `
-            );
-          } else {
-            return [];
-          }
-        })
-        .join("")}
-      </tbody>
-    </table>
+      <div table-responsive align-middle>
+      <table class="table tableApproved">
+        <thead>
+          <tr>
+            <th scope="col" >Image</th>
+            <th scope="col">Product Name</th>
+            <th scope="col" class="text-center" >Price</th>
+            <th scope="col" class="text-center">Approve Action</th>
+            <th scope="col" class="text-center">Refuse Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        ${allUsers
+          .flatMap((user) => {
+            if (user.pendingProducts) {
+              return user.pendingProducts.map(
+                (pendingProducts) => `
+               <tr data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">
+                <td class="align-middle" ><img src="${pendingProducts.image[0]}" alt="${pendingProducts.title}" width="50" height="50"></td>
+                <td class="align-middle text-capitalize">${pendingProducts.title}</td>
+                <td class="align-middle fw-bold text-center">${pendingProducts.discount}</td>
+                   <td class="align-middle text-center ">
+                    <button class="approve-order-btn mahmoud  p-1 px-2 text-white rounded bg-success " data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">Approve Product</button>
+                  </td>
+                  <td class="align-middle text-center">
+                    <button class="refuse-order-btn p-1 px-2 text-light rounded bg-danger " data-product-id="${pendingProducts.id}" data-seller-id="${user.id}">Refuse Product</button>
+                  </td>
+                      
+                   
+              </tr>
+          `
+              );
+            } else {
+              return [];
+            }
+          })
+          .join("")}
+        </tbody>
+      </table>
+      </div>
     `;
       return productsTable;
     },
@@ -116,36 +121,38 @@ document.addEventListener("DOMContentLoaded", function () {
       const allUsers = JSON.parse(localStorage.getItem("users")) || [];
       const orderTable = `
       <h2>All Orders</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Order Date</th>
-          <th>Tracking Status</th>
-          <th>Total Price</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${allUsers
-          .flatMap((user) =>
-            user.orders.map(
-              (order) =>
-                `
-              
-          <tr data-id="${order.orderId}">
-            <td>${order.orderId}</td>
-            <td>${order.orderDate}</td>
-            <td>${order.trackingStatus || "Order Processed"}</td>
-            <td>$${order.total.toFixed(2)}</td>
-            <td><button class="details">Order Details</button></td>
+      <div class="table-responsive align-middle text-center">
+      <table class="table tableOrder">
+        <thead>
+          <tr>
+            <th scope="col" class="ps-4 ps-sm-0" >Order ID</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Tracking Status</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Action</th>
           </tr>
-        `
+        </thead>
+        <tbody>
+          ${allUsers
+            .flatMap((user) =>
+              user.orders.map(
+                (order) =>
+                  `
+                
+            <tr data-id="${order.orderId}">
+              <td>${order.orderId}</td>
+              <td>${order.orderDate}</td>
+              <td>${order.trackingStatus || "Order Processed"}</td>
+              <td>$${order.total.toFixed(2)}</td>
+              <td><button class="details">Order Details</button></td>
+            </tr>
+          `
+              )
             )
-          )
-          .join("")}
-      </tbody>
-    </table>
+            .join("")}
+        </tbody>
+      </table>
+      </div>
     `;
       return orderTable;
     },
@@ -156,16 +163,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const feedbackTable = `
       <h2>User Feedback and Customer Service</h2>
-      
-      <table id="feedback-table" class="table">
+      <div class="table-responsive align-middle">
+      <table id="feedback-table" class="table feedback-table">
         <thead>
           <tr>
-            <th>User Type</th>
-            <th>Feedback Type</th>
-            <th>Email</th>
-            <th>Feedback</th>
-            <th>Response</th>
-            <th>Action</th>
+            <th scope="col" class="ps-4 ps-sm-0">User Type</th>
+            <th scope="col" >Feedback Type</th>
+            <th scope="col" >Email</th>
+            <th scope="col" >Feedback</th>
+            <th scope="col" >Response</th>
+            <th scope="col" >Action</th>
           </tr>
         </thead>
         <tbody id="feedback-tbody" class="feedback-table">
@@ -189,6 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
            .join("")}
         </tbody>
       </table>
+      </div>
       <div id="search-message"></div>
     `;
       return feedbackTable;
@@ -198,12 +206,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const allUsers = JSON.parse(localStorage.getItem("userRequests")) || [];
       const resetPassTable = `
       <h2>Reset All Users Passwords</h2>
-      <table id="resetPass-table" class="table">
+      <div class="table-responsive align-middle">
+      <table id="resetPass-table" class="table ">
         <thead>
           <tr>
-            <th>User Mail</th>
-            <th>Action</th>
-            <th>Delete</th>
+            <th scope="col" class="ps-4 ps-sm-0">User Mail</th>
+            <th scope="col" >Action</th>
+            <th scope="col" >Delete</th>
           </tr>
         </thead>
         <tbody id="resetPass-tbody" class="feedback-table">
@@ -220,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
           .join("")}
       </tbody>
     </table>
+      </div>
   `;
       return resetPassTable;
     },
@@ -478,7 +488,10 @@ document.addEventListener("DOMContentLoaded", function () {
       rowToRemove.remove();
     }
   }
-
+  let dashboardBtn = document.getElementById("dashboard-btn");
+  dashboardBtn.addEventListener("click", () => {
+   location.reload();
+  });
   function displayContent(section) {
     if (typeof sections[section] === "function") {
       contentDiv.innerHTML = sections[section]();

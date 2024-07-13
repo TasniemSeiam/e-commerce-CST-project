@@ -1,3 +1,8 @@
+import { currentUser } from "./config.js";
+import {
+  showToastAdded,
+} from "./sharedHome.js";
+currentUser();
 let mapLocation = document.querySelector("#mapLocation .mapLoc");
 let map;
 
@@ -50,14 +55,14 @@ if (!users) {
 users = JSON.parse(users);
 
 // let comments = JSON.parse(localStorage.getItem("comments")) || [];
-let currentUser = localStorage.getItem("currentUser");
-if (!currentUser) {
+let currentUsers = localStorage.getItem("currentUser");
+if (!currentUsers) {
   console.log("No currentUser found in local storage.");
 } else {
-  currentUser = JSON.parse(currentUser);
-  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  currentUsers = JSON.parse(currentUsers);
+  const userIndex = users.findIndex((user) => user.id === currentUsers.id);
   if (userIndex === -1) {
-    console.error("Current user not found in users.");
+    console.log("Current user not found in users.");
     showToastAdded("Current user not found in users.", "text-bg-danger");
 
     // return;
@@ -65,14 +70,14 @@ if (!currentUser) {
 
   let user = users[userIndex];
   let comments = user.comments || [];
-  let userName = currentUser.username || [];
+  let userName = currentUsers.username || [];
   let theDate = new Date();
   let dateOfComment = theDate.toLocaleDateString();
   console.log(dateOfComment);
   let _id = 1;
   commentBtn.addEventListener("click", function (e) {
     let commentValue = commentInput.value.trim();
-    if (!currentUser || userName == "") {
+    if (!currentUsers || userName == "") {
       e.preventDefault();
       window.location.href = "./login.html";
       return;
@@ -99,6 +104,7 @@ if (!currentUser) {
           </div>
           `;
         displayComment.scrollTop = displayComment.scrollHeight;
+        location.reload();
       }
     }
     // e.preventDefault();
@@ -172,4 +178,42 @@ if (!currentUser) {
     document.documentElement.scrollTop = 0; // chrome scroll
     document.body.scrollTop = 0; // firefox scroll
   });
+}
+
+navBarCurrentUserRole();
+
+let navs = document.querySelector(".navRightSide ul");
+let rightFooter = document.querySelector(".rightFooter");
+function navBarCurrentUserRole() {
+  // navs.innerHTML += currentUsers.role;
+  if (currentUsers.role === "user") {
+    rightFooter.className += " d-block";
+    navs.innerHTML+=`
+                <li class="nav-item">
+                  <a
+                    class="nav-link preventIfLogOut"
+                    aria-current="page"
+                    href="myAccount.html"
+                    >My Account
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link preventIfLogOut" href="wishList.html"
+                    >My Wishlist</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link preventIfLogOut" href="myOrders.html"
+                    >My orders</a
+                  >
+                </li> `
+  } else {
+    rightFooter.className += " d-none";
+    navs.innerHTML+=`
+                <li class="nav-item">
+                  <a class="nav-link preventIfLogOut" href="${currentUsers.role}Panel.html"
+                    >${currentUsers.role}</a
+                  >
+                </li> `
+  }
 }

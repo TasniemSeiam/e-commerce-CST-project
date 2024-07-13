@@ -1,3 +1,32 @@
+// import { currentUser,showToastUser } from "./config.js";
+function currentUser() {
+  let checkLogOut = document.querySelector(".user__check");
+  let welcomeMessage = document.querySelector(".welcoming__message");
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (currentUser) {
+    const loginMessage = localStorage.getItem("loginMessage");
+    if (loginMessage) {
+      // Display the toast message
+      // Clear the login message from localStorage
+      localStorage.removeItem("loginMessage");
+    }
+    checkLogOut.innerHTML = "Logout";
+    welcomeMessage.innerHTML = `Welcome Back ${currentUser.username} 👋`;
+  }
+
+  // Logout functionality
+  if (currentUser) {
+    checkLogOut.addEventListener("click", function () {
+      localStorage.removeItem("currentUser");
+      localStorage.setItem("logoutMessage", "You have been logged out.");
+      checkLogOut.innerHTML = "Sign-In";
+      welcomeMessage.innerHTML = "Welcome to ITI Marketplace";
+      window.location.href = "login.html"; // Redirect to login page
+    });
+  }
+}
+
+currentUser();
 document.addEventListener("DOMContentLoaded", function () {
   const contentDiv = document.getElementById("content");
 
@@ -61,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
           oninput="searchTable('product-tbody')"
         />
       </div>
+      <div class="table-responsive" >
       <table class="table" id="products-table">
         <thead>
           <tr>
@@ -74,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <tbody id="product-tbody">
         </tbody>
       </table>
+      </div>
       <div id="search-message"></div>
     `,
     productsReview: function () {
@@ -189,47 +220,50 @@ document.addEventListener("DOMContentLoaded", function () {
       const allUsers = JSON.parse(localStorage.getItem("users")) || [];
       const orderTable = `
       <h2>All Orders</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Order Date</th>
-          <th>Tracking Status</th>
-          <th>Total Price</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${allUsers
-          .flatMap((user) =>
-            user.orders.map(
-              (order) => `
-         <tr data-id="${order.orderId}">
-          <td>${order.orderId}</td>
-          <td>${order.orderDate}</td>
-          <td>
-            <select class="tracking-status">
-              <option value="Order Processed" ${
-                order.trackingStatus === "Order Processed" ? "selected" : ""
-              }>Order Processed</option>
-              <option value="Out for Delivery" ${
-                order.trackingStatus === "Out for Delivery" ? "selected" : ""
-              }>Out for Delivery</option>
-              <option value="Delivered" ${
-                order.trackingStatus === "Delivered" ? "selected" : ""
-              }>Delivered</option>
-            </select>
-            <button class="save-tracking">Save</button>
-          </td>
-          <td>$${order.total.toFixed(2)}</td>
-          <td><button class="details">Order Details</button></td>
-        </tr>
-        `
+      <div class="table-responsive" >
+      <table class="table align-middle ordersTable">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">Order ID</th>
+            <th scope="col" class="text-center">Order Date</th>
+            <th scope="col" class="text-center">Tracking Status</th>
+            <th scope="col" class="text-center">Total Price</th>
+            <th scope="col" class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${allUsers
+            .flatMap((user) =>
+              user.orders.map(
+                (order) => `
+           <tr data-id="${order.orderId}">
+            <td class="text-center" scope="row" >${order.orderId}</td>
+            <td  class="text-center">${order.orderDate}</td>
+            <td class=" justify-content-center align-items-center d-flex  flex-sm-row gap-2 py-3 " >
+              <select class="tracking-status selectOrderStatus p-1 " style="width:150px" >
+                <option value="Order Processed" ${
+                  order.trackingStatus === "Order Processed" ? "selected" : ""
+                }>Order Processed</option>
+                <option value="Out for Delivery" ${
+                  order.trackingStatus === "Out for Delivery" ? "selected" : ""
+                }>Out for Delivery</option>
+                <option value="Delivered" ${
+                  order.trackingStatus === "Delivered" ? "selected" : ""
+                }>Delivered</option>
+              </select>
+              <button class="save-tracking p-1 px-2 rounded bg-success text-white">save</button>
+            </td>
+            <td class="text-center " >$${order.total.toFixed(2)}</td>
+            <td class="text-center" ><button class="details">Order Details</button>
+            </td>
+          </tr>
+          `
+              )
             )
-          )
-          .join("")}
-      </tbody>
-    </table>
+            .join("")}
+        </tbody>
+      </table>
+      </div>
     `;
       return orderTable;
     },
