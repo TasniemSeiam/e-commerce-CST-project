@@ -87,10 +87,8 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <span class="navbar-text d-none d-md-block">
-          <a href="index.html" class="col-12 col-md-2">
-            <img src="./images/logo-black.png" alt="" />
-          </a>
+        <span class="navbar-text d-none d-md-block welcoming__message">
+          Welcome to ITI Marketplace
         </span>
         <div
           class="collapse navbar-collapse justify-content-around justify-content-md-end"
@@ -98,18 +96,25 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="myAccount.html"
+              <a
+                class="nav-link preventIfLogOut"
+                aria-current="page"
+                href="myAccount.html"
                 >My Account
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="wishList.html">My Wishlist</a>
+              <a class="nav-link preventIfLogOut" href="wishList.html"
+                >My Wishlist</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Sign In</a>
+              <a class="nav-link user__check" href="login.html">Sign In</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="myOrders.html">My orders</a>
+              <a class="nav-link preventIfLogOut" href="myOrders.html"
+                >My orders</a
+              >
             </li>
           </ul>
         </div>
