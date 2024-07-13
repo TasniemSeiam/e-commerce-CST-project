@@ -223,6 +223,38 @@ document.addEventListener("DOMContentLoaded", function () {
   `;
       return resetPassTable;
     },
+    contactPeople: function () {
+      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+      const contactPeopleTable = `
+      <h2>Our customer's opinions</h2>
+      <table id="contactPeople-table" class="table">
+        <thead>
+          <tr>
+            <th>Comment Date</th>
+            <th>Username</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody id="contactPeople-tbody" class="feedback-table">
+        ${allUsers
+          .flatMap((user) =>
+            user.comments.map(
+              (comment) =>
+                `
+              <tr>
+                <td>${comment.date}</td>
+                <td>${comment.userName}</td>
+                <td>${comment.comment}</td>
+              </tr>
+            `
+            )
+          )
+          .join("")}
+      </tbody>
+    </table>
+  `;
+      return contactPeopleTable;
+    },
   };
 
   // Add event listener to the refuse buttons
@@ -234,6 +266,13 @@ document.addEventListener("DOMContentLoaded", function () {
       refuseRequest(userId);
     });
   });
+
+  document
+    .getElementById("contactPeople-btn")
+    .addEventListener("click", function () {
+      displayContent("contactPeople");
+      setActiveButton("contactPeople-btn");
+    });
 
   document.addEventListener("click", function (e) {
     if (e.target && e.target.classList.contains("send-otp-btn")) {
@@ -355,14 +394,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
           alert("Product approved successfully!");
 
-          removeUIRow(productId); 
+          removeUIRow(productId);
 
           setTimeout(() => {
             location.reload();
           }, 1000);
 
           console.log("Product approved successfully and removed from UI");
-          return; 
+          return;
         }
       }
     }
