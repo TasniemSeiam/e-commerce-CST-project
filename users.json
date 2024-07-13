@@ -12,7 +12,9 @@
       "pendingProducts": [],
       "feedback": [],
       "feedbackResponse": [],
-      "comments": []
+      "comments": [],
+      "securityQuestion": "What is your favourite hobby?",
+      "securityAnswer": "Coding"
     },
     {
       "id": 1,
@@ -26,7 +28,9 @@
       "pendingProducts": [],
       "feedback": [],
       "feedbackResponse": [],
-      "comments": []
+      "comments": [],
+      "securityQuestion": "",
+      "securityAnswer": ""
     },
     {
       "id": 2,
@@ -40,7 +44,9 @@
       "pendingProducts": [],
       "feedback": [],
       "feedbackResponse": [],
-      "comments": []
+      "comments": [],
+      "securityQuestion": "",
+      "securityAnswer": ""
     },
     {
       "id": 3,
@@ -54,7 +60,9 @@
       "pendingProducts": [],
       "feedback": [],
       "feedbackResponse": [],
-      "comments": []
+      "comments": [],
+      "securityQuestion": "",
+      "securityAnswer": ""
     }
   ]
 }
