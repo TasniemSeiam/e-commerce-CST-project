@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     saveFeedback(feedbackData);
+    location.reload();
   }
 
   function saveFeedback(feedbackData) {

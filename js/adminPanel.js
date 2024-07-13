@@ -221,8 +221,8 @@ document.addEventListener("DOMContentLoaded", function () {
             return `
               <tr>
                 <td>${user.email}</td>
-                <td><button class="send-otp-btn" data-email="${user.email}">Send OTP</button></td>
-                <td><button class="delete-btn" data-id="${user.id}">Delete</button></td>
+                <td><button class="send-otp-btn p-1 bg-success text-white rounded" data-email="${user.email}">Send OTP</button></td>
+                <td><button class="delete-btn p-1 bg-danger text-white rounded" data-id="${user.id}">Delete</button></td>
               </tr>
             `;
           })
@@ -404,11 +404,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
           alert("Product approved successfully!");
 
-          removeUIRow(productId);
+          removeRowFromUI(productId);
 
-          setTimeout(() => {
-            location.reload();
-          }, 1000);
+          location.reload();
 
           console.log("Product approved successfully and removed from UI");
           return;
@@ -490,7 +488,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   let dashboardBtn = document.getElementById("dashboard-btn");
   dashboardBtn.addEventListener("click", () => {
-   location.reload();
+    location.reload();
   });
   function displayContent(section) {
     if (typeof sections[section] === "function") {
@@ -660,7 +658,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         // Save response function
-        saveResponse = function () {
+        function saveResponse() {
           const response = $("#responseTextarea").val().trim();
           if (response) {
             usersData[userIndex].feedback[feedbackIndex].response = response;
@@ -668,7 +666,10 @@ document.addEventListener("DOMContentLoaded", function () {
             fetchFeedback(); // Refresh the feedback table
             $("#responseModal").modal("hide");
           }
-        };
+        }
+        document
+          .getElementById("btnResponse")
+          .addEventListener("click", saveResponse);
       }
     }
   }

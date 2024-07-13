@@ -189,7 +189,7 @@ function handleCheckoutFormSubmission() {
         const expMonth = parseInt(enteredMonth, 10);
         const expYear = parseInt(enteredYear, 10);
 
-        if (!expDate.match(expDatePattern)) {
+        if (!expDate.match(expDatePattern) && !expDate) {
           expDateError.textContent =
             "Please enter a valid expiration date (MM/YY)";
         } else if (

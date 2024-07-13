@@ -269,6 +269,11 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   };
 
+  let dashboardBtn = document.getElementById("dashboard-btn");
+  dashboardBtn.addEventListener("click", () => {
+    location.reload();
+  });
+
   function displayContent(section) {
     if (typeof sections[section] === "function") {
       contentDiv.innerHTML = sections[section]();
