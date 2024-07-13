@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <h3>
                  ${
                    product.rating.count === 0
-                     ? `Out Of Stock`
+                     ? `We're sorry, this item is currently out of stock.`
                      : `<span>Hurry Up!</span> Only ${product.rating.count} products left in stock.`
                  }  
                   

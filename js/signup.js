@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
         (uniqueness.taxNoUnique || role !== "seller")
       ) {
         const newUser = {
-          id: users.length,
+          id: new Date().getUTCMilliseconds(),
           email: email,
           username: username,
           password: password,

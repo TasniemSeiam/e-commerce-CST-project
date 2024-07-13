@@ -63,8 +63,10 @@ document
     const user = users.find((user) => user.email === email);
 
     if (user) {
+      const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit OTP
       userRequests.push({
         email: email,
+        otp: otp,
         requestType: "passwordChange",
         id: Date.now().toString(),
       });
@@ -86,26 +88,27 @@ document
 // Verify OTP button click handler
 document.getElementById("verifyOtpBtn").addEventListener("click", function () {
   const otpInput = document.getElementById("otp").value.trim();
-  const storedOtp = JSON.parse(localStorage.getItem("users")) || [];
-  console.log(storedOtp);
+  const email = document.getElementById("email").value.trim();
+  const userRequests = JSON.parse(localStorage.getItem("userRequests")) || [];
 
-  storedOtp.forEach((otp) => {
-    console.log(otp.id);
+  // Check For The Right OTP Request
+  const request = userRequests.find(
+    (req) => req.email === email && req.otp === otpInput
+  );
 
-    if (+otpInput === +otp.id) {
-      toastMessage(
-        "OTP verified successfully. Please enter your new password.",
-        3500
-      );
+  if (request) {
+    toastMessage(
+      "OTP verified successfully. Please enter your new password.",
+      3500
+    );
 
-      // Hide OTP container and show password container
-      document.getElementById("otp-container").style.display = "none";
-      document.getElementById("password-container").style.display = "block";
-      document.getElementById("newPassword").disabled = false;
-    } else {
-      toastMessage("Invalid OTP. Please try again.", 3500);
-    }
-  });
+    // Hide OTP container and show password container
+    document.getElementById("otp-container").style.display = "none";
+    document.getElementById("password-container").style.display = "block";
+    document.getElementById("newPassword").disabled = false;
+  } else {
+    toastMessage("Invalid OTP. Please try again.", 3500);
+  }
 });
 
 // Change Password button click handler
