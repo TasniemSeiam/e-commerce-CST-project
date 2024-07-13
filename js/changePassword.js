@@ -153,6 +153,11 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
   const email = document.getElementById("email").value.trim();
   const userRequests = JSON.parse(localStorage.getItem("userRequests")) || [];
 
+  if (!otpInput) {
+    toastMessage("Please enter the OTP.", 3500);
+    return;
+  }
+
   // Check For The Right OTP Request
   const request = userRequests.find(
     (req) => req.email === email && +req.otp === +otpInput
@@ -180,6 +185,11 @@ document
     const newPassword = document.getElementById("newPassword").value.trim();
     const email = document.getElementById("email").value.trim();
     let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (!newPassword) {
+      toastMessage("Please enter the a new password.", 3500);
+      return;
+    }
 
     // Find the user by email
     const userIndex = users.findIndex((user) => user.email === email);

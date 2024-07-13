@@ -71,6 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  renderOrders();
+
   // Function to render feedback with responses
   function renderFeedbackWithResponses() {
     const feedbackContainer = document.getElementById("feedback-list");
