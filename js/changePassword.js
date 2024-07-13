@@ -1,17 +1,26 @@
-import { toastMessage } from "./config.js";
+import { toastMessage, initializeUsers } from "./config.js";
+
+// Load users on Page lOAD
+document.addEventListener("DOMContentLoaded", initializeUsers);
 
 document
   .getElementById("changePasswordForm")
   .addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault();
+
+    console.log("hello");
 
     const emailContainer = document.getElementById("email-container");
     const otpContainer = document.getElementById("otp-container");
     const passwordContainer = document.getElementById("password-container");
+    const securityQuestionContainer = document.getElementById(
+      "security-question-container"
+    );
     const emailInput = document.getElementById("email");
     const otpInput = document.getElementById("otp");
     const newPasswordInput = document.getElementById("newPassword");
-    const email = emailInput.value.trim(); // Trim whitespace from email
+    const securityAnswerInput = document.getElementById("security-answer");
+    const email = emailInput.value.trim().toLowerCase(); // Trim whitespace from email
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const userRequests = JSON.parse(localStorage.getItem("userRequests")) || [];
     const passwordError = document.querySelector(".validate__password--error");
@@ -63,25 +72,78 @@ document
     const user = users.find((user) => user.email === email);
 
     if (user) {
-      const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit OTP
-      userRequests.push({
-        email: email,
-        otp: otp,
-        requestType: "passwordChange",
-        id: Date.now().toString(),
-      });
-      localStorage.setItem("userRequests", JSON.stringify(userRequests));
+      if (user.role === "admin") {
+        toastMessage("Email not found.", 3500);
+      } else {
+        // const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit OTP
+        userRequests.push({
+          email: email,
+          requestType: "passwordChange",
+          otp: "", // OTP initially empty
+          id: Date.now().toString(),
+        });
+        localStorage.setItem("userRequests", JSON.stringify(userRequests));
+        toastMessage(
+          "Password change request submitted successfully. Wait for OTP.",
+          3500
+        );
+
+        // Hide the email input form and show the OTP container
+        emailContainer.style.display = "none";
+        otpContainer.style.display = "block";
+        document.getElementById("otp").disabled = false;
+      }
+    } else {
+      toastMessage("Email not found.", 3500);
+    }
+  });
+
+// Function to display the OTP if available
+function checkForOtp() {
+  const userRequests = JSON.parse(localStorage.getItem("userRequests")) || [];
+  const email = document.getElementById("email").value.trim();
+  const request = userRequests.find((req) => req.email === email);
+
+  if (request && request.otp) {
+    document.getElementById("otp-response").innerText = request.otp;
+  } else {
+    document.getElementById("otp-response").innerText = "Waiting for OTP...";
+  }
+}
+
+// Check for OTP every 5 seconds
+setInterval(checkForOtp, 5000);
+
+// Initial check
+checkForOtp();
+
+// Verify Security Question button click handler
+document
+  .getElementById("verifySecurityQuestionBtn")
+  .addEventListener("click", function () {
+    const securityAnswer = document
+      .getElementById("security-answer")
+      .value.trim();
+    const email = document.getElementById("email").value.trim();
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const user = users.find(
+      (user) => user.email === email && user.securityAnswer === securityAnswer
+    );
+
+    if (user) {
       toastMessage(
-        "Password change request submitted successfully. Check your email for OTP.",
+        "Security question answered successfully. Please enter your new password.",
         3500
       );
 
-      // Hide the email input form and show the OTP container
-      emailContainer.style.display = "none";
-      otpContainer.style.display = "block";
-      document.getElementById("otp").disabled = false;
+      // Hide security question container and show password container
+      document.getElementById("security-question-container").style.display =
+        "none";
+      document.getElementById("password-container").style.display = "block";
+      document.getElementById("newPassword").disabled = false;
     } else {
-      toastMessage("Email not found.", 3500);
+      toastMessage("Invalid answer. Please try again.", 3500);
     }
   });
 
@@ -93,7 +155,7 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
 
   // Check For The Right OTP Request
   const request = userRequests.find(
-    (req) => req.email === email && req.otp === otpInput
+    (req) => req.email === email && +req.otp === +otpInput
   );
 
   if (request) {

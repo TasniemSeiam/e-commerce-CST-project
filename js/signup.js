@@ -206,6 +206,8 @@ document.addEventListener("DOMContentLoaded", function () {
           feedback: [],
           feedbackResponse: [],
           comments: [],
+          securityQuestion: "",
+          securityAnswer: "",
         };
         users.push(newUser);
 

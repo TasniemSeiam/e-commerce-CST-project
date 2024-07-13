@@ -1,4 +1,3 @@
-
 // currentUser();
 
 let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];
@@ -12,9 +11,10 @@ export function displayProduct(product, _location) {
   let productCard = document.createElement("div");
 
   let productCount = document.createElement("div");
-  productCount.className ="productCount bg-danger text-center rounded-top text-white";
+  productCount.className =
+    "productCount bg-danger text-center rounded-top text-white";
   productCount.innerHTML = `<span>out of stock</span>`;
-  if (product.rating.count <1) {
+  if (product.rating.count < 1) {
     productDiv.appendChild(productCount);
   }
 
@@ -143,8 +143,7 @@ export function displayProduct(product, _location) {
       return;
     } else {
       if (currentUsers.role === "user") {
-        if (product.rating.count > 0) { 
-
+        if (product.rating.count > 0) {
           addToCart(product.id);
         } else {
           showToastAdded("Product is out of stock", "text-bg-danger");
@@ -285,6 +284,12 @@ export function addToCart(productId) {
     return;
   }
 
+  if (currentUser.role === "admin" || currentUser.role === "seller") {
+    console.error("Only users can add products to cart");
+    showToastAdded("Only users can add products to cart", "text-bg-danger");
+    return;
+  }
+
   let user = users[userIndex];
 
   if (!Array.isArray(user.cart)) {
@@ -398,6 +403,14 @@ export async function addToWishlist(productId, btn) {
   if (userIndex === -1) {
     console.error("Current user not found in users.");
     showToastAdded("Current user not found in users.", "text-bg-danger");
+    return;
+  }
+
+  if (currentUser.role === "admin" || currentUser.role === "seller") {
+    showToastAdded(
+      "Only users can add products to Whish list",
+      "text-bg-danger"
+    );
     return;
   }
 
