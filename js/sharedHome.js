@@ -12,11 +12,15 @@ export function displayProduct(product, _location) {
   let productCard = document.createElement("div");
 
   let productCount = document.createElement("div");
-  productCount.className =
-    "productCount bg-danger text-center rounded-top text-white";
+  productCount.className = "productCount bg-danger text-center  text-white";
+  productCount.style.position = "absolute";
+  productCount.style.top = "0px";
+  productCount.style.left = "0px";
+  productCount.style.width = "100%";
+  productCount.style.zIndex = "3";
   productCount.innerHTML = `<span>out of stock</span>`;
   if (product.rating.count < 1) {
-    productDiv.appendChild(productCount);
+    productCard.appendChild(productCount);
   }
 
   productCard.className = "card text-center cardProducts";
@@ -617,6 +621,19 @@ export function updateWishlistButtonStates() {
   });
 }
 
+let notLogIn = document.querySelectorAll(".preventIfLogOut");
+
+notLogIn.forEach((ele) => {
+  ele.addEventListener("click", (e) => {
+    let currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      e.preventDefault();
+      window.location.href = "./login.html";
+      return;
+    }
+  });
+});
+
 // add to nav bar rigth side
 let navs = document.querySelector(".navRightSide ul");
 let cartAndFeedback = document.querySelector(".cartAndFeedback");
@@ -648,12 +665,15 @@ export function navBarCurrentUserRole() {
   } else {
     rightFooter.className += " d-none";
     cartAndFeedback.className += " d-none";
-
-    navs.innerHTML += `
-                <li class="nav-item">
-                  <a class="nav-link preventIfLogOut" href="${currentUsers.role}Panel.html"
-                    >${currentUsers.role}</a
-                  >
-                </li> `;
+    if (currentUsers.role) {
+      navs.innerHTML += `
+                  <li class="nav-item">
+                    <a class="nav-link preventIfLogOut" href="${currentUsers.role}Panel.html"
+                      >${currentUsers.role}</a
+                    >
+                  </li> `;
+    } else {
+      navs.innerHTML += "";
+    }
   }
 }

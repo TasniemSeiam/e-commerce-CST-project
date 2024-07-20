@@ -131,6 +131,7 @@ addEventListener("DOMContentLoaded", async function () {
   onSale(getProduct); //display On sale section
   flashsection(getProduct); //display On flash section
   updateWishlistButtonStates();
+  currentUser();
 }); // end loading
 async function loadProducts() {
   try {
@@ -150,7 +151,6 @@ async function loadProducts() {
   }
 }
 // Check if a user is logged in
-currentUser();
 let currentUsers = JSON.parse(localStorage.getItem("currentUser")) || [];
 function getBigSales(products) {
   let bigSales = products.filter((product) => {
@@ -526,6 +526,3 @@ notLogIn.forEach((ele) => {
     }
   });
 });
-
-
-

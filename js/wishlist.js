@@ -37,10 +37,13 @@ function removeProductFromWishlist(e) {
     wishlistItemsData = wishlistItemsData.filter(
       (item) => item.id !== Number(trId)
     );
+
+    currentUser.wishList = wishlistItemsData;
     user.wishList = wishlistItemsData;
 
     users[userIndex] = user;
     localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
   }
 }
 

@@ -162,13 +162,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to remove item from wishlist
   function removeFromWishlist(productId) {
-    console.log("Wishlist before removal:", user.wishList);
     const wishlistIndex = user.wishList.findIndex(
       (item) => item.id === productId
     );
     if (wishlistIndex > -1) {
       user.wishList.splice(wishlistIndex, 1);
-      console.log("Updated wishlist:", user.wishList);
 
       // Update the users array in localStorage
       let users = JSON.parse(localStorage.getItem("users")) || [];
